@@ -60,7 +60,7 @@ button,select,input{font:inherit;color:inherit}
   background:linear-gradient(180deg,rgba(7,26,70,0) 52%,rgba(7,26,70,.72) 100%)}
 
 .title-wrap{position:absolute;left:0;right:0;text-align:center;padding-inline:var(--gutter)}
-.country{font:800 100px/0.86 var(--display);letter-spacing:-.025em;text-transform:uppercase;white-space:nowrap;margin:0;
+.country{-webkit-text-size-adjust:100%;font:800 100px/0.86 var(--display);letter-spacing:-.025em;text-transform:uppercase;white-space:nowrap;margin:0;
   text-shadow:0 10px 40px rgba(7,26,70,.25)}
 .country span[aria-hidden]{display:inline-block}
 .country i{font-style:normal;display:inline-block;animation:letter .9s cubic-bezier(.2,.7,.1,1) both}
@@ -335,6 +335,7 @@ button,select,input{font:inherit;color:inherit}
   .hot .win{min-height:0;padding:54px var(--gutter) 40px}
   .hot .fan{height:auto;perspective:none;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px var(--gutter) 24px;margin-inline:calc(var(--gutter) * -1);width:calc(100% + 2 * var(--gutter));touch-action:auto}
   .hot .card,.hot .card:hover{position:relative;left:auto;top:auto;margin:0;flex:none;width:calc(72vw / var(--k));max-width:300px;scroll-snap-align:center;opacity:1;transform:none}
+  .hot .card[data-hidden="true"]{pointer-events:auto}
   .hot .card.active{box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.14)}
   .hot .side{display:none}
 }
@@ -1559,9 +1560,9 @@ function render(){
     c.style.setProperty('--a', hidden ? 3 : a);
     c.style.setProperty('--op', hidden ? 0 : 1);
     c.style.zIndex = 10 - a;
-    c.dataset.hidden = hidden;
+    c.dataset.hidden = !mobile() && hidden;
     c.classList.toggle('active', o === 0);
-    c.tabIndex = hidden ? -1 : 0;
+    c.tabIndex = !mobile() && hidden ? -1 : 0;
   });
 }
 let go = i => { /* ручное действие перезапускает отсчёт */ active = (i + N) % N; render(); };
@@ -1594,9 +1595,24 @@ render();
 /* Автопрокрутка: веер сам проворачивается. Стоит на паузе при наведении, в фоновой вкладке и вне экрана. */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const EVERY = 1800;
-let timer = null, hovering = false;
+let timer = null, hovering = false, lastTouch = 0, lastMobileStep = Date.now();
+fan.addEventListener("touchstart", () => { lastTouch = Date.now(); }, {passive:true});
+fan.addEventListener("touchend", () => { lastTouch = Date.now(); }, {passive:true});
 function onScreen(){ const r = fan.getBoundingClientRect(); return r.top < innerHeight * .8 && r.bottom > innerHeight * .2; }
-function tick(){ if (!hovering && onScreen() && !document.hidden && !mobile()) go(active + 1); }
+function tick(){
+  if (hovering || !onScreen() || document.hidden) return;
+  if (!mobile()) { go(active + 1); return; }
+  const now = Date.now();
+  if (now - lastTouch < 6000 || now - lastMobileStep < 4500) return;
+  const center = fan.scrollLeft + fan.clientWidth / 2;
+  let nearest = 0;
+  cards.forEach((card, i) => {
+    if (Math.abs(card.offsetLeft + card.offsetWidth / 2 - center) < Math.abs(cards[nearest].offsetLeft + cards[nearest].offsetWidth / 2 - center)) nearest = i;
+  });
+  const next = cards[(nearest + 1) % N];
+  fan.scrollTo({left: next.offsetLeft + next.offsetWidth / 2 - fan.clientWidth / 2, behavior:'smooth'});
+  lastMobileStep = now;
+}
 function startAuto(){ clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, EVERY); }
 fan.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
 fan.addEventListener('pointerleave', () => { hovering = false; startAuto(); });
