@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foydali: vizalar va kirish qoidalari | Turon Tour</title>
+<meta name="description" content="Правила въезда и визы для жителей Ташкента: коротко, с датой проверки и ссылкой на первоисточник.">
+<link rel="icon" href="../logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../site.html" aria-label="Turon Tour, uy"><img src="../logo.webp" alt="" width="46" height="46"><span>TURON TOUR</span></a>
+  <nav aria-label="Bo'limlar"><a href="../site.html#dest">Yo‘nalishlar</a><a href="../site.html#hot">Qaynoq turlar</a><a href="../site.html#visa">Vizalar</a><a href="index.html" aria-current="page">Foydali</a><a href="../site.html#why">Biz haqimizda</a></nav>
+  <a class="tg" href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5l18.9-7.3c.9-.3 1.6.2 1.4 1.6z"/></svg><span>Telegramga yozing</span></a>
+</div></header>
+<main class="hub"><div class="wrap">
+  <h1>Foydali</h1>
+  <p class="sub">Toshkent aholisi uchun vizalar va kirish qoidalari: qisqacha, tasdiqlangan sana va manbaga havola bilan.</p>
+  <div class="chips" role="group" aria-label="Kategoriyalar">
+    <button class="chip" type="button" aria-pressed="true" data-filter="all">Hammasi</button>
+    <button class="chip" type="button" aria-pressed="false" data-filter="Визы и документы">Viza va hujjatlar</button>
+  </div>
+  <div class="posts">
+<a class="post" href="turtsiya-viza.html" data-rubric="Визы и документы">
+  <span class="m"><b>Viza va hujjatlar</b>2026-yil 6-noyabrda tekshirilgan<br>3 daqiqa o'qing</span>
+  <span><h2>Toshkentdan Turkiya: sizga viza kerakmi va qancha vaqt keta olasiz?</h2><p>O‘zbekiston fuqarolariga Turkiyaga borish uchun viza kerak emas. 180 kunlik istalgan davrda 90 kungacha qolishingiz mumkin. Quyida: bu muddatni qanday hisoblash va turni sotib olishdan oldin nimani tekshirish kerak.</p></span>
+</a>
+<a class="post" href="kitay-bez-vizy.html" data-rubric="Визы и документы">
+  <span class="m"><b>Viza va hujjatlar</b>2026-yil 6-noyabrda tekshirilgan<br>3 daqiqa o'qing</span>
+  <span><h2>O'zbekiston fuqarolari uchun vizasiz Xitoy: muddat va uni qanday hisoblash mumkin</h2><p>2025-yil 1-iyundan O‘zbekiston va Xitoy o‘rtasida o‘zaro vizasiz rejim amal qiladi. Bir tashrif davomida siz Xitoyda 30 kungacha va har qanday 180 kun ichida jami 90 kundan ortiq bo'lmasligingiz mumkin.</p></span>
+</a>
+<a class="post" href="shengen-viza.html" data-rubric="Визы и документы">
+  <span class="m"><b>Viza va hujjatlar</b>2026-yil 6-noyabrda tekshirilgan<br>4 daqiqa o'qing</span>
+  <span><h2>Toshkentdan Shengen vizasi: to'lov, muddatlar va hujjatlar</h2><p>Kattalar uchun Shengen vizasining konsullik yig‘imi 90 yevro. Qaror odatda 15 kun ichida, qo‘shimcha tekshiruvda esa 45 kungacha qabul qilinadi. Quyida hujjatlar, ariza topshirish muddatlari va Toshkent aholisi e’tibor berishi kerak bo‘lgan jihatlar keltirilgan.</p></span>
+</a>
+  </div>
+  <div class="soon"><h2>Tayyorlanmoqda</h2><ul><li>O‘zbekiston fuqarolari uchun vizasiz davlatlar: joriy ro‘yxat</li><li>Tailand: O'zbekiston fuqarolari uchun kirish qoidalari</li><li>Yangi yil bayramlarida Toshkentdan qayerga borish kerak</li><li>Misr: O'zbekiston fuqarolari uchun kirish shartlari</li></ul></div>
+</div></main>
+<script>
+(function(){
+  var chips = document.querySelectorAll('.chip'), posts = document.querySelectorAll('.post');
+  chips.forEach(function(c){ c.addEventListener('click', function(){
+    chips.forEach(function(x){ x.setAttribute('aria-pressed', String(x === c)); });
+    var f = c.dataset.filter;
+    posts.forEach(function(p){ p.hidden = !(f === 'all' || p.dataset.rubric === f); });
+  }); });
+})();
+</script>
+<p class="foot">Turon Tour, Toshkent. Materiallar faqat ma'lumot uchun: ekskursiyani sotib olishdan oldin manbani tekshiring.</p>
+<script src="../i18n-switch.js" defer></script></body>
+</html>
