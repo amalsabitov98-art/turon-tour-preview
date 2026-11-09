@@ -1456,25 +1456,7 @@ phoneEl.addEventListener('input', () => {
   phoneEl.value = fmtPhone(phoneDigits(phoneEl.value));
   if (phoneDigits(phoneEl.value).length === 9) { phoneField.dataset.invalid = 'false'; phoneEl.removeAttribute('aria-invalid'); }
 });
-searchEl.addEventListener('submit', e => {
-  e.preventDefault();
-  const step = searchEl.dataset.step;
-  if (step === '1'){
-    paintSummary();
-    setStep(2);
-    phoneEl.focus();
-  } else if (step === '2'){
-    if (phoneDigits(phoneEl.value).length !== 9){
-      phoneField.dataset.invalid = 'true'; phoneEl.setAttribute('aria-invalid', 'true'); phoneEl.focus();
-      return;
-    }
-    // TODO: отправить заявку в Telegram-бот и CRM (полезная нагрузка ниже)
-    console.info('lead', {route:val('fTo'), when:val('fWhen'), nights:val('fNights'), pax:val('fPax'), phone:fmtPhone(phoneDigits(phoneEl.value))});
-    $('doneText').textContent = `${summary()}. Менеджер Turon Tour свяжется с вами в рабочее время.`;
-    setStep(3);
-    $('done').focus();
-  }
-});
+searchEl.addEventListener('submit', e => { e.preventDefault(); showMsg("Поиск временно недоступен", "Напишите менеджеру в Telegram."); $('result').querySelector('.proto').hidden = true; });
 $('edit').addEventListener('click', () => { setStep(1); searchEl.classList.add('expanded'); fTo.focus(); });
 $('again').addEventListener('click', () => { phoneEl.value = ''; phoneField.dataset.invalid = 'false'; setStep(1); fTo.focus(); });
 $('more').addEventListener('click', () => { searchEl.classList.add('expanded'); hero.style.setProperty('--form-h', searchEl.offsetHeight + 'px'); fitTitle(); $('fNights').focus(); });
@@ -1856,19 +1838,8 @@ startAuto();
     phone.value = fmt(digits(phone.value));
     if (digits(phone.value).length === 9){ phoneF.dataset.invalid = 'false'; phone.removeAttribute('aria-invalid'); }
   });
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if (digits(phone.value).length !== 9){ phoneF.dataset.invalid = 'true'; phone.setAttribute('aria-invalid', 'true'); phone.focus(); return; }
-    var d = byId[sel], own = $('tkOwn').value.trim();
-    var lead = {route: d.free && own ? own : d.name, when: when.value, pax: $('tkPax').value, name: $('tkName').value.trim(), phone: fmt(digits(phone.value))};
-    // TODO: отправить заявку в Telegram-бот и CRM (полезная нагрузка ниже)
-    console.info('lead', lead);
-    $('tkOkT').textContent = 'Заявка собрана: ' + lead.route + ' · ' + lead.when + ' · ' + lead.pax + '. Менеджер свяжется с вами в рабочее время.';
-    var msg = 'Здравствуйте! Хочу тур: ' + lead.route + ', ' + lead.when + ', ' + lead.pax + '.' + (lead.name ? ' Меня зовут ' + lead.name + '.' : '') + ' Телефон: ' + lead.phone;
-    $('tkTg').href = 'https://t.me/Aziza_Turon_tour?text=' + encodeURIComponent(msg);
-    $('tkOk').classList.add('show');
-  });
+  form.addEventListener('submit', function(e){ e.preventDefault(); $('tkOkT').textContent = "Форма временно недоступна. Откройте Telegram и напишите менеджеру."; $('tkOk').classList.add('show'); });
 })();
 </script>
-<script src="i18n-switch.js" defer></script></body>
+<script src="i18n-switch.js" defer></script><script>window.TURON_SEARCH_API="https://turon-search.81-208-174-192.sslip.io";</script><script src="tour-search/widget.js" defer></script></body>
 </html>
