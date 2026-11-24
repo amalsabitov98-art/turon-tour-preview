@@ -59,8 +59,9 @@ button,select,input{font:inherit;color:inherit}
 .layer-fg .shade-fg{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(7,26,70,0) 52%,rgba(7,26,70,.72) 100%)}
 
-.title-wrap{position:absolute;left:0;right:0;text-align:center;padding-inline:var(--gutter)}
-.country{-webkit-text-size-adjust:100%;font:800 100px/0.86 var(--display);letter-spacing:-.025em;text-transform:uppercase;white-space:nowrap;margin:0;
+.title-wrap{position:absolute;top:22%;left:0;right:0;text-align:center;padding-inline:var(--gutter)}
+.hero-heading{margin:0 0 12px;font:700 clamp(18px,2.25vw,32px)/1.2 var(--body);color:#fff;text-shadow:0 2px 14px #071a46,0 1px 4px #071a46}
+.country{-webkit-text-size-adjust:100%;font:800 clamp(24px,9vw,100px)/0.86 var(--display);letter-spacing:-.025em;text-transform:uppercase;white-space:nowrap;margin:0;
   text-shadow:0 10px 40px rgba(7,26,70,.25)}
 .country span[aria-hidden]{display:inline-block}
 .country i{font-style:normal;display:inline-block;animation:letter .9s cubic-bezier(.2,.7,.1,1) both}
@@ -330,6 +331,13 @@ button,select,input{font:inherit;color:inherit}
 .hot .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:17px 30px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer}
 .hot .btn.gold{background:var(--gold-light);color:#10204a;box-shadow:0 10px 24px rgba(0,0,0,.35)}
 .hot .btn.gold:hover{background:#f2d98f}
+.hot #hotAll[hidden],.hot-list[hidden]{display:none}
+.hot-list{list-style:none;margin:24px auto 0;padding:0;max-width:940px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;text-align:left}
+.hot-list a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;height:100%;padding:14px 16px;border:1px solid #ffffff50;border-radius:14px;color:#fff;text-decoration:none;background:#102b49}
+.hot-list a:hover,.hot-list a:focus-visible{background:#1a4065}
+.hot-list a span{overflow-wrap:anywhere}
+.hot-list a small{grid-column:1/-1;color:#e4edf5}
+@media(max-width:640px){.hot-list{grid-template-columns:1fr}}
 .hot .btn.ghost{border:1px solid rgba(255,255,255,.6);color:#fff;font-weight:700}
 .hot .btn.ghost:hover{background:rgba(255,255,255,.12)}
 @media (max-width:820px){
@@ -871,14 +879,15 @@ html[lang="uz"] .tab .name{padding:0 5px;text-align:center;font-size:9px;letter-
   <div class="shade"></div>
   <div class="layer layer-title" id="layerTitle">
     <div class="title-wrap" id="titleWrap">
-      <h1 class="country" id="country"></h1>
+      <h1 class="hero-heading">Toshkentdan turlar</h1>
+      <p class="country" id="country">Maldiv orollari</p>
     </div>
   </div>
   <div class="layer layer-fg" id="layerFg"><div class="shade-fg"></div></div>
 
   <header class="header">
     <nav class="nav nav-left" aria-label="Sayt bo'limlari">
-      <a href="#dest">Yo‘nalishlar</a><a href="#hot">Qaynoq turlar</a><a href="#">Ekskursiyalar</a>
+      <a href="#dest">Yo‘nalishlar</a><a href="#hot">Qaynoq turlar</a><a href="#auth">Mualliflik turi</a>
     </nav>
     <a class="brand" href="#" aria-label="Turon Tour, uy">
       <img class="brand-wordmark" src="img/turon-wordmark-01.svg" alt="TURON TOUR">
@@ -896,7 +905,7 @@ html[lang="uz"] .tab .name{padding:0 5px;text-align:center;font-size:9px;letter-
   </header>
 
   <nav class="menu" id="menu" aria-label="Menyu" hidden>
-    <a href="#dest">Yo‘nalishlar</a><a href="#hot">Qaynoq turlar</a><a href="#">Ekskursiyalar</a><a href="#visa">Vizalar</a><a href="blog/">Foydali</a><a href="#why">Biz haqimizda</a>
+    <a href="#dest">Yo‘nalishlar</a><a href="#hot">Qaynoq turlar</a><a href="#auth">Mualliflik turi</a><a href="#visa">Vizalar</a><a href="blog/">Foydali</a><a href="#why">Biz haqimizda</a>
     <div class="menu-foot">
       <div class="lang" role="group" aria-label="Til"><button type="button" aria-pressed="true">RU</button><button type="button" aria-pressed="false" class="js-uz">UZ</button></div>
       <a class="btn-tg" href="https://t.me/turon_tour_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5l18.9-7.3c.9-.3 1.6.2 1.4 1.6z"/></svg><span>Telegramga yozing</span></a>
@@ -974,9 +983,10 @@ html[lang="uz"] .tab .name{padding:0 5px;text-align:center;font-size:9px;letter-
     </div>
     <p class="hot-note" id="hotNote" aria-live="polite"></p>
     <div class="cta">
-      <a class="btn gold" href="#">Barcha qaynoq turlar</a>
+      <button class="btn gold" id="hotAll" type="button" aria-expanded="false" aria-controls="hotList" hidden>Barcha qaynoq turlar</button>
       <a class="btn ghost" href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener">Menejerga yozing</a>
     </div>
+    <ul class="hot-list" id="hotList" hidden></ul>
   </div>
 </section>
 
@@ -987,25 +997,25 @@ html[lang="uz"] .tab .name{padding:0 5px;text-align:center;font-size:9px;letter-
         <h2 id="destTitle">Qayerga borish kerak</h2>
         <p>Toshkentdan dengiz bo‘yiga sayohat. Mehmonxona va parvozni tanlaymiz, viza kerak bo‘lsa, uni rasmiylashtirishda yordam beramiz.</p>
       </div>
-      <a class="all" href="#">Barcha yo'nalishlar <svg viewBox="0 0 48 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 8h45M39 1.5 46 8l-7 6.5"/></svg></a>
+      <a class="all" href="#search">Yo‘nalishni tanlash <svg viewBox="0 0 48 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 8h45M39 1.5 46 8l-7 6.5"/></svg></a>
     </div>
     <div class="grid">
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=900&q=75&fm=jpg" alt="Maldiv orollaridagi suv ustidagi villalar" loading="lazy">
+      <a class="tile" href="#search" data-destination="Maldiv orollari"><img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=900&q=75&fm=jpg" alt="Maldiv orollaridagi suv ustidagi villalar" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>Maldiv orollari</h3><p>Orollar, lagunalar, suv ustidagi villalar</p></span></a>
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1590273089302-ebbc53986b6e?w=900&q=75&fm=jpg" alt="Abu Dabidagi Shayx Zayd masjidi" loading="lazy">
+      <a class="tile" href="#search" data-destination="BAA"><img src="https://images.unsplash.com/photo-1590273089302-ebbc53986b6e?w=900&q=75&fm=jpg" alt="Abu Dabidagi Shayx Zayd masjidi" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>BAA</h3><p>Dubay, Abu Dabi</p></span></a>
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1704873318644-4cd456da5fc8?w=900&q=75&fm=jpg" alt="Tailanddagi orol yaqinidagi qayiq" loading="lazy">
+      <a class="tile" href="#search" data-destination="Tailand"><img src="https://images.unsplash.com/photo-1704873318644-4cd456da5fc8?w=900&q=75&fm=jpg" alt="Tailanddagi orol yaqinidagi qayiq" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>Tailand</h3><p>Pxuket, Krabi, Koh Samui</p></span></a>
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1654162148114-a04db0a49616?w=900&q=75&fm=jpg" alt="Antaliyaning eski shaharchasi" loading="lazy">
+      <a class="tile" href="#search" data-destination="Turkiya"><img src="https://images.unsplash.com/photo-1654162148114-a04db0a49616?w=900&q=75&fm=jpg" alt="Antaliyaning eski shaharchasi" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>Turkiya</h3><p>Antaliya, Istanbul, Kapadokiya</p></span></a>
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1642012609270-71e97d38e602?w=900&q=75&fm=jpg" alt="Qizil dengiz yaqinidagi palma daraxtlari bilan plyaj" loading="lazy">
+      <a class="tile" href="#search" data-destination="Misr"><img src="https://images.unsplash.com/photo-1642012609270-71e97d38e602?w=900&q=75&fm=jpg" alt="Qizil dengiz yaqinidagi palma daraxtlari bilan plyaj" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>Misr</h3><p>Sharm al-Shayx, Hurghada</p></span></a>
-      <a class="tile" href="#"><img src="https://images.unsplash.com/photo-1559627717-bdb2d005a87e?w=900&q=75&fm=jpg" alt="Ha Long ko'rfazi quyosh botganda" loading="lazy">
+      <a class="tile" href="#search" data-destination="Vetnam"><img src="https://images.unsplash.com/photo-1559627717-bdb2d005a87e?w=900&q=75&fm=jpg" alt="Ha Long ko'rfazi quyosh botganda" loading="lazy">
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         <span class="txt"><h3>Vetnam</h3><p>Nha Trang, Phu Quoc, Halong</p></span></a>
     </div>
@@ -1364,7 +1374,7 @@ function paintText(i){
   const s = SLIDES[i];
   hero.dataset.slide = s.image ? 'turkey' : '';
   const letters = [...s.name].map((ch, k) => `<i style="animation-delay:${reduceMotion ? 0 : 120 + k*55}ms">${ch === " " ? "&nbsp;" : ch}</i>`).join('');
-  countryEl.innerHTML = `<span aria-hidden="true">${letters}</span><span class="sr-only">${s.name}: Toshkentdan turlar va vizalar</span>`;
+  countryEl.innerHTML = `<span aria-hidden="true">${letters}</span><span class="sr-only">${s.name}</span>`;
   $('lead').textContent = s.lead;
   $('rCity').textContent = s.city;
   $('rPrice').textContent = s.price;
@@ -1464,6 +1474,23 @@ $('edit').addEventListener('click', () => { setStep(1); searchEl.classList.add('
 $('again').addEventListener('click', () => { phoneEl.value = ''; phoneField.dataset.invalid = 'false'; setStep(1); fTo.focus(); });
 $('more').addEventListener('click', () => { searchEl.classList.add('expanded'); hero.style.setProperty('--form-h', searchEl.offsetHeight + 'px'); fitTitle(); $('fNights').focus(); });
 fTo.addEventListener('change', () => { userPickedCountry = true; });
+for (const tile of document.querySelectorAll('.tile[data-destination]')) {
+  tile.addEventListener('click', event => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const destination = tile.dataset.destination;
+    if (![...fTo.options].some(option => option.value === destination)) return;
+    event.preventDefault();
+    if (searchEl.dataset.step !== '1') setStep(1);
+    fTo.value = destination;
+    fTo.dispatchEvent(new Event('change', {bubbles:true}));
+    fTo.dispatchEvent(new Event('sync'));
+    formTouched = true;
+    restartTimer();
+    const countryControl = $('fToBtn') || fTo;
+    countryControl.focus({preventScroll:true});
+    searchEl.scrollIntoView({block:'center', behavior:reduceMotion ? 'instant' : 'smooth'});
+  });
+}
 /* Как только человек начал заполнять форму, направление и смена слайдов замирают до перезагрузки страницы */
 searchEl.addEventListener('pointerdown', () => { userPickedCountry = true; formTouched = true; restartTimer(); });
 searchEl.addEventListener('keydown', () => { userPickedCountry = true; formTouched = true; restartTimer(); });
@@ -1524,6 +1551,14 @@ fan.innerHTML = TOURS.map((t, i) => `
     <span class="info"><small>${esc(t.sub)}</small><h3>${esc(t.n)}</h3>
       <span class="row">${t.was ? `<s>${t.was} $</s>` : ''}<b>${esc(t.price)}</b><span>${esc(t.note)}</span></span></span>
   </a>`).join('');
+const hotAll = document.getElementById('hotAll');
+const hotList = document.getElementById('hotList');
+hotList.innerHTML = TOURS.map(t => `<li><a href="${esc(t.href)}" target="_blank" rel="noopener"><span>${esc(t.n)} · ${esc(t.sub)}</span><b>${esc(t.price)}</b><small>${esc(t.note)}</small></a></li>`).join('');
+hotAll.hidden = false;
+hotAll.addEventListener('click', () => {
+  hotList.hidden = !hotList.hidden;
+  hotAll.setAttribute('aria-expanded', String(!hotList.hidden));
+});
 const cards = [...fan.children];
 const N = cards.length;
 
