@@ -49,7 +49,7 @@
     ]]
   ];
   const serviceLabels = new Map(serviceGroups.flatMap(([, items]) => items).map(([ru, translated]) => [ru, t(ru, translated)]));
-  let query = null, activeRequest = null, response = null, resortCatalog = {};
+  let query = null, activeRequest = null, response = null, resortCatalog = {}, progressTimer = null;
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -210,7 +210,42 @@
     group.replaceChildren(...values.map(value => element('span', 'chip', value)));
   }
 
+  function stopProgress() {
+    if (progressTimer) {
+      clearInterval(progressTimer);
+      progressTimer = null;
+    }
+  }
+
+  function showLoadingProgress() {
+    stopProgress();
+    status.hidden = false;
+    status.dataset.state = 'loading';
+    const head = element('div', 'progress-head');
+    const label = element('span', '', t('Ищем туры и проверяем актуальные цены…', 'Turlar qidirilmoqda va dolzarb narxlar tekshirilmoqda…'));
+    const pct = element('span', 'progress-head__pct', '12%');
+    head.append(label, pct);
+    const track = element('div', 'progress-track');
+    track.setAttribute('role', 'progressbar');
+    track.setAttribute('aria-valuemin', '0');
+    track.setAttribute('aria-valuemax', '100');
+    track.setAttribute('aria-valuenow', '12');
+    const fill = element('div', 'progress-fill');
+    track.append(fill);
+    status.replaceChildren(head, track);
+    let value = 12;
+    progressTimer = setInterval(() => {
+      if (value < 55) value += 7;
+      else if (value < 80) value += 3;
+      else if (value < 93) value += 1;
+      fill.style.width = value + '%';
+      pct.textContent = value + '%';
+      track.setAttribute('aria-valuenow', String(value));
+    }, 900);
+  }
+
   function showStatus(kind, heading, description, actions = []) {
+    stopProgress();
     status.hidden = false;
     status.dataset.state = kind;
     status.replaceChildren(element('h3', '', heading), element('p', '', description));
@@ -447,8 +482,7 @@
     offersNode.replaceChildren(renderSkeletons());
     id('offers-count').textContent = '';
     id('offer-note').textContent = '';
-    showStatus('loading', t('Ищем предложения', 'Takliflar qidirilmoqda'),
-      t('Поиск может занять до минуты — собираем актуальные цены.', 'Qidiruv bir daqiqagacha davom etishi mumkin — dolzarb narxlarni yig‘moqdamiz.'), [contact(t('Написать менеджеру', 'Menejerga yozish'))]);
+    showLoadingProgress();
     try {
       const result = await fetch(api + '/api/search', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -494,6 +528,7 @@
       t('Повторите поиск или напишите менеджеру.', 'Qayta qidiring yoki menejerga yozing.'),
       [retry(), contact(t('Написать менеджеру', 'Menejerga yozish'))]);
     } finally {
+      stopProgress();
       clearTimeout(deadline);
     }
   }
