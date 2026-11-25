@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#101e37">
+  <title>Подбор туров · Turon Tour</title>
+  <link rel="icon" href="logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tour-search/results.css">
+  <script src="tour-search/results-model.js" defer></script>
+  <script src="tour-search/widget.js?v=results1" defer></script>
+  <script src="tour-search/results-page.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <nav class="shell masthead__nav" aria-label="Turon Tour">
+      <a class="brand" data-home href="site.html">
+        <img src="img/turon-wordmark-01.svg" width="148" height="32" alt="Turon Tour">
+      </a>
+      <div class="masthead__links">
+        <a class="home-link" data-home href="site.html"><span aria-hidden="true">←</span> <span data-uz="Bosh sahifa">На главную</span></a>
+        <a id="language" class="language" href="?lang=uz" hreflang="uz" lang="uz">UZ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="trip" aria-labelledby="page-title">
+      <div class="trip__inner">
+        <div>
+          <p class="trip__origin" data-uz="Toshkentdan turlar">Туры из Ташкента</p>
+          <h1 id="page-title" data-uz="Tur qidirish">Подбор туров</h1>
+          <p id="trip-summary" class="trip__summary"></p>
+        </div>
+        <button type="button" id="edit-search" class="trip__edit" aria-controls="trip-form" aria-expanded="false" data-uz="Qidiruvni o‘zgartirish">Изменить поиск</button>
+      </div>
+    </section>
+    <form id="trip-form" class="trip-form" hidden>
+      <div class="trip-form__fields">
+        <label><span data-uz="Yo‘nalish">Направление</span><select name="country" required></select></label>
+        <label><span data-uz="Uchish sanasi, dan">Вылет с</span><input name="dateFrom" type="date" required></label>
+        <label><span data-uz="Uchish sanasi, gacha">Вылет по</span><input name="dateTo" type="date" required></label>
+        <label><span data-uz="Tunlar, dan">Ночей от</span><input name="nightsFrom" type="number" min="1" max="30" required></label>
+        <label><span data-uz="Tunlar, gacha">Ночей до</span><input name="nightsTo" type="number" min="1" max="30" required></label>
+        <label><span data-uz="Kattalar">Взрослые</span><input name="adults" type="number" min="1" max="4" required></label>
+        <label><span data-uz="Bolalar">Дети</span><select name="childrenCount"><option>0</option><option>1</option><option>2</option></select></label>
+        <label data-age hidden><span data-uz="Birinchi bolaning yoshi">Возраст первого ребёнка</span><input name="child1" type="number" min="0" max="15"></label>
+        <label data-age hidden><span data-uz="Ikkinchi bolaning yoshi">Возраст второго ребёнка</span><input name="child2" type="number" min="0" max="15"></label>
+      </div>
+      <p id="trip-error" class="form-error" role="alert" hidden></p>
+      <button type="submit" class="button primary" data-uz="Turlarni topish">Найти туры</button>
+    </form>
+
+    <div id="browse" class="browse" hidden>
+      <details id="filter-panel" class="facets" open>
+        <summary><span data-uz="Filtrlar">Фильтры</span></summary>
+        <div class="facets__body">
+          <fieldset class="fields">
+            <legend data-uz="Topilgan variantlar">Найденные варианты</legend>
+            <label><span data-uz="Mehmonxona nomi">Название отеля</span><input id="hotel" type="search" placeholder="Например, Ocean Retreat" data-placeholder-uz="Masalan, Ocean Retreat" maxlength="100"></label>
+            <label><span data-uz="Byudjet, so‘mgacha">Бюджет до, сум</span><input id="budget" type="number" min="1" step="1" placeholder="25 000 000"></label>
+          </fieldset>
+          <form id="offer-form" class="offer-form">
+            <fieldset class="fields">
+              <legend data-uz="Qidiruv shartlari">Условия поиска</legend>
+              <details class="resort-filter">
+                <summary id="resorts-label" data-uz="Kurortlar">Курорты</summary>
+                <small data-uz="Beshtagacha kurort tanlash mumkin.">Можно выбрать до пяти курортов.</small>
+                <div id="resorts" class="checks resort-filter__list"></div>
+              </details>
+              <div class="fields__pair">
+                <label><span data-uz="Yulduzlar">Звёзды</span><select name="stars">
+                  <option value="" data-uz="Istalgan">Любые</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5</option>
+                </select></label>
+                <label><span data-uz="Reyting">Рейтинг</span><select name="rating">
+                  <option value="" data-uz="Istalgan">Любой</option><option value="3">3,0+</option><option value="3.5">3,5+</option><option value="4">4,0+</option><option value="4.5">4,5+</option>
+                </select></label>
+              </div>
+              <label><span data-uz="Ovqatlanish">Питание</span><select name="meal">
+                <option value="" data-uz="Istalgan">Любое</option><option value="BB" data-uz="Nonushta">Завтрак</option>
+                <option value="HB" data-uz="Nonushta va kechki ovqat">Завтрак и ужин</option><option value="FB" data-uz="To‘liq pansion">Полный пансион</option>
+                <option value="AI" data-uz="Barchasi ichida">Всё включено</option><option value="UAI" data-uz="Ultra barchasi ichida">Ультра всё включено</option>
+              </select></label>
+              <details class="extra-filters">
+                <summary data-uz="Qo‘shimcha filtrlar">Дополнительные фильтры</summary>
+                <label><span data-uz="Joylashuv turi">Тип размещения</span><select name="hotelType">
+                  <option value="" data-uz="Istalgan">Любой</option><option value="Отель" data-uz="Mehmonxona">Отель</option>
+                  <option value="Гостевой дом" data-uz="Mehmon uyi">Гостевой дом</option><option value="Апартаменты" data-uz="Apartamentlar">Апартаменты</option>
+                  <option value="Вилла" data-uz="Villa">Вилла</option><option value="Хостел" data-uz="Hostel">Хостел</option>
+                  <option value="Пансионат" data-uz="Pansionat">Пансионат</option><option value="База отдыха" data-uz="Dam olish maskani">База отдыха</option>
+                </select></label>
+                <label><span data-uz="Mehmonxonaning aniq nomi">Точное название отеля</span><input name="exactHotel" type="text" maxlength="80"></label>
+                <div id="services" class="checks"></div>
+              </details>
+            </fieldset>
+            <p id="filter-error" class="form-error" role="alert" hidden></p>
+            <button type="submit" class="button primary" data-uz="Filtrlarni qo‘llash">Применить фильтры</button>
+            <button type="button" id="reset-filters" class="button text-button" data-uz="Tozalash">Сбросить</button>
+          </form>
+        </div>
+      </details>
+
+      <section class="results" aria-labelledby="offers-title">
+        <div class="results__bar">
+          <div>
+            <h2 id="offers-title" data-uz="Mehmonxonalar">Отели</h2>
+            <p id="offers-count" class="results__count" aria-live="polite"></p>
+          </div>
+          <label class="sort">
+            <span class="sr-only" data-uz="Saralash">Сортировка</span>
+            <select id="sort">
+              <option value="price-asc" data-uz="Avval arzonlari">Сначала дешевле</option>
+              <option value="price-desc" data-uz="Avval qimmatlari">Сначала дороже</option>
+              <option value="source" data-uz="Qidiruv tartibida">По порядку поиска</option>
+            </select>
+          </label>
+        </div>
+        <div id="active-filters" class="active-filters" hidden></div>
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+        <div id="offers" class="offers"></div>
+        <p id="offer-note" class="offer-note"></p>
+      </section>
+    </div>
+    <noscript><p>Для поиска включите JavaScript или напишите <a href="https://t.me/Aziza_Turon_tour">менеджеру в Telegram</a>.</p></noscript>
+  </main>
+  <footer class="shell footer">
+    <span>Turon Tour</span>
+    <a href="https://t.me/Aziza_Turon_tour" data-uz="Telegramda yozish">Написать в Telegram</a>
+  </footer>
+</body>
+</html>
