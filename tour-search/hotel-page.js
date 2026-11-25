@@ -142,10 +142,9 @@
   }
 
   // Gallery + Lightbox
-  const photos = [];
+  let photos = [];
   if (Array.isArray(offer.photos) && offer.photos.length) photos.push(...offer.photos);
   else if (offer.photo) photos.push(offer.photo);
-  const hiResPhotos = photos.slice();
   const lightbox = id('lightbox');
   const lbImg = id('lightbox-img');
   const lbCounter = id('lightbox-counter');
@@ -155,8 +154,7 @@
     if (!photos.length) return;
     lbIndex = (idx + photos.length) % photos.length;
     lbImg.referrerPolicy = 'no-referrer';
-    lbImg.src = hiResPhotos[lbIndex] || photos[lbIndex];
-    lbImg.onerror = () => { if (lbImg.src !== photos[lbIndex]) lbImg.src = photos[lbIndex]; };
+    lbImg.src = photos[lbIndex];
     lbCounter.textContent = `${lbIndex + 1} / ${photos.length}`;
     if (!lightbox.open) lightbox.showModal();
   }
@@ -171,47 +169,49 @@
   });
 
   const gallery = id('hotel-gallery');
-  if (photos.length <= 1) {
-    gallery.classList.add('gallery--single');
-    const main = el('div', 'gallery__main');
-    if (photos[0]) {
-      const img = el('img');
-      img.src = hiResPhotos[0];
-      img.alt = hotelName;
-      img.referrerPolicy = 'no-referrer';
-      img.onerror = () => { if (img.src !== photos[0]) img.src = photos[0]; };
-      main.append(img);
-      main.addEventListener('click', () => openLightbox(0));
-    }
-    gallery.append(main);
-  } else {
-    const main = el('div', 'gallery__main');
-    const mainImg = el('img');
-    mainImg.src = hiResPhotos[0];
-    mainImg.alt = hotelName;
-    mainImg.referrerPolicy = 'no-referrer';
-    mainImg.onerror = () => { if (mainImg.src !== photos[0]) mainImg.src = photos[0]; };
-    main.append(mainImg);
-    main.addEventListener('click', () => openLightbox(0));
-
-    const thumbs = el('div', 'gallery__thumbs');
-    const shownThumbs = photos.slice(1, 5);
-    shownThumbs.forEach((src, i) => {
-      const cell = el('div', 'gallery__thumb');
-      const img = el('img');
-      img.src = src;
-      img.alt = hotelName;
-      img.loading = 'lazy';
-      img.referrerPolicy = 'no-referrer';
-      cell.append(img);
-      if (i === 3 && photos.length > 5) {
-        cell.append(el('div', 'gallery__more', '+' + (photos.length - 5)));
+  function renderGallery() {
+    gallery.replaceChildren();
+    gallery.classList.toggle('gallery--single', photos.length <= 1);
+    if (photos.length <= 1) {
+      const main = el('div', 'gallery__main');
+      if (photos[0]) {
+        const img = el('img');
+        img.src = photos[0];
+        img.alt = hotelName;
+        img.referrerPolicy = 'no-referrer';
+        main.append(img);
+        main.addEventListener('click', () => openLightbox(0));
       }
-      cell.addEventListener('click', () => openLightbox(i + 1));
-      thumbs.append(cell);
-    });
-    gallery.append(main, thumbs);
+      gallery.append(main);
+    } else {
+      const main = el('div', 'gallery__main');
+      const mainImg = el('img');
+      mainImg.src = photos[0];
+      mainImg.alt = hotelName;
+      mainImg.referrerPolicy = 'no-referrer';
+      main.append(mainImg);
+      main.addEventListener('click', () => openLightbox(0));
+
+      const thumbs = el('div', 'gallery__thumbs');
+      const shownThumbs = photos.slice(1, 5);
+      shownThumbs.forEach((src, i) => {
+        const cell = el('div', 'gallery__thumb');
+        const img = el('img');
+        img.src = src;
+        img.alt = hotelName;
+        img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
+        cell.append(img);
+        if (i === 3 && photos.length > 5) {
+          cell.append(el('div', 'gallery__more', '+' + (photos.length - 5)));
+        }
+        cell.addEventListener('click', () => openLightbox(i + 1));
+        thumbs.append(cell);
+      });
+      gallery.append(main, thumbs);
+    }
   }
+  renderGallery();
 
   // Right column: About + Beach + Map
   const descText = (offer.description || '').trim();
@@ -551,6 +551,68 @@
       id('recent-section').hidden = false;
     }
   } catch {}
+
+  // Enrich with cached Google Places HD photos & reviews from oracle (zero cost beyond free cap)
+  const apiBase = window.TuronResults?.api || 'https://turon-search.81-208-174-192.sslip.io';
+  if (hotelName) {
+    const mp = new URLSearchParams();
+    if (offer.hotelId) mp.set('id', String(offer.hotelId));
+    mp.set('name', hotelName);
+    if (offer.resort) mp.set('resort', offer.resort);
+    if (offer.lat && offer.lng) { mp.set('lat', String(offer.lat)); mp.set('lng', String(offer.lng)); }
+    fetch(apiBase + '/api/hotel-media?' + mp.toString())
+      .then(r => (r.ok ? r.json() : null))
+      .then(media => {
+        if (!media || media.status !== 'ok') return;
+        if (Array.isArray(media.photos) && media.photos.length) {
+          photos = media.photos.map(u => (u.startsWith('http') ? u : apiBase + u));
+          renderGallery();
+          const roomImgs = id('rooms-grid')?.querySelectorAll('img') || [];
+          roomImgs.forEach((img, idx) => { img.src = photos[idx % photos.length]; });
+        }
+        if (media.rating && Number(media.rating) > 0) {
+          const r = id('hotel-rating');
+          const rv = Number(media.rating);
+          const lbl = rv >= 4.5 ? t('Отлично', 'A’lo') : rv >= 4.0 ? t('Очень хорошо', 'Juda yaxshi') : t('Хорошо', 'Yaxshi');
+          const sub = media.userRatingCount
+            ? `Google · ${new Intl.NumberFormat('ru-RU').format(media.userRatingCount)} ${t('отз.', 'sharh')}`
+            : 'Google';
+          r.innerHTML = `<div class="hotel-rating__label">${lbl}<span class="hotel-rating__sub">${sub}</span></div><div class="hotel-rating__score">${rv.toFixed(1).replace('.', ',')}</div>`;
+          r.hidden = false;
+        }
+        if (Array.isArray(media.reviews) && media.reviews.length) {
+          const sec = id('reviews-section');
+          const list = id('reviews-list');
+          const sum = id('reviews-summary');
+          if (media.rating) {
+            sum.innerHTML = `<span class="review-score">${Number(media.rating).toFixed(1).replace('.', ',')}</span><span>${t('На основе ', '')}${new Intl.NumberFormat('ru-RU').format(media.userRatingCount || media.reviews.length)} ${t('отзывов Google', 'ta Google sharhi')}</span>`;
+          }
+          list.replaceChildren(...media.reviews.map(rev => {
+            const item = el('article', 'review-item');
+            const head = el('div', 'review-item__head');
+            const author = el('div', 'review-item__author');
+            const initial = (rev.author || 'Г').trim().charAt(0).toUpperCase();
+            author.append(
+              el('span', 'review-avatar', initial),
+              Object.assign(el('div'), {
+                innerHTML: `<span class="review-item__name"></span><span class="review-item__date"></span>`
+              })
+            );
+            author.querySelector('.review-item__name').textContent = rev.author || t('Гость', 'Mehmon');
+            author.querySelector('.review-item__date').textContent = rev.date || '';
+            head.append(author);
+            if (rev.rating) {
+              const cls = rev.rating >= 4 ? 'review-score' : rev.rating >= 3 ? 'review-score review-score--mid' : 'review-score review-score--low';
+              head.append(el('span', cls, rev.rating + ' / 5'));
+            }
+            item.append(head, el('p', 'review-text', rev.text));
+            return item;
+          }));
+          sec.hidden = false;
+        }
+      })
+      .catch(() => {});
+  }
 
   // Floating "Перейти к турам ↑" button
   const fab = id('scroll-tours');
