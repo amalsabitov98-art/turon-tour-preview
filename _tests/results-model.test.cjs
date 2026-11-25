@@ -26,11 +26,28 @@ test('rejects invalid dates, trips or children in copied links', () => {
   assert.equal(model.readSearch(params), null);
 });
 
+test('keeps the visible catalog filters in a shared link without adding them to the search request', () => {
+  const view = { hotel: 'Ocean & Spa', budget: 23000000, sort: 'price-desc' };
+  const url = new URL(model.resultsHref(query, true, view), 'https://example.net/site.html');
+  assert.deepEqual(model.readView(url.searchParams), view);
+  assert.deepEqual(model.readSearch(url.searchParams), query);
+  url.searchParams.set('budget', '-100');
+  url.searchParams.set('sort', 'unknown');
+  assert.deepEqual(model.readView(url.searchParams), { hotel: 'Ocean & Spa', budget: 0, sort: 'price-asc' });
+});
+
 test('keeps working search filters and compares their logical values', () => {
   const original = { stars: 4, resorts: ['Тодду', 'Маафуши'], meal: 'BB' };
   assert.equal(model.sameFilters(original, { meal: 'BB', resorts: ['Маафуши', 'Тодду'], stars: 4 }), true);
   assert.equal(model.sameFilters(original, { stars: 4, meal: 'BB' }), false);
   assert.equal(model.sameFilters(undefined, {}), true);
+});
+
+test('keeps both years clear when a trip crosses New Year', () => {
+  const label = model.dateRangeLabel('2026-12-30', '2027-01-05', 'ru-RU');
+  assert.match(label, /2026/);
+  assert.match(label, /2027/);
+  assert.match(model.dateRangeLabel('2027-01-05', '2027-01-05', 'uz-UZ'), /2027/);
 });
 
 test('sorts and filters the returned offers by numeric UZS without inventing data', () => {

@@ -98,7 +98,9 @@
     const count = Number(tripFields.childrenCount.value);
     for (const [i, row] of [...tripForm.querySelectorAll('[data-age]')].entries()) {
       row.hidden = i >= count;
-      row.querySelector('input').required = i < count;
+      const input = row.querySelector('input');
+      input.disabled = row.hidden;
+      input.required = !row.hidden;
     }
   }
 
@@ -126,18 +128,14 @@
     for (const key of ['stars', 'meal', 'rating']) filterFields[key].value = filters[key] ?? '';
     filterFields.hotelType.value = filters.hotelTypes?.[0] || '';
     filterFields.exactHotel.value = filters.hotels?.[0] || '';
+    filterFields.customResort.value = '';
     for (const input of id('services').querySelectorAll('input')) input.checked = Boolean(filters.services?.includes(input.value));
     id('resorts').replaceChildren();
     showResorts();
   }
 
-  function dateLabel(value) {
-    return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(value + 'T00:00:00Z'));
-  }
-
   function searchLabels() {
     const { country, dateFrom, dateTo, nightsFrom, nightsTo, adults, children } = query;
-    const first = dateLabel(dateFrom), last = dateLabel(dateTo);
     let passengers = adults + t(adults === 1 ? ' взрослый' : ' взрослых', ' nafar katta');
     if (Array.isArray(children)) {
       passengers += ' + ' + children.length + t(children.length === 1 ? ' ребёнок' : ' детей', ' bola');
@@ -145,7 +143,7 @@
     }
     return {
       country: t(...model.countries[country]),
-      date: dateFrom === dateTo ? first : first + ' – ' + last,
+      date: model.dateRangeLabel(dateFrom, dateTo, locale),
       nights: (nightsFrom === nightsTo ? String(nightsFrom) : nightsFrom + '–' + nightsTo) + t(' ноч.', ' kecha'),
       passengers
     };
@@ -165,7 +163,7 @@
 
   function currentFilters() {
     const values = new FormData(filterForm);
-    const resorts = values.getAll('resorts');
+    const resorts = selectedResorts(values);
     const old = query.filters || {};
     const exact = values.get('exactHotel').trim(), hotelType = values.get('hotelType');
     return model.normalizeFilters({
@@ -177,6 +175,10 @@
       hotelTypes: hotelType === old.hotelTypes?.[0] ? old.hotelTypes : hotelType ? [hotelType] : [],
       services: values.getAll('services')
     });
+  }
+
+  function selectedResorts(values) {
+    return [...new Set([...values.getAll('resorts'), values.get('customResort').trim()].filter(Boolean))];
   }
 
   function showActiveFilters() {
@@ -212,11 +214,13 @@
     return button;
   }
 
+  function currentView() {
+    return { hotel: hotel.value.trim(), budget: budget.validity.valid ? budget.valueAsNumber || 0 : 0, sort: sort.value };
+  }
+
   function showOffers() {
     if (!response) return;
-    const offers = model.selectOffers(response.offers, {
-      hotel: hotel.value, budget: budget.validity.valid ? budget.valueAsNumber || 0 : 0, sort: sort.value
-    });
+    const offers = model.selectOffers(response.offers, currentView());
     const expanded = new Set([...offersNode.querySelectorAll('details[open]')].map(card => card.dataset.offer));
     const labels = searchLabels();
     offersNode.replaceChildren(...offers.map(offer => renderOffer(offer, labels, expanded)));
@@ -276,6 +280,7 @@
 
   async function runSearch() {
     activeRequest?.abort();
+    activeRequest = null;
     if (!query) return;
     const controller = new AbortController();
     activeRequest = controller;
@@ -334,7 +339,12 @@
   }
 
   function loadQuery() {
-    query = model.readSearch(params());
+    const values = params();
+    query = model.readSearch(values);
+    const view = model.readView(values);
+    hotel.value = view.hotel;
+    budget.value = view.budget || '';
+    sort.value = view.sort;
     refreshLanguageLink();
     setFields();
     showSearchSummary();
@@ -345,7 +355,7 @@
   }
 
   function applySearch(next) {
-    const href = model.resultsHref(next, uz);
+    const href = model.resultsHref(next, uz, currentView());
     if (href === 'search.html' + location.search && response) return;
     if (href !== 'search.html' + location.search) history.pushState(null, '', href);
     loadQuery();
@@ -385,7 +395,7 @@
     event.preventDefault();
     if (!query) return;
     const error = id('filter-error');
-    error.hidden = new FormData(filterForm).getAll('resorts').length <= 5;
+    error.hidden = selectedResorts(new FormData(filterForm)).length <= 5;
     if (!error.hidden) {
       error.textContent = t('Выберите не больше пяти курортов.', 'Ko‘pi bilan beshta kurort tanlang.');
       return;
@@ -400,7 +410,14 @@
     setFields();
     showOffers();
   });
-  for (const field of [hotel, budget, sort]) field.addEventListener('input', showOffers);
+  for (const field of [hotel, budget, sort]) {
+    field.addEventListener('input', () => {
+      if (!query) return;
+      history.replaceState(null, '', model.resultsHref(query, uz, currentView()));
+      refreshLanguageLink();
+      showOffers();
+    });
+  }
   window.addEventListener('popstate', loadQuery);
   if (matchMedia('(max-width: 700px)').matches) id('filter-panel').open = false;
   loadQuery();

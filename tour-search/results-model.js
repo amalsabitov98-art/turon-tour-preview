@@ -45,6 +45,11 @@
     return Number.isFinite(parsed) && new Date(parsed).toISOString().slice(0, 10) === value ? parsed : NaN;
   }
 
+  function dateRangeLabel(first, last, locale) {
+    const format = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+    return format.formatRange(dateValue(first), dateValue(last));
+  }
+
   function readSearch(params) {
     const country = params.get('country');
     if (!Object.hasOwn(countries, country)) return null;
@@ -69,8 +74,23 @@
     return { country, dateFrom, dateTo, nightsFrom, nightsTo, adults, children, ...(filters ? { filters } : {}) };
   }
 
-  function resultsHref(query, uz = false) {
-    return 'search.html?' + searchParams(query, uz).toString();
+  function readView(params) {
+    const value = params.get('budget') || '';
+    const budget = /^\d{1,15}$/.test(value) ? Number(value) : 0;
+    const sort = params.get('sort');
+    return {
+      hotel: (params.get('hotel') || '').trim().slice(0, 100),
+      budget,
+      sort: ['source', 'price-desc'].includes(sort) ? sort : 'price-asc'
+    };
+  }
+
+  function resultsHref(query, uz = false, view = {}) {
+    const params = searchParams(query, uz);
+    if (view.hotel) params.set('hotel', view.hotel);
+    if (view.budget > 0) params.set('budget', view.budget);
+    if (view.sort && view.sort !== 'price-asc') params.set('sort', view.sort);
+    return 'search.html?' + params.toString();
   }
 
   function sameFilters(first, second) {
@@ -100,7 +120,7 @@
     });
   }
 
-  const model = { api, countries, normalizeFilters, priceAmount, readSearch, resultsHref, sameFilters, searchParams, selectOffers };
+  const model = { api, countries, dateRangeLabel, normalizeFilters, priceAmount, readSearch, readView, resultsHref, sameFilters, searchParams, selectOffers };
   if (typeof module !== 'undefined') module.exports = model;
   if (typeof window !== 'undefined') window.TuronResults = model;
 })();
