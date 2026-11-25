@@ -1,6 +1,6 @@
 (()=>{
   const uz=document.documentElement.lang==='uz';
-  const map={'site.html':'site-uz.html','visas.html':'visas-uz.html','blog/':'blog/index-uz.html','blog/index.html':'blog/index-uz.html','blog/turtsiya-viza.html':'blog/turtsiya-viza-uz.html','blog/shengen-viza.html':'blog/shengen-viza-uz.html','blog/kitay-bez-vizy.html':'blog/kitay-bez-vizy-uz.html'};
+  const map={'site.html':'site-uz.html','visas.html':'visas-uz.html','privacy.html':'privacy-uz.html','terms.html':'terms-uz.html','blog/':'blog/index-uz.html','blog/index.html':'blog/index-uz.html','blog/turtsiya-viza.html':'blog/turtsiya-viza-uz.html','blog/shengen-viza.html':'blog/shengen-viza-uz.html','blog/kitay-bez-vizy.html':'blog/kitay-bez-vizy-uz.html'};
   const path=location.pathname;const current=Object.keys(map).concat(Object.values(map)).find(x=>path.endsWith('/'+x));
   const base=current?path.slice(0,-current.length):path.slice(0,path.lastIndexOf('/')+1);
   function change(target){const old=map[target]?target:Object.keys(map).find(k=>map[k]===target);const next=uz?old:map[old];if(next)location.href=base+next+location.search+location.hash}

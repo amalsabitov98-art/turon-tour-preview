@@ -28,6 +28,7 @@
   if (uz) {
     for (const node of document.querySelectorAll('[data-uz]')) node.textContent = node.dataset.uz;
     for (const node of document.querySelectorAll('[data-home]')) node.href = 'site-uz.html';
+    for (const node of document.querySelectorAll('[data-uz-href]')) node.href = node.dataset.uzHref;
   }
 
   // Language switch link

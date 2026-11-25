@@ -93,6 +93,7 @@
     for (const node of document.querySelectorAll('[data-uz]')) node.textContent = node.dataset.uz;
     for (const node of document.querySelectorAll('[data-placeholder-uz]')) node.placeholder = node.dataset.placeholderUz;
     for (const node of document.querySelectorAll('[data-home]')) node.href = 'site-uz.html';
+    for (const node of document.querySelectorAll('[data-uz-href]')) node.href = node.dataset.uzHref;
   }
   for (const [code, names] of Object.entries(model.countries)) {
     tripFields.country.add(new Option(t(...names), code));
