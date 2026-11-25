@@ -308,31 +308,28 @@ a { color: inherit; }
   justify-content: space-between;
   gap: 14px;
 }
-.offer-card__pricing { display: grid; gap: 3px; }
+.offer-card__pricing { display: grid; gap: 4px; }
 .offer-card__per-person {
   color: var(--muted);
-  font-size: .74rem;
+  font-size: .76rem;
   line-height: 1.3;
-  order: 2;
-  margin-top: 2px;
 }
 .offer-card__per-person strong {
-  display: inline;
-  color: #3d5168;
-  font-size: .78rem;
-  font-weight: 700;
+  display: block;
+  color: #d94e34;
+  font-size: .96rem;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
-  margin-left: 4px;
+  margin-top: 1px;
 }
 .offer-card__total-label {
   color: var(--muted);
-  font-size: .74rem;
-  order: 0;
+  font-size: .75rem;
+  margin-top: 4px;
 }
 .offer-card__price {
-  order: 1;
   font-variant-numeric: tabular-nums;
-  font-size: 1.26rem;
+  font-size: 1.28rem;
   line-height: 1.15;
   font-weight: 800;
   letter-spacing: -.03em;
