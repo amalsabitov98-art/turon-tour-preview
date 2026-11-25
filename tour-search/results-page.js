@@ -12,8 +12,8 @@
   const tripFields = tripForm.elements, filterFields = filterForm.elements;
   const browse = id('browse'), offersNode = id('offers'), status = id('status');
   const hotel = id('hotel'), budget = id('budget'), sort = id('sort');
-  const local = ['127.0.0.1:5183', 'localhost:5183'].includes(location.host);
-  const api = local ? 'http://127.0.0.1:8051' : model.api;
+  const localApi = params().get('localApi') === '1';
+  const api = localApi ? 'http://127.0.0.1:8051' : model.api;
   const manager = 'https://t.me/Aziza_Turon_tour';
   const phoneHref = 'tel:+998712000909';
   const sortPills = id('sort-pills');
@@ -49,7 +49,7 @@
     ]]
   ];
   const serviceLabels = new Map(serviceGroups.flatMap(([, items]) => items).map(([ru, translated]) => [ru, t(ru, translated)]));
-  let query = null, activeRequest = null, response = null, resortCatalog = {}, progressTimer = null;
+  let query = null, activeRequest = null, response = null, resortCatalog = {}, popularCatalog = {}, progressTimer = null;
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -118,14 +118,70 @@
     }
   }
 
+  function updatePopoverLabels() {
+    const chosenResorts = selectedResorts(new FormData(filterForm));
+    const resortsBtn = id('resorts-label');
+    if (resortsBtn) {
+      if (chosenResorts.length === 1) resortsBtn.textContent = chosenResorts[0];
+      else if (chosenResorts.length > 1) resortsBtn.textContent = chosenResorts[0] + ' +' + (chosenResorts.length - 1);
+      else resortsBtn.textContent = t('Курорты', 'Kurortlar');
+      resortsBtn.closest('.filter-popover')?.classList.toggle('is-active', chosenResorts.length > 0);
+    }
+    const extraBtn = filterForm.querySelector('.extra-filters > summary');
+    if (extraBtn) {
+      const extraCount =
+        id('services').querySelectorAll('input:checked').length +
+        (filterFields.hotelType.value ? 1 : 0) +
+        (filterFields.exactHotel.value.trim() ? 1 : 0);
+      extraBtn.textContent = t('Все фильтры', 'Barcha filtrlar') + (extraCount ? ' · ' + extraCount : '');
+      extraBtn.closest('.filter-popover')?.classList.toggle('is-active', extraCount > 0);
+    }
+  }
+
   function showResorts() {
     if (!query) return;
-    const selected = id('resorts').childElementCount
+    const container = id('resorts');
+    const selected = container.childElementCount
       ? new FormData(filterForm).getAll('resorts')
       : query.filters?.resorts || [];
     const available = [...new Set([...(resortCatalog[query.country] || []), ...selected])];
-    id('resorts').replaceChildren(...available.map(place => check('resorts', place, place, selected.includes(place))));
-    if (!available.length) id('resorts').append(element('small', '', t('Список курортов недоступен.', 'Kurortlar ro‘yxati mavjud emas.')));
+    const popular = (popularCatalog[query.country] || []).filter(p => available.includes(p));
+    const popSet = new Set(popular);
+    const rest = available.filter(p => !popSet.has(p));
+    const nodes = [];
+    if (available.length) {
+      const allLabel = element('label', 'resort-all');
+      const allBox = element('input');
+      allBox.type = 'checkbox';
+      allBox.checked = selected.length === 0;
+      allBox.addEventListener('change', () => {
+        for (const box of container.querySelectorAll('input[name="resorts"]')) box.checked = false;
+        allBox.checked = true;
+        updatePopoverLabels();
+      });
+      allLabel.append(allBox, element('span', '', t('Все курорты', 'Barcha kurortlar')));
+      nodes.push(allLabel);
+      const makeResortCheck = place => {
+        const lbl = check('resorts', place, place, selected.includes(place));
+        lbl.querySelector('input').addEventListener('change', () => {
+          allBox.checked = container.querySelectorAll('input[name="resorts"]:checked').length === 0;
+          updatePopoverLabels();
+        });
+        return lbl;
+      };
+      if (popular.length && rest.length) {
+        nodes.push(element('div', 'resort-group-title', t('Популярные курорты', 'Mashhur kurortlar')));
+        for (const place of popular) nodes.push(makeResortCheck(place));
+        nodes.push(element('div', 'resort-group-title', t('Остальные курорты', 'Boshqa kurortlar')));
+        for (const place of rest) nodes.push(makeResortCheck(place));
+      } else {
+        for (const place of available) nodes.push(makeResortCheck(place));
+      }
+    } else {
+      nodes.push(element('small', '', t('Список курортов недоступен.', 'Kurortlar ro‘yxati mavjud emas.')));
+    }
+    container.replaceChildren(...nodes);
+    updatePopoverLabels();
   }
 
   function setFields() {
@@ -376,11 +432,7 @@
     // 2. Body column
     const body = element('div', 'offer-card__body');
     const top = element('div', 'offer-card__top');
-    if (stars) {
-      const starLine = element('span', 'offer-card__stars', '★'.repeat(Number(stars[1])));
-      starLine.setAttribute('aria-label', stars[1] + t(' звезды', ' yulduz'));
-      top.append(starLine);
-    }
+    top.append(element('h3', 'offer-card__title', name));
     const ratingVal = Number(offer.rating);
     if (Number.isFinite(ratingVal) && ratingVal > 0) {
       const rating = element('span', 'offer-card__rating');
@@ -391,9 +443,13 @@
       rating.append(element('span', scoreClass, ratingVal.toFixed(1).replace('.', ',')));
       top.append(rating);
     }
-    if (top.childElementCount) body.append(top);
+    body.append(top);
 
-    body.append(element('h3', 'offer-card__title', name));
+    if (stars) {
+      const starLine = element('span', 'offer-card__stars', '★'.repeat(Number(stars[1])));
+      starLine.setAttribute('aria-label', stars[1] + t(' звезды', ' yulduz'));
+      body.append(starLine);
+    }
 
     const place = element('div', 'offer-card__place');
     place.innerHTML = pinSvg;
@@ -587,6 +643,8 @@
     applySearch(next);
   });
 
+  filterForm.addEventListener('change', updatePopoverLabels);
+  filterForm.addEventListener('input', updatePopoverLabels);
   filterForm.addEventListener('submit', event => {
     event.preventDefault();
     if (!query) return;
@@ -596,8 +654,18 @@
       error.textContent = t('Выберите не больше пяти курортов.', 'Ko‘pi bilan beshta kurort tanlang.');
       return;
     }
+    for (const pop of filterForm.querySelectorAll('.filter-popover[open]')) pop.open = false;
     applySearch({ ...query, filters: currentFilters() });
     if (matchMedia('(max-width: 700px)').matches) id('filter-panel').open = false;
+  });
+  document.addEventListener('click', event => {
+    for (const pop of filterForm.querySelectorAll('.filter-popover[open]')) {
+      if (!pop.contains(event.target)) pop.open = false;
+    }
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    for (const pop of filterForm.querySelectorAll('.filter-popover[open]')) pop.open = false;
   });
   id('reset-filters').addEventListener('click', () => {
     hotel.value = budget.value = '';
@@ -634,6 +702,7 @@
     .then(data => {
       if (!data?.countries) return;
       resortCatalog = data.countries;
+      popularCatalog = data.popular || {};
       showResorts();
     })
     .catch(() => {});

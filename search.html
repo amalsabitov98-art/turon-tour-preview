@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tour-search/results.css?v=cards6">
+  <link rel="stylesheet" href="tour-search/results.css?v=cards7">
   <script src="tour-search/results-model.js?v=cards2" defer></script>
   <script src="tour-search/widget.js?v=results1" defer></script>
-  <script src="tour-search/results-page.js?v=cards6" defer></script>
+  <script src="tour-search/results-page.js?v=cards7" defer></script>
 </head>
 <body>
   <header class="masthead">
@@ -60,48 +60,69 @@
       <details id="filter-panel" class="facets" open>
         <summary><span data-uz="Filtrlar">Фильтры</span></summary>
         <div class="facets__body">
-          <fieldset class="fields">
-            <legend data-uz="Topilgan variantlar">Найденные варианты</legend>
-            <label><span data-uz="Mehmonxona nomi">Название отеля</span><input id="hotel" type="search" placeholder="Например, Ocean Retreat" data-placeholder-uz="Masalan, Ocean Retreat" maxlength="100"></label>
-            <label><span data-uz="Byudjet, so‘mgacha">Бюджет до, сум</span><input id="budget" type="number" min="1" step="1" placeholder="25 000 000"></label>
-          </fieldset>
           <form id="offer-form" class="offer-form">
-            <fieldset class="fields">
-              <legend data-uz="Qidiruv shartlari">Условия поиска</legend>
-              <details class="resort-filter">
+            <div class="filter-bar">
+              <label class="filter-bar__field filter-bar__field--grow">
+                <span data-uz="Mehmonxona nomi">Название отеля</span>
+                <input id="hotel" type="search" placeholder="Например, Patong" data-placeholder-uz="Masalan, Patong" maxlength="100">
+              </label>
+              <label class="filter-bar__field">
+                <span data-uz="Byudjet, so‘mgacha">Бюджет до, сум</span>
+                <input id="budget" type="number" min="1" step="1" placeholder="25 000 000">
+              </label>
+
+              <details class="resort-filter filter-popover">
                 <summary id="resorts-label" data-uz="Kurortlar">Курорты</summary>
-                <small data-uz="Beshtagacha kurort tanlash mumkin.">Можно выбрать до пяти курортов.</small>
-                <div id="resorts" class="checks resort-filter__list"></div>
-                <label><span data-uz="Boshqa kurort">Другой курорт</span><input name="customResort" type="text" maxlength="80" placeholder="Точное название" data-placeholder-uz="Aniq nomi"></label>
+                <div class="filter-popover__panel">
+                  <small data-uz="Beshtagacha kurort tanlash mumkin.">Можно выбрать до пяти курортов.</small>
+                  <div id="resorts" class="checks resort-filter__list"></div>
+                  <label class="filter-popover__input"><span data-uz="Boshqa kurort">Другой курорт</span><input name="customResort" type="text" maxlength="80" placeholder="Точное название" data-placeholder-uz="Aniq nomi"></label>
+                </div>
               </details>
-              <div class="fields__pair">
-                <label><span data-uz="Yulduzlar">Звёзды</span><select name="stars">
+
+              <label class="filter-bar__field filter-bar__field--sm">
+                <span data-uz="Yulduzlar">Звёзды</span>
+                <select name="stars">
                   <option value="" data-uz="Istalgan">Любые</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5</option>
-                </select></label>
-                <label><span data-uz="Reyting">Рейтинг</span><select name="rating">
+                </select>
+              </label>
+              <label class="filter-bar__field filter-bar__field--sm">
+                <span data-uz="Reyting">Рейтинг</span>
+                <select name="rating">
                   <option value="" data-uz="Istalgan">Любой</option><option value="3">3,0+</option><option value="3.5">3,5+</option><option value="4">4,0+</option><option value="4.5">4,5+</option>
-                </select></label>
-              </div>
-              <label><span data-uz="Ovqatlanish">Питание</span><select name="meal">
-                <option value="" data-uz="Istalgan">Любое</option><option value="BB" data-uz="Nonushta">Завтрак</option>
-                <option value="HB" data-uz="Nonushta va kechki ovqat">Завтрак и ужин</option><option value="FB" data-uz="To‘liq pansion">Полный пансион</option>
-                <option value="AI" data-uz="Barchasi ichida">Всё включено</option><option value="UAI" data-uz="Ultra barchasi ichida">Ультра всё включено</option>
-              </select></label>
-              <details class="extra-filters">
-                <summary data-uz="Qo‘shimcha filtrlar">Дополнительные фильтры</summary>
-                <label><span data-uz="Joylashuv turi">Тип размещения</span><select name="hotelType">
-                  <option value="" data-uz="Istalgan">Любой</option><option value="Отель" data-uz="Mehmonxona">Отель</option>
-                  <option value="Гостевой дом" data-uz="Mehmon uyi">Гостевой дом</option><option value="Апартаменты" data-uz="Apartamentlar">Апартаменты</option>
-                  <option value="Вилла" data-uz="Villa">Вилла</option><option value="Хостел" data-uz="Hostel">Хостел</option>
-                  <option value="Пансионат" data-uz="Pansionat">Пансионат</option><option value="База отдыха" data-uz="Dam olish maskani">База отдыха</option>
-                </select></label>
-                <label><span data-uz="Mehmonxonaning aniq nomi">Точное название отеля</span><input name="exactHotel" type="text" maxlength="80"></label>
-                <div id="services" class="checks"></div>
+                </select>
+              </label>
+              <label class="filter-bar__field">
+                <span data-uz="Ovqatlanish">Питание</span>
+                <select name="meal">
+                  <option value="" data-uz="Istalgan">Любое</option><option value="BB" data-uz="Nonushta">Завтрак</option>
+                  <option value="HB" data-uz="Nonushta va kechki ovqat">Завтрак и ужин</option><option value="FB" data-uz="To‘liq pansion">Полный пансион</option>
+                  <option value="AI" data-uz="Barchasi ichida">Всё включено</option><option value="UAI" data-uz="Ultra barchasi ichida">Ультра всё включено</option>
+                </select>
+              </label>
+
+              <details class="extra-filters filter-popover filter-popover--wide">
+                <summary data-uz="Barcha filtrlar">Все фильтры</summary>
+                <div class="filter-popover__panel">
+                  <div class="filter-popover__top-inputs">
+                    <label><span data-uz="Joylashuv turi">Тип размещения</span><select name="hotelType">
+                      <option value="" data-uz="Istalgan">Любой</option><option value="Отель" data-uz="Mehmonxona">Отель</option>
+                      <option value="Гостевой дом" data-uz="Mehmon uyi">Гостевой дом</option><option value="Апартаменты" data-uz="Apartamentlar">Апартаменты</option>
+                      <option value="Вилла" data-uz="Villa">Вилла</option><option value="Хостел" data-uz="Hostel">Хостел</option>
+                      <option value="Пансионат" data-uz="Pansionat">Пансионат</option><option value="База отдыха" data-uz="Dam olish maskani">База отдыха</option>
+                    </select></label>
+                    <label><span data-uz="Mehmonxonaning aniq nomi">Точное название отеля</span><input name="exactHotel" type="text" maxlength="80"></label>
+                  </div>
+                  <div id="services" class="checks services-grid"></div>
+                </div>
               </details>
-            </fieldset>
+
+              <div class="filter-bar__actions">
+                <button type="submit" class="button primary" data-uz="Qo‘llash">Применить</button>
+                <button type="button" id="reset-filters" class="button text-button" data-uz="Tozalash">Сбросить</button>
+              </div>
+            </div>
             <p id="filter-error" class="form-error" role="alert" hidden></p>
-            <button type="submit" class="button primary" data-uz="Filtrlarni qo‘llash">Применить фильтры</button>
-            <button type="button" id="reset-filters" class="button text-button" data-uz="Tozalash">Сбросить</button>
           </form>
         </div>
       </details>
