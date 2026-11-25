@@ -1,0 +1,563 @@
+(function () {
+  'use strict';
+
+  const params = new URLSearchParams(location.search);
+  const uz = params.get('lang') === 'uz';
+  const t = (ru, other) => (uz ? other : ru);
+  const locale = t('ru-RU', 'uz-UZ');
+  const id = name => document.getElementById(name);
+  const manager = 'https://t.me/Aziza_Turon_tour';
+  const RECENT_KEY = 'turon_recent_hotels_v1';
+
+  const countries = window.TuronResults?.countries || {
+    maldives: ['Мальдивы', 'Maldiv orollari'], thailand: ['Таиланд', 'Tailand'],
+    uae: ['ОАЭ', 'BAA'], turkey: ['Турция', 'Turkiya'], egypt: ['Египет', 'Misr'],
+    vietnam: ['Вьетнам', 'Vetnam'], srilanka: ['Шри-Ланка', 'Shri-Lanka'],
+    malaysia: ['Малайзия', 'Malayziya'], bali: ['Индонезия, Бали', 'Indoneziya, Bali'],
+    georgia: ['Грузия', 'Gruziya']
+  };
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  document.documentElement.lang = t('ru', 'uz');
+  if (uz) {
+    for (const node of document.querySelectorAll('[data-uz]')) node.textContent = node.dataset.uz;
+    for (const node of document.querySelectorAll('[data-home]')) node.href = 'site-uz.html';
+  }
+
+  // Language switch link
+  const langLink = id('language');
+  const otherParams = new URLSearchParams(location.search);
+  if (uz) otherParams.delete('lang');
+  else otherParams.set('lang', 'uz');
+  langLink.href = 'hotel.html?' + otherParams.toString();
+  langLink.textContent = t('UZ', 'RU');
+  langLink.lang = langLink.hreflang = t('uz', 'ru');
+
+  // Load hotel data from sessionStorage or fallback to URL params
+  const storageKey = params.get('key') || '';
+  let payload = null;
+  if (storageKey) {
+    try {
+      const raw = sessionStorage.getItem(storageKey);
+      if (raw) payload = JSON.parse(raw);
+    } catch {}
+  }
+  if (!payload) {
+    try {
+      const recent = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+      const found = recent.find(x => x.key === storageKey || (params.get('hotel') && x.offer?.hotel === params.get('hotel')));
+      if (found) payload = found;
+    } catch {}
+  }
+
+  const offer = payload?.offer || {
+    hotel: params.get('hotel') || t('Отель', 'Mehmonxona'),
+    resort: params.get('resort') || '',
+    priceDisplay: params.get('price') || ''
+  };
+  const query = payload?.query || {
+    country: params.get('country') || 'uae',
+    dateFrom: params.get('dateFrom') || '',
+    dateTo: params.get('dateTo') || '',
+    nightsFrom: Number(params.get('nightsFrom')) || 6,
+    nightsTo: Number(params.get('nightsTo')) || 8,
+    adults: Number(params.get('adults')) || 2,
+    children: 0
+  };
+  const labels = payload?.labels || {
+    country: t(...(countries[query.country] || [query.country, query.country])),
+    date: query.dateFrom && query.dateTo && window.TuronResults
+      ? window.TuronResults.dateRangeLabel(query.dateFrom, query.dateTo, locale)
+      : '',
+    nights: (query.nightsFrom === query.nightsTo ? String(query.nightsFrom) : query.nightsFrom + '–' + query.nightsTo) + t(' ноч.', ' kecha'),
+    passengers: (query.adults || 2) + t(' взрослых', ' nafar katta')
+  };
+
+  // Back to search results link
+  const backLink = id('back-link');
+  if (payload?.searchHref) {
+    backLink.href = payload.searchHref;
+  } else if (window.TuronResults && query.dateFrom && query.dateTo) {
+    backLink.href = window.TuronResults.resultsHref(query, uz);
+  }
+
+  const starsMatch = String(offer.hotel || '').match(/(?:^|\s)([1-5])\s*[*★]\s*$/);
+  const hotelName = (starsMatch ? offer.hotel.slice(0, starsMatch.index).trim() : offer.hotel) || offer.hotel;
+  const starCount = starsMatch ? Number(starsMatch[1]) : 0;
+  const placeText = offer.resort ? `${offer.resort}, ${labels.country}` : labels.country;
+  document.title = `${hotelName} · Turon Tour`;
+
+  // Save to recently viewed
+  if (offer.hotel) {
+    try {
+      const list = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]').filter(x => x?.offer?.hotel !== offer.hotel);
+      const entryKey = storageKey || ('h_' + Date.now());
+      list.unshift({
+        key: entryKey,
+        offer: {
+          hotel: offer.hotel,
+          resort: offer.resort,
+          priceDisplay: offer.priceDisplay,
+          photo: offer.photo,
+          photos: offer.photos,
+          rating: offer.rating,
+          description: offer.description,
+          hotelId: offer.hotelId,
+          lat: offer.lat,
+          lng: offer.lng,
+          meal: offer.meal,
+          roomType: offer.roomType,
+          toursCount: offer.toursCount,
+          tours: Array.isArray(offer.tours) ? offer.tours.slice(0, 20) : []
+        },
+        query,
+        labels,
+        searchHref: payload?.searchHref || backLink.href
+      });
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 8)));
+    } catch {}
+  }
+
+  // Render Header
+  id('hotel-name').textContent = hotelName;
+  if (starCount) {
+    const s = id('hotel-stars');
+    s.textContent = '★'.repeat(starCount);
+    s.hidden = false;
+  }
+  id('hotel-place').textContent = placeText;
+
+  const ratingVal = Number(offer.rating);
+  if (Number.isFinite(ratingVal) && ratingVal > 0) {
+    const r = id('hotel-rating');
+    const lbl = ratingVal >= 4.5 ? t('Отлично', 'A’lo') : ratingVal >= 4.0 ? t('Очень хорошо', 'Juda yaxshi') : t('Хорошо', 'Yaxshi');
+    r.innerHTML = `<div class="hotel-rating__label">${lbl}<span class="hotel-rating__sub">TourVisor</span></div><div class="hotel-rating__score">${ratingVal.toFixed(1).replace('.', ',')}</div>`;
+    r.hidden = false;
+  }
+
+  // Gallery + Lightbox
+  const photos = [];
+  if (Array.isArray(offer.photos) && offer.photos.length) photos.push(...offer.photos);
+  else if (offer.photo) photos.push(offer.photo);
+  const hiResPhotos = photos.slice();
+  const lightbox = id('lightbox');
+  const lbImg = id('lightbox-img');
+  const lbCounter = id('lightbox-counter');
+  let lbIndex = 0;
+
+  function openLightbox(idx) {
+    if (!photos.length) return;
+    lbIndex = (idx + photos.length) % photos.length;
+    lbImg.referrerPolicy = 'no-referrer';
+    lbImg.src = hiResPhotos[lbIndex] || photos[lbIndex];
+    lbImg.onerror = () => { if (lbImg.src !== photos[lbIndex]) lbImg.src = photos[lbIndex]; };
+    lbCounter.textContent = `${lbIndex + 1} / ${photos.length}`;
+    if (!lightbox.open) lightbox.showModal();
+  }
+  lightbox.querySelector('.lightbox__close').addEventListener('click', () => lightbox.close());
+  lightbox.querySelector('.lightbox__nav--prev').addEventListener('click', () => openLightbox(lbIndex - 1));
+  lightbox.querySelector('.lightbox__nav--next').addEventListener('click', () => openLightbox(lbIndex + 1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.close(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.open) return;
+    if (e.key === 'ArrowLeft') openLightbox(lbIndex - 1);
+    if (e.key === 'ArrowRight') openLightbox(lbIndex + 1);
+  });
+
+  const gallery = id('hotel-gallery');
+  if (photos.length <= 1) {
+    gallery.classList.add('gallery--single');
+    const main = el('div', 'gallery__main');
+    if (photos[0]) {
+      const img = el('img');
+      img.src = hiResPhotos[0];
+      img.alt = hotelName;
+      img.referrerPolicy = 'no-referrer';
+      img.onerror = () => { if (img.src !== photos[0]) img.src = photos[0]; };
+      main.append(img);
+      main.addEventListener('click', () => openLightbox(0));
+    }
+    gallery.append(main);
+  } else {
+    const main = el('div', 'gallery__main');
+    const mainImg = el('img');
+    mainImg.src = hiResPhotos[0];
+    mainImg.alt = hotelName;
+    mainImg.referrerPolicy = 'no-referrer';
+    mainImg.onerror = () => { if (mainImg.src !== photos[0]) mainImg.src = photos[0]; };
+    main.append(mainImg);
+    main.addEventListener('click', () => openLightbox(0));
+
+    const thumbs = el('div', 'gallery__thumbs');
+    const shownThumbs = photos.slice(1, 5);
+    shownThumbs.forEach((src, i) => {
+      const cell = el('div', 'gallery__thumb');
+      const img = el('img');
+      img.src = src;
+      img.alt = hotelName;
+      img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
+      cell.append(img);
+      if (i === 3 && photos.length > 5) {
+        cell.append(el('div', 'gallery__more', '+' + (photos.length - 5)));
+      }
+      cell.addEventListener('click', () => openLightbox(i + 1));
+      thumbs.append(cell);
+    });
+    gallery.append(main, thumbs);
+  }
+
+  // Right column: About + Beach + Map
+  const descText = (offer.description || '').trim();
+  id('hero-desc').textContent = descText || t(
+    'Уютный отель для комфортного отдыха. Менеджер Turon Tour подскажет актуальные номера, питание и лучшие рейсы из Ташкента.',
+    'Qulay dam olish uchun ajoyib mehmonxona. Turon Tour menejeri mavjud xonalar, ovqatlanish va Toshkentdan eng qulay reyslarni tavsiya qiladi.'
+  );
+
+  const beachMatch = (offer.resort + ' ' + descText).match(/(песчаный\s+пляж|галечный\s+пляж|собственный\s+пляж|первая\s+линия|\d+\s*м\s*до\s*моря)/i);
+  if (beachMatch) {
+    const b = id('hero-beach');
+    b.innerHTML = '<span>🏖️</span><span>' + beachMatch[1].charAt(0).toUpperCase() + beachMatch[1].slice(1) + '</span>';
+    b.hidden = false;
+  }
+
+  // Interactive Map Modal
+  const mapModal = id('map-modal');
+  const mapBody = id('map-modal-body');
+  id('map-modal-title').textContent = hotelName;
+  mapModal.querySelector('.map-modal__close').addEventListener('click', () => mapModal.close());
+  mapModal.addEventListener('click', e => { if (e.target === mapModal) mapModal.close(); });
+  id('open-map').addEventListener('click', () => {
+    mapBody.replaceChildren();
+    if (Number.isFinite(Number(offer.lat)) && Number.isFinite(Number(offer.lng))) {
+      const lat = Number(offer.lat), lng = Number(offer.lng);
+      const d = 0.012;
+      const iframe = el('iframe');
+      iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}&layer=mapnik&marker=${lat}%2C${lng}`;
+      iframe.loading = 'lazy';
+      mapBody.append(iframe);
+    } else {
+      const q = encodeURIComponent(`${hotelName} ${placeText}`);
+      const linkWrap = el('div', '', '');
+      linkWrap.style.cssText = 'padding:32px;text-align:center;display:grid;gap:14px;place-items:center;height:100%;align-content:center;';
+      linkWrap.append(
+        el('p', '', t('Откройте расположение отеля на Google Картах:', 'Mehmonxona joylashuvini Google Xaritalarda oching:')),
+        Object.assign(el('a', 'cta-btn', t('Открыть на Google Maps', 'Google Mapsda ochish')), {
+          href: `https://www.google.com/maps/search/?api=1&query=${q}`,
+          target: '_blank', rel: 'noopener noreferrer'
+        })
+      );
+      mapBody.append(linkWrap);
+    }
+    mapModal.showModal();
+  });
+
+  // Formatting helpers
+  function formatSum(n) {
+    return new Intl.NumberFormat('ru-RU').format(Math.round(n)) + t(' сум', ' so‘m');
+  }
+  function formatShortDate(iso) {
+    const d = new Date(iso + 'T00:00:00Z');
+    if (!Number.isFinite(d.getTime())) return iso;
+    return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d);
+  }
+  function addDays(iso, days) {
+    const d = new Date(iso + 'T00:00:00Z');
+    if (!Number.isFinite(d.getTime())) return '';
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().slice(0, 10);
+  }
+  function detectAirline(tourName) {
+    if (!tourName) return '';
+    const m = tourName.match(/(Centrum Air|Uzbekistan Airways|Air Arabia|Fly\s?Dubai|Turkish Airlines|Qanot Sharq|Etihad|Emirates|FlyOne|Wizz Air)/i);
+    return m ? m[1] : '';
+  }
+  function tourDraftHref(tour) {
+    const u = new URL(manager);
+    const range = tour.date ? `${formatShortDate(tour.date)} – ${formatShortDate(addDays(tour.date, tour.nights))}` : labels.date;
+    const text = uz
+      ? `Assalomu alaykum! Mehmonxona bo‘yicha turni aniqlashtirmoqchiman: ${offer.hotel} (${placeText}). Sana: ${range}, ${tour.nights} kecha, ${labels.passengers}. Ovqatlanish: ${tour.meal || '—'}, xona: ${tour.room || '—'}. Narx: ${formatSum(tour.price)}.`
+      : `Здравствуйте! Хочу уточнить тур в отель ${offer.hotel} (${placeText}). Даты: ${range}, ${tour.nights} ноч., ${labels.passengers}. Питание: ${tour.meal || '—'}, номер: ${tour.room || '—'}. Цена на сайте: ${formatSum(tour.price)}.`;
+    u.searchParams.set('text', text);
+    return u.href;
+  }
+
+  // Tours section + Price Matrix + Meal filters
+  id('tours-heading').textContent = t('Туры в отель ', 'Mehmonxonaga turlar: ') + hotelName;
+  id('tours-summary').textContent = [t('Из Ташкента', 'Toshkentdan'), labels.date, labels.nights, labels.passengers].filter(Boolean).join(' · ');
+  if (window.TuronSearchLinks) {
+    id('quick-tg').href = window.TuronSearchLinks.draftUrl(offer, labels, uz);
+  }
+
+  const allTours = Array.isArray(offer.tours) ? offer.tours.filter(x => x && x.price > 0) : [];
+  const bestPrice = allTours.length ? allTours[0].price : window.TuronResults?.priceAmount(offer.priceDisplay);
+  if (bestPrice) {
+    id('hero-price-val').textContent = t('от ', '') + formatSum(bestPrice) + t('', ' dan');
+    id('hero-price-label').textContent = t('Лучшая цена · за ', 'Eng qulay narx · ') + labels.passengers + t('', ' uchun');
+  }
+  const travelers = (query.adults || 1) + (Array.isArray(query.children) ? query.children.length : 0);
+  let selectedMeal = '';
+  let selectedCell = null; // "date|nights"
+
+  function renderMatrix() {
+    const wrap = id('price-matrix-wrap');
+    if (allTours.length < 2) { wrap.hidden = true; return; }
+    const dates = [...new Set(allTours.map(x => x.date).filter(Boolean))].sort();
+    const nights = [...new Set(allTours.map(x => x.nights).filter(Boolean))].sort((a, b) => a - b);
+    if (dates.length < 2 && nights.length < 2) { wrap.hidden = true; return; }
+
+    const minByCell = new Map();
+    let globalMin = Infinity;
+    for (const tour of allTours) {
+      const k = `${tour.date}|${tour.nights}`;
+      const cur = minByCell.get(k);
+      if (!cur || tour.price < cur) minByCell.set(k, tour.price);
+      if (tour.price < globalMin) globalMin = tour.price;
+    }
+
+    const table = el('table', 'matrix-table');
+    const thead = el('thead');
+    const hr = el('tr');
+    hr.append(el('th', '', t('Ночей', 'Kecha')));
+    for (const d of dates) hr.append(el('th', '', formatShortDate(d)));
+    thead.append(hr);
+
+    const tbody = el('tbody');
+    for (const n of nights) {
+      const tr = el('tr');
+      tr.append(el('td', '', String(n)));
+      for (const d of dates) {
+        const td = el('td');
+        const k = `${d}|${n}`;
+        const p = minByCell.get(k);
+        if (p) {
+          const btn = el('button', 'matrix-cell-btn' + (p === globalMin ? ' matrix-cell-btn--best' : '') + (selectedCell === k ? ' is-selected' : ''));
+          btn.type = 'button';
+          btn.textContent = new Intl.NumberFormat('ru-RU').format(Math.round(p / 1000)) + ' K';
+          btn.title = formatSum(p);
+          btn.addEventListener('click', () => {
+            selectedCell = selectedCell === k ? null : k;
+            renderMatrix();
+            renderTours();
+          });
+          td.append(btn);
+        } else {
+          td.textContent = '—';
+        }
+        tr.append(td);
+      }
+      tbody.append(tr);
+    }
+    table.append(thead, tbody);
+    wrap.replaceChildren(table);
+    wrap.hidden = false;
+  }
+
+  function renderMealFilters() {
+    const wrap = id('meal-filters');
+    const meals = [...new Set(allTours.map(x => x.meal).filter(Boolean))];
+    if (meals.length < 2) { wrap.hidden = true; return; }
+    const pills = [
+      ['', t('Все типы питания', 'Barcha ovqatlanish turlari')],
+      ...meals.map(m => [m, m])
+    ];
+    wrap.replaceChildren(...pills.map(([val, text]) => {
+      const btn = el('button', 'meal-pill' + (selectedMeal === val ? ' is-active' : ''), text);
+      btn.type = 'button';
+      btn.addEventListener('click', () => {
+        selectedMeal = val;
+        renderMealFilters();
+        renderTours();
+      });
+      return btn;
+    }));
+    wrap.hidden = false;
+  }
+
+  function renderTours() {
+    const list = id('tours-list');
+    if (!allTours.length) {
+      // Fallback single summary row using offer.priceDisplay
+      const fallbackPrice = window.TuronResults?.priceAmount(offer.priceDisplay);
+      const row = el('div', 'tour-row tour-row--best');
+      row.append(el('span', 'tour-row__badge', t('Актуальное предложение', 'Dolzarb taklif')));
+      const c1 = el('div'); c1.append(el('span', 'tour-col__label', t('Даты', 'Sanalar')), el('span', 'tour-col__val', labels.date || '—'));
+      const c2 = el('div'); c2.append(el('span', 'tour-col__label', t('Длительность', 'Davomiyligi')), el('span', 'tour-col__val', labels.nights));
+      const c3 = el('div'); c3.append(el('span', 'tour-col__label', t('Питание', 'Ovqatlanish')), el('span', 'tour-col__val', offer.meal || t('Уточнит менеджер', 'Menejer aniqlaydi')));
+      const c4 = el('div'); c4.append(el('span', 'tour-col__label', t('Номер', 'Xona')), el('span', 'tour-col__val', offer.roomType || 'Standard'));
+      const c5 = el('div'); c5.append(el('span', 'tour-col__label', t('Перелёт', 'Parvoz')), el('span', 'tour-col__val', t('Перелёт включён', 'Parvoz kiritilgan')));
+      const p = el('div', 'tour-price');
+      p.append(el('span', 'tour-price__main', fallbackPrice ? '≈ ' + formatSum(fallbackPrice) : (offer.priceDisplay || '—')));
+      const cta = el('a', 'cta-btn', t('Уточнить тур', 'Turni aniqlashtirish'));
+      cta.href = window.TuronSearchLinks ? window.TuronSearchLinks.draftUrl(offer, labels, uz) : manager;
+      cta.target = '_blank'; cta.rel = 'noopener noreferrer';
+      row.append(c1, c2, c3, c4, c5, p, cta);
+      list.replaceChildren(row);
+      return;
+    }
+
+    const filtered = allTours.filter(tour => {
+      if (selectedMeal && tour.meal !== selectedMeal) return false;
+      if (selectedCell && `${tour.date}|${tour.nights}` !== selectedCell) return false;
+      return true;
+    });
+
+    if (!filtered.length) {
+      list.replaceChildren(el('p', 'section-sub', t('Нет туров по выбранному фильтру — сбросьте питание или дату в таблице.', 'Tanlangan filtr bo‘yicha turlar topilmadi.')));
+      return;
+    }
+
+    list.replaceChildren(...filtered.map((tour, idx) => {
+      const row = el('div', 'tour-row' + (idx === 0 ? ' tour-row--best' : ''));
+      if (idx === 0) row.append(el('span', 'tour-row__badge', '🔥 ' + t('Выгодная цена', 'Eng qulay narx')));
+      const endIso = addDays(tour.date, tour.nights);
+      const dateStr = `${formatShortDate(tour.date)} – ${formatShortDate(endIso)}`;
+      const airline = detectAirline(tour.tourName);
+
+      const c1 = el('div'); c1.append(el('span', 'tour-col__label', t('Даты', 'Sanalar')), el('span', 'tour-col__val', dateStr));
+      const c2 = el('div'); c2.append(el('span', 'tour-col__label', t('Ночей', 'Kecha')), el('span', 'tour-col__val', `${tour.nights} ${t('ноч.', 'kecha')}`));
+      const c3 = el('div'); c3.append(el('span', 'tour-col__label', t('Питание', 'Ovqatlanish')), el('span', 'tour-col__val', tour.meal || t('По запросу', 'So‘rov bo‘yicha')));
+      const c4 = el('div'); c4.append(el('span', 'tour-col__label', t('Номер', 'Xona')), el('span', 'tour-col__val', tour.room || 'Standard'));
+      const c5 = el('div'); c5.append(el('span', 'tour-col__label', t('Перелёт', 'Parvoz')), el('span', 'tour-col__val', airline ? `${t('Включён', 'Kiritilgan')} · ${airline}` : t('Перелёт включён', 'Parvoz kiritilgan')));
+
+      const p = el('div', 'tour-price');
+      p.append(el('span', 'tour-price__main', formatSum(tour.price)));
+      const subParts = [];
+      if (travelers > 1) subParts.push(`${formatSum(tour.price / travelers)} / ${t('чел.', 'kishi')}`);
+      if (tour.priceUsd) subParts.push(`≈ ${tour.priceUsd} $`);
+      if (subParts.length) p.append(el('span', 'tour-price__sub', subParts.join(' · ')));
+
+      const cta = el('a', 'cta-btn', t('Уточнить тур', 'Turni aniqlashtirish'));
+      cta.href = tourDraftHref(tour);
+      cta.target = '_blank';
+      cta.rel = 'noopener noreferrer';
+
+      row.append(c1, c2, c3, c4, c5, p, cta);
+      return row;
+    }));
+  }
+
+  renderMatrix();
+  renderMealFilters();
+  renderTours();
+
+  // Room Types section (no duplicate description!)
+  const uniqueRooms = [...new Set(allTours.map(x => x.room).filter(Boolean))];
+  if (uniqueRooms.length) {
+    id('about-section').hidden = false;
+    id('about-section').querySelector('h2').textContent = t('Доступные типы номеров', 'Mavjud xona turlari');
+    id('about-full').hidden = true;
+    id('rooms-wrap').hidden = false;
+    id('rooms-wrap').querySelector('.sub-heading').hidden = true;
+    const roomsGrid = id('rooms-grid');
+    roomsGrid.replaceChildren(...uniqueRooms.slice(0, 8).map((rName, i) => {
+      const card = el('div', 'room-card');
+      if (photos[i % photos.length]) {
+        const img = el('img');
+        img.src = photos[i % photos.length];
+        img.alt = rName;
+        img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
+        card.append(img);
+      }
+      const info = el('div');
+      info.append(
+        el('div', 'room-card__name', rName),
+        el('div', 'room-card__meta', t('Доступно для бронирования в туре', 'Tur tarkibida band qilish mumkin'))
+      );
+      card.append(info);
+      return card;
+    }));
+  }
+
+  // Popular Excursions
+  fetch('tour-search/excursions-catalog.json')
+    .then(r => (r.ok ? r.json() : null))
+    .then(data => {
+      const list = data?.[query.country];
+      if (!Array.isArray(list) || !list.length) return;
+      id('excursions-title').textContent = t('Популярные экскурсии · ', 'Mashhur ekskursiyalar · ') + labels.country;
+      const grid = id('excursions-grid');
+      grid.replaceChildren(...list.slice(0, 6).map(item => {
+        const a = el('a', 'exc-card');
+        const u = new URL(manager);
+        const excTitle = uz && item.titleUz ? item.titleUz : item.title;
+        u.searchParams.set('text', uz
+          ? `Assalomu alaykum! Ekskursiya haqida ma’lumot olmoqchiman: ${excTitle} (${labels.country}).`
+          : `Здравствуйте! Интересует экскурсия: ${excTitle} (${labels.country}).`);
+        a.href = u.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        const img = el('img');
+        img.src = item.photo;
+        img.alt = excTitle;
+        img.loading = 'lazy';
+        const body = el('div', 'exc-card__body');
+        const textWrap = el('div');
+        textWrap.append(
+          el('h3', 'exc-card__title', excTitle),
+          Object.assign(el('div', 'exc-card__meta'), {
+            innerHTML: `<span class="exc-card__star">★ ${item.rating}</span><span>(${item.reviews})</span><span>${uz && item.durationUz ? item.durationUz : item.duration}</span>`
+          })
+        );
+        body.append(textWrap, el('span', 'exc-card__arrow', '›'));
+        a.append(img, body);
+        return a;
+      }));
+      id('excursions-section').hidden = false;
+    })
+    .catch(() => {});
+
+  // Recently Viewed Hotels
+  try {
+    const recent = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]')
+      .filter(x => x?.offer?.hotel && x.offer.hotel !== offer.hotel)
+      .slice(0, 4);
+    if (recent.length) {
+      const grid = id('recent-grid');
+      grid.replaceChildren(...recent.map(item => {
+        const a = el('a', 'recent-card');
+        const p = new URLSearchParams();
+        if (uz) p.set('lang', 'uz');
+        p.set('key', item.key);
+        p.set('hotel', item.offer.hotel);
+        a.href = 'hotel.html?' + p.toString();
+        a.addEventListener('click', () => {
+          try { sessionStorage.setItem(item.key, JSON.stringify(item)); } catch {}
+        });
+        if (item.offer.photo) {
+          const img = el('img');
+          img.src = item.offer.photo;
+          img.alt = item.offer.hotel;
+          img.loading = 'lazy';
+          img.referrerPolicy = 'no-referrer';
+          a.append(img);
+        }
+        const body = el('div', 'recent-card__body');
+        body.append(
+          el('h3', 'recent-card__title', item.offer.hotel),
+          el('div', 'recent-card__meta', [item.offer.resort || item.labels?.country, item.labels?.nights, item.offer.meal].filter(Boolean).join(' · ')),
+          el('div', 'recent-card__btn', t('Открыть отель', 'Mehmonxonani ochish'))
+        );
+        a.append(body);
+        return a;
+      }));
+      id('recent-section').hidden = false;
+    }
+  } catch {}
+
+  // Floating "Перейти к турам ↑" button
+  const fab = id('scroll-tours');
+  const toursSection = id('tours-section');
+  fab.addEventListener('click', () => toursSection.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  window.addEventListener('scroll', () => {
+    const rect = toursSection.getBoundingClientRect();
+    fab.hidden = rect.bottom > 120;
+  }, { passive: true });
+})();

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#101e37">
+  <title>Отель · Turon Tour</title>
+  <link rel="icon" href="logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tour-search/hotel.css?v=h1">
+  <script src="tour-search/results-model.js?v=cards2" defer></script>
+  <script src="tour-search/widget.js?v=results1" defer></script>
+  <script src="tour-search/hotel-page.js?v=h1" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <nav class="shell masthead__nav" aria-label="Turon Tour">
+      <a class="brand" data-home href="site.html">
+        <img src="img/turon-wordmark-01.svg" width="148" height="32" alt="Turon Tour">
+      </a>
+      <div class="masthead__links">
+        <a class="masthead__phone" href="tel:+998712000909">+998 71 200 09 09</a>
+        <a id="back-link" class="home-link" href="search.html"><span aria-hidden="true">←</span> <span data-uz="Qidiruv natijalariga">К результатам поиска</span></a>
+        <a id="language" class="language" href="?lang=uz" hreflang="uz" lang="uz">UZ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell hotel-main">
+    <section class="hotel-hero" id="hotel-hero">
+      <div id="hotel-gallery" class="gallery"></div>
+
+      <div class="hotel-hero__info">
+        <div class="hotel-hero__head">
+          <div>
+            <h1 id="hotel-name">Загрузка отеля…</h1>
+            <div class="hotel-hero__subrow">
+              <span id="hotel-stars" class="hotel-stars" hidden></span>
+              <span id="hotel-place" class="hotel-place"></span>
+            </div>
+          </div>
+          <div id="hotel-rating" class="hotel-rating" hidden></div>
+        </div>
+
+        <p id="hero-desc" class="hero-desc"></p>
+        <div id="hero-beach" class="hero-beach" hidden></div>
+
+        <div class="hero-perks">
+          <span class="hero-perk" data-uz="✈️ Toshkentdan parvoz">✈️ Перелёт из Ташкента</span>
+          <span class="hero-perk" data-uz="🚌 Transfer">🚌 Трансфер</span>
+          <span class="hero-perk" data-uz="🏨 Yashash">🏨 Проживание</span>
+          <span class="hero-perk" data-uz="🛡️ Sug‘urta">🛡️ Страховка</span>
+        </div>
+
+        <div class="hotel-hero__foot">
+          <div class="hero-price-box">
+            <span class="hero-price-label" id="hero-price-label" data-uz="Eng arzon tur narxi">Лучшая цена тура</span>
+            <strong class="hero-price-val" id="hero-price-val">—</strong>
+          </div>
+          <div class="hero-actions">
+            <a href="#tours-section" class="cta-btn" data-uz="Turlarni ko‘rish ↓">Выбрать тур ↓</a>
+            <button type="button" id="open-map" class="map-btn" data-uz="📍 Xaritada">📍 На карте</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card" id="tours-section">
+      <div class="section-head">
+        <div>
+          <h2 id="tours-heading" data-uz="Mehmonxonaga turlar">Туры в отель</h2>
+          <p id="tours-summary" class="section-sub"></p>
+        </div>
+        <a id="quick-tg" class="cta-btn cta-btn--sm" href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener noreferrer" data-uz="Menejerga yozish">Уточнить у менеджера</a>
+      </div>
+
+      <div id="tours-progress" class="progress-wrap" hidden>
+        <div class="progress-head">
+          <span data-uz="Mehmonxona bo‘yicha barcha turlar, xonalar va ovqatlanish yuklanmoqda…">Загружаем актуальные туры, номера, питание и фото отеля…</span>
+          <span id="tours-pct" class="progress-head__pct">15%</span>
+        </div>
+        <div class="progress-track"><div id="tours-fill" class="progress-fill"></div></div>
+      </div>
+
+      <div id="price-matrix-wrap" class="matrix-wrap" hidden></div>
+      <div id="meal-filters" class="meal-pills" hidden></div>
+      <div id="tours-list" class="tours-list"></div>
+    </section>
+
+    <section class="section-card" id="reviews-section" hidden>
+      <div class="section-head">
+        <h2 data-uz="Sayohatchilar sharhlari">Отзывы туристов</h2>
+        <div id="reviews-summary" class="reviews-summary"></div>
+      </div>
+      <div id="reviews-list" class="reviews-list"></div>
+      <button type="button" id="reviews-more" class="more-btn" hidden data-uz="Ko‘proq sharhlarni ko‘rish">Смотреть больше отзывов</button>
+    </section>
+
+    <section class="section-card" id="about-section" hidden>
+      <h2 data-uz="Mehmonxona haqida batafsil">Подробно об отеле</h2>
+      <div id="about-full" class="about-full"></div>
+      <div id="about-facts" class="about-facts"></div>
+      <div id="rooms-wrap" hidden>
+        <h3 class="sub-heading" data-uz="Xona turlari">Типы номеров</h3>
+        <div id="rooms-grid" class="rooms-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="excursions-section" hidden>
+      <div class="section-head">
+        <div>
+          <h2 id="excursions-title" data-uz="Mashhur ekskursiyalar">Популярные экскурсии</h2>
+          <p class="section-sub" data-uz="Safaringizga qo‘shish uchun eng qiziqarli marshrutlar">Лучшие маршруты, которые можно добавить к вашему отдыху</p>
+        </div>
+      </div>
+      <div id="excursions-grid" class="excursions-grid"></div>
+    </section>
+
+    <section class="section-card" id="recent-section" hidden>
+      <h2 data-uz="Siz qiziqqan turlar">Вы интересовались этими турами</h2>
+      <div id="recent-grid" class="recent-grid"></div>
+    </section>
+  </main>
+
+  <button type="button" id="scroll-tours" class="fab-tours" hidden>
+    <span data-uz="Turlarga o‘tish">Перейти к турам</span>
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Фотогалерея">
+    <button type="button" class="lightbox__close" aria-label="Закрыть">×</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Назад">‹</button>
+    <img id="lightbox-img" alt="">
+    <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Вперёд">›</button>
+    <div id="lightbox-counter" class="lightbox__counter"></div>
+  </dialog>
+
+  <dialog id="map-modal" class="map-modal" aria-label="Карта отеля">
+    <div class="map-modal__head">
+      <strong id="map-modal-title">Отель на карте</strong>
+      <button type="button" class="map-modal__close" aria-label="Закрыть">×</button>
+    </div>
+    <div id="map-modal-body" class="map-modal__body"></div>
+  </dialog>
+
+  <footer class="shell footer">
+    <span>Turon Tour · <a href="tel:+998712000909">+998 71 200 09 09</a></span>
+    <a href="https://t.me/Aziza_Turon_tour" data-uz="Telegramda yozish">Написать в Telegram</a>
+  </footer>
+</body>
+</html>

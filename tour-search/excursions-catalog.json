@@ -1,0 +1,337 @@
+{
+  "thailand": [
+    {
+      "title": "Острова Пхи-Пхи и бухта Майя Бэй",
+      "titleUz": "Pxi-Pxi orollari va Maya Bey ko‘rfazi",
+      "duration": "1 день · скоростной катер",
+      "durationUz": "1 kun · tezyurar kater",
+      "rating": 4.9,
+      "reviews": 148,
+      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Исторический парк Аюттайя — древняя столица",
+      "titleUz": "Ayuttaya tarixiy bog‘i — qadimiy poytaxt",
+      "duration": "1 день · групповая / мини-группа",
+      "durationUz": "1 kun · guruhli",
+      "rating": 4.9,
+      "reviews": 64,
+      "photo": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Обзорная по Бангкоку: храмы и небоскрёбы",
+      "titleUz": "Bangkok bo‘ylab sayohat: ibodatxonalar",
+      "duration": "1 день · с гидом",
+      "durationUz": "1 kun · gid bilan",
+      "rating": 4.8,
+      "reviews": 92,
+      "photo": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Путешествие на реку Квай и водопад Эраван",
+      "titleUz": "Kvay daryosi va Eravan sharsharasi",
+      "duration": "2 дня · с ночёвкой",
+      "durationUz": "2 kun · tunash bilan",
+      "rating": 4.9,
+      "reviews": 53,
+      "photo": "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Остров Джеймса Бонда и бухта Пханг Нга",
+      "titleUz": "Jeyms Bond oroli va Pxang Nga",
+      "duration": "1 день · каноэ и лагуны",
+      "durationUz": "1 kun · kanoe va lagunalar",
+      "rating": 4.8,
+      "reviews": 110,
+      "photo": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Открытый зоопарк Кхао Кхео и сад Нонг Нуч",
+      "titleUz": "Kxao Kxeo hayvonot bog‘i va Nong Nuch",
+      "duration": "1 день · для всей семьи",
+      "durationUz": "1 kun · oilaviy",
+      "rating": 4.8,
+      "reviews": 76,
+      "photo": "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "uae": [
+    {
+      "title": "Обзорная по Дубаю: Бурдж-Халифа, Марина и Пальма",
+      "titleUz": "Dubay bo‘ylab sayohat: Burj-Xalifa va Palma",
+      "duration": "6 часов · с гидом",
+      "durationUz": "6 soat · gid bilan",
+      "rating": 4.9,
+      "reviews": 184,
+      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Пустынное сафари на джипах и ужин в лагере бедуинов",
+      "titleUz": "Cho‘l safarisi va kechki ovqat",
+      "duration": "6 часов · вечерний выезд",
+      "durationUz": "6 soat · kechki sayohat",
+      "rating": 4.9,
+      "reviews": 215,
+      "photo": "https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Абу-Даби: Мечеть шейха Зайда и Лувр",
+      "titleUz": "Abu-Dabi: Shayx Zayd masjidi va Luvr",
+      "duration": "1 день · из Дубая / Шарджи",
+      "durationUz": "1 kun · Dubay / Sharjadan",
+      "rating": 4.9,
+      "reviews": 132,
+      "photo": "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Круиз на яхте по Дубай Марине на закате",
+      "titleUz": "Dubay Marinada yaxtada sayr",
+      "duration": "2 часа · с ужином",
+      "durationUz": "2 soat · kechki ovqat bilan",
+      "rating": 4.8,
+      "reviews": 96,
+      "photo": "https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "turkey": [
+    {
+      "title": "Каппадокия: воздушные шары и подземные города",
+      "titleUz": "Kappadokiya: havo sharlari va g‘or shaharlar",
+      "duration": "2 дня · с перелётом / автобусом",
+      "durationUz": "2 kun · transfer bilan",
+      "rating": 4.9,
+      "reviews": 164,
+      "photo": "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Памуккале и древний Иераполис",
+      "titleUz": "Pamukkale va qadimiy Ierapolis",
+      "duration": "1 день · термальные травертины",
+      "durationUz": "1 kun · termal buloqlar",
+      "rating": 4.8,
+      "reviews": 129,
+      "photo": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Круиз по Босфору и старый Стамбул",
+      "titleUz": "Bosfor bo‘ylab sayr va eski Istanbul",
+      "duration": "5 часов · с гидом",
+      "durationUz": "5 soat · gid bilan",
+      "rating": 4.9,
+      "reviews": 195,
+      "photo": "img/istanbul-hero-hd.png"
+    },
+    {
+      "title": "Зелёный каньон и морская прогулка на яхте",
+      "titleUz": "Yashil kanyon va dengiz sayri",
+      "duration": "1 день · обед включён",
+      "durationUz": "1 kun · tushlik bilan",
+      "rating": 4.8,
+      "reviews": 87,
+      "photo": "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "egypt": [
+    {
+      "title": "Пирамиды Гизы, Сфинкс и Каирский музей",
+      "titleUz": "Giza piramidalari, Sfinks va Qohira muzeyi",
+      "duration": "1 день · из Шарма / Хургады",
+      "durationUz": "1 kun · Sharm / Xurgadadan",
+      "rating": 4.9,
+      "reviews": 173,
+      "photo": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Заповедник Рас-Мохаммед и Белый остров",
+      "titleUz": "Ras-Muhammad qo‘riqxonasi va Oq orol",
+      "duration": "1 день · яхта и снорклинг",
+      "durationUz": "1 kun · yaxta va snorkling",
+      "rating": 4.9,
+      "reviews": 141,
+      "photo": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Мото-сафари на квадроциклах в пустыне",
+      "titleUz": "Cho‘lda kvadrotsikl safarisi",
+      "duration": "4 часа · закат в пустыне",
+      "durationUz": "4 soat · quyosh botishi",
+      "rating": 4.8,
+      "reviews": 112,
+      "photo": "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Древний Луксор и Долина царей",
+      "titleUz": "Qadimiy Luksor va Shohlar vodiysi",
+      "duration": "1 день · исторический тур",
+      "durationUz": "1 kun · tarixiy tur",
+      "rating": 4.9,
+      "reviews": 89,
+      "photo": "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "vietnam": [
+    {
+      "title": "Канатная дорога на остров Хон Том и снорклинг",
+      "titleUz": "Xon Tom oroliga kanat yo‘li va snorkling",
+      "duration": "1 день · Фукуок",
+      "durationUz": "1 kun · Fukuok",
+      "rating": 4.9,
+      "reviews": 84,
+      "photo": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Золотой мост на руках в Ба На Хиллс",
+      "titleUz": "Ba Na Xillsdagi Oltin ko‘prik",
+      "duration": "1 день · Дананг",
+      "durationUz": "1 kun · Danang",
+      "rating": 4.9,
+      "reviews": 116,
+      "photo": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Горный Далат: водопады и Crazy House",
+      "titleUz": "Tog‘li Dalat: sharsharalar va Crazy House",
+      "duration": "1 день · из Нячанга",
+      "durationUz": "1 kun · Nyachangdan",
+      "rating": 4.8,
+      "reviews": 71,
+      "photo": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "maldives": [
+    {
+      "title": "Плавание с мантами и китовыми акулами",
+      "titleUz": "Mantalar va kit akulalari bilan suzish",
+      "duration": "Полный день · катер и гид",
+      "durationUz": "To‘liq kun · kater va gid",
+      "rating": 5.0,
+      "reviews": 94,
+      "photo": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Песчаная отмель и круиз к дельфинам на закате",
+      "titleUz": "Qumli orolcha va delfinlar bilan sayr",
+      "duration": "4 часа · романтический выезд",
+      "durationUz": "4 soat · romantik sayr",
+      "rating": 4.9,
+      "reviews": 118,
+      "photo": "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Рыбалка на закате и барбекю на острове",
+      "titleUz": "Quyosh botishida baliq ovi va barbekyu",
+      "duration": "4 часа · ужин на пляже",
+      "durationUz": "4 soat · plyajda kechki ovqat",
+      "rating": 4.8,
+      "reviews": 67,
+      "photo": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "srilanka": [
+    {
+      "title": "Сигирия, Дамбулла и чайные плантации Нувара-Элии",
+      "titleUz": "Sigiriya, Dambulla va choy plantatsiyalari",
+      "duration": "2 дня · сердце острова",
+      "durationUz": "2 kun · orol markazi",
+      "rating": 4.9,
+      "reviews": 78,
+      "photo": "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Сафари в национальном парке Яла",
+      "titleUz": "Yala milliy bog‘ida safari",
+      "duration": "1 день · леопарды и слоны",
+      "durationUz": "1 kun · leopard va fillar",
+      "rating": 4.8,
+      "reviews": 63,
+      "photo": "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Форт Галле, черепашья ферма и река Маду",
+      "titleUz": "Galle qal’asi va toshbaqalar fermasi",
+      "duration": "1 день · юго-западное побережье",
+      "durationUz": "1 kun · janubi-g‘arbiy sohil",
+      "rating": 4.8,
+      "reviews": 55,
+      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "georgia": [
+    {
+      "title": "Батуми, ботанический сад и горная Аджария",
+      "titleUz": "Batumi, botanika bog‘i va tog‘li Ajariya",
+      "duration": "1 день · водопады и винодельня",
+      "durationUz": "1 kun · sharsharalar",
+      "rating": 4.9,
+      "reviews": 112,
+      "photo": "img/batumi.webp"
+    },
+    {
+      "title": "Военно-Грузинская дорога и Казбеги",
+      "titleUz": "Harbiy-Gruziya yo‘li va Kazbegi",
+      "duration": "1 день · из Тбилиси",
+      "durationUz": "1 kun · Tbilisidan",
+      "rating": 4.9,
+      "reviews": 134,
+      "photo": "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Кахетия: Сигнахи, монастырь Бодбе и дегустация",
+      "titleUz": "Kaxetiya: Signaxi va Bodbe",
+      "duration": "1 день · винный край",
+      "durationUz": "1 kun · vino o‘lkasi",
+      "rating": 4.9,
+      "reviews": 98,
+      "photo": "https://images.unsplash.com/photo-1579782515916-9421d59d409e?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "malaysia": [
+    {
+      "title": "Куала-Лумпур: башни Петронас и пещеры Бату",
+      "titleUz": "Kuala-Lumpur: Petronas va Batu g‘orlari",
+      "duration": "1 день · столица Малайзии",
+      "durationUz": "1 kun · Malayziya poytaxti",
+      "rating": 4.9,
+      "reviews": 87,
+      "photo": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Небесный мост Sky Bridge и мангровые леса Лангкави",
+      "titleUz": "Langkavi Sky Bridge va mangrov o‘rmonlari",
+      "duration": "1 день · Лангкави",
+      "durationUz": "1 kun · Langkavi",
+      "rating": 4.8,
+      "reviews": 62,
+      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=700&q=80"
+    }
+  ],
+  "bali": [
+    {
+      "title": "Убуд: рисовые террасы Тегаллаланг, лес обезьян и качели",
+      "titleUz": "Ubud: sholi terrasalar va maymunlar o‘rmoni",
+      "duration": "1 день · сердце Бали",
+      "durationUz": "1 kun · Bali markazi",
+      "rating": 4.9,
+      "reviews": 156,
+      "photo": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Остров Нуса Пенида: пляж Келингкинг и Ангел Биллабонг",
+      "titleUz": "Nusa Penida oroli: Kelingking plyaji",
+      "duration": "1 день · скоростной катер",
+      "durationUz": "1 kun · tezyurar kater",
+      "rating": 4.9,
+      "reviews": 142,
+      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=700&q=80"
+    },
+    {
+      "title": "Храм Улувату на скале и огненный танец Кечак",
+      "titleUz": "Uluvatu ibodatxonasi va Kechak raqsi",
+      "duration": "6 часов · закат над океаном",
+      "durationUz": "6 soat · quyosh botishi",
+      "rating": 4.8,
+      "reviews": 93,
+      "photo": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=700&q=80"
+    }
+  ]
+}

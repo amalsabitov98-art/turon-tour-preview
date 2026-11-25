@@ -342,6 +342,17 @@ a { color: inherit; }
   color: #0e1d35;
   overflow-wrap: anywhere;
 }
+.offer-card__title-link { text-decoration: none; color: inherit; }
+.offer-card__title-link:hover { color: #1d4ed8; text-decoration: underline; }
+.offer-card__tours-link {
+  display: inline-block;
+  align-self: flex-start;
+  color: #1d4ed8;
+  font-size: .88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.offer-card__tours-link:hover { text-decoration: underline; }
 .offer-card__place {
   display: inline-flex;
   align-items: center;

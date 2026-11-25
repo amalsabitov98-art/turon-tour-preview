@@ -400,15 +400,42 @@
       t('Попробуйте убрать ограничение бюджета или изменить название отеля.', 'Byudjet cheklovini olib tashlang yoki mehmonxona nomini o‘zgartiring.'));
   }
 
+  function openHotelHref(offer, labels) {
+    const key = 'turon_hotel_' + (offer.hotelId || Math.abs([...String(offer.hotel)].reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)));
+    const p = new URLSearchParams();
+    if (uz) p.set('lang', 'uz');
+    p.set('key', key);
+    p.set('hotel', offer.hotel);
+    if (query?.country) p.set('country', query.country);
+    return {
+      key,
+      href: 'hotel.html?' + p.toString(),
+      save: () => {
+        try {
+          sessionStorage.setItem(key, JSON.stringify({
+            key,
+            offer,
+            query,
+            labels,
+            searchHref: 'search.html' + location.search
+          }));
+        } catch {}
+      }
+    };
+  }
+
   function renderOffer(offer, labels) {
     const card = element('article', 'offer-card');
     const stars = offer.hotel.match(/(?:^|\s)([1-5])\s*[*★]\s*$/);
     const name = (stars ? offer.hotel.slice(0, stars.index).trim() : offer.hotel) || offer.hotel;
     const placeText = offer.resort || labels.country;
     const seaMatch = placeText.match(/(\d+\s*м\s*до\s*моря|первая\s*линия)/i);
+    const hotelLink = openHotelHref(offer, labels);
 
     // 1. Media column
-    const media = element('div', 'offer-card__media');
+    const media = element('a', 'offer-card__media');
+    media.href = hotelLink.href;
+    media.addEventListener('click', hotelLink.save);
     const fallback = element('div', 'offer-card__fallback');
     fallback.innerHTML = icon;
     media.append(fallback);
@@ -432,7 +459,12 @@
     // 2. Body column
     const body = element('div', 'offer-card__body');
     const top = element('div', 'offer-card__top');
-    top.append(element('h3', 'offer-card__title', name));
+    const titleWrap = element('h3', 'offer-card__title');
+    const titleLink = element('a', 'offer-card__title-link', name);
+    titleLink.href = hotelLink.href;
+    titleLink.addEventListener('click', hotelLink.save);
+    titleWrap.append(titleLink);
+    top.append(titleWrap);
     const ratingVal = Number(offer.rating);
     if (Number.isFinite(ratingVal) && ratingVal > 0) {
       const rating = element('span', 'offer-card__rating');
@@ -472,6 +504,13 @@
       body.append(descWrap);
     }
 
+    if (Number(offer.toursCount) > 1) {
+      const toursLink = element('a', 'offer-card__tours-link', t('Ещё ', 'Yana ') + offer.toursCount + t(' туров →', ' ta tur →'));
+      toursLink.href = hotelLink.href;
+      toursLink.addEventListener('click', hotelLink.save);
+      body.append(toursLink);
+    }
+
     const meta = element('div', 'offer-card__meta');
     const makeTag = (svg, text) => {
       const tag = element('span', 'offer-card__tag');
@@ -508,10 +547,9 @@
     );
 
     const actions = element('div', 'offer-card__actions');
-    const cta = element('a', 'offer-card__cta', t('Уточнить тур', 'Turni aniqlashtirish'));
-    cta.href = links.draftUrl(offer, labels, uz);
-    cta.target = '_blank';
-    cta.rel = 'noopener noreferrer';
+    const cta = element('a', 'offer-card__cta', t('Подробнее', 'Batafsil'));
+    cta.href = hotelLink.href;
+    cta.addEventListener('click', hotelLink.save);
 
     const call = element('a', 'offer-card__call');
     call.href = phoneHref;
