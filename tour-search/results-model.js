@@ -81,7 +81,7 @@
     return {
       hotel: (params.get('hotel') || '').trim().slice(0, 100),
       budget,
-      sort: ['source', 'price-desc'].includes(sort) ? sort : 'price-asc'
+      sort: ['source', 'price-desc', 'rating-desc'].includes(sort) ? sort : 'price-asc'
     };
   }
 
@@ -112,6 +112,15 @@
       const price = priceAmount(offer.priceDisplay);
       return String(offer.hotel).toLowerCase().includes(term) && (!budget || (price !== null && price <= budget));
     });
+    if (sort === 'rating-desc') {
+      return filtered.sort((a, b) => {
+        const ra = Number(a.rating) || 0, rb = Number(b.rating) || 0;
+        if (rb !== ra) return rb - ra;
+        const first = priceAmount(a.priceDisplay), second = priceAmount(b.priceDisplay);
+        if (first === null || second === null) return Number(first === null) - Number(second === null);
+        return first - second;
+      });
+    }
     if (sort !== 'price-asc' && sort !== 'price-desc') return filtered;
     return filtered.sort((a, b) => {
       const first = priceAmount(a.priceDisplay), second = priceAmount(b.priceDisplay);

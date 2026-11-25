@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tour-search/results.css">
-  <script src="tour-search/results-model.js" defer></script>
+  <link rel="stylesheet" href="tour-search/results.css?v=cards2">
+  <script src="tour-search/results-model.js?v=cards2" defer></script>
   <script src="tour-search/widget.js?v=results1" defer></script>
-  <script src="tour-search/results-page.js" defer></script>
+  <script src="tour-search/results-page.js?v=cards2" defer></script>
 </head>
 <body>
   <header class="masthead">
@@ -22,6 +22,7 @@
         <img src="img/turon-wordmark-01.svg" width="148" height="32" alt="Turon Tour">
       </a>
       <div class="masthead__links">
+        <a class="masthead__phone" href="tel:+998712000909">+998 71 200 09 09</a>
         <a class="home-link" data-home href="site.html"><span aria-hidden="true">←</span> <span data-uz="Bosh sahifa">На главную</span></a>
         <a id="language" class="language" href="?lang=uz" hreflang="uz" lang="uz">UZ</a>
       </div>
@@ -115,10 +116,17 @@
             <span class="sr-only" data-uz="Saralash">Сортировка</span>
             <select id="sort">
               <option value="price-asc" data-uz="Avval arzonlari">Сначала дешевле</option>
+              <option value="rating-desc" data-uz="Reyting bo‘yicha">По рейтингу</option>
               <option value="price-desc" data-uz="Avval qimmatlari">Сначала дороже</option>
               <option value="source" data-uz="Qidiruv tartibida">По порядку поиска</option>
             </select>
           </label>
+        </div>
+        <div id="sort-pills" class="sort-pills" role="group" aria-label="Сортировка">
+          <button type="button" class="sort-pill is-active" data-sort="price-asc" data-uz="Avval arzonlari">От дешёвых к дорогим</button>
+          <button type="button" class="sort-pill" data-sort="rating-desc" data-uz="Reyting bo‘yicha">По рейтингу</button>
+          <button type="button" class="sort-pill" data-sort="price-desc" data-uz="Avval qimmatlari">Сначала дороже</button>
+          <button type="button" class="sort-pill" data-sort="source" data-uz="Tavsiya etilgan">Рекомендуемые</button>
         </div>
         <div id="active-filters" class="active-filters" hidden></div>
         <div id="status" class="status" role="status" aria-live="polite" hidden></div>
@@ -129,7 +137,7 @@
     <noscript><p>Для поиска включите JavaScript или напишите <a href="https://t.me/Aziza_Turon_tour">менеджеру в Telegram</a>.</p></noscript>
   </main>
   <footer class="shell footer">
-    <span>Turon Tour</span>
+    <span>Turon Tour · <a href="tel:+998712000909">+998 71 200 09 09</a></span>
     <a href="https://t.me/Aziza_Turon_tour" data-uz="Telegramda yozish">Написать в Telegram</a>
   </footer>
 </body>

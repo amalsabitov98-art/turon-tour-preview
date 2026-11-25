@@ -15,7 +15,21 @@
   const local = ['127.0.0.1:5183', 'localhost:5183'].includes(location.host);
   const api = local ? 'http://127.0.0.1:8051' : model.api;
   const manager = 'https://t.me/Aziza_Turon_tour';
+  const phoneHref = 'tel:+998712000909';
+  const sortPills = id('sort-pills');
   const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M6 20V6h9v14m0-10h3v10M9 9h3m-3 4h3m-1 7v-3"/></svg>';
+  const pinSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+  const calSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+  const moonSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
+  const usersSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+  const phoneSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.1 14.7 14 15.5c-2.8-1.4-4.5-3-5.5-5.5l.8-4.1L7.8 2H4.1C3 2 2.1 2.9 2.2 4c.4 2.8 1.7 7.8 5.3 11.5 3.8 3.8 9.3 5.5 12.3 6.1 1.2.3 2.2-.7 2.2-1.8v-3.6z"/></svg>';
+  const includedItems = [
+    [t('Перелёт', 'Parvoz'), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z"/></svg>'],
+    [t('Трансфер', 'Transfer'), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="11" rx="2"/><path d="M7 17v2M17 17v2M3 12h18M7 9h.01M17 9h.01"/></svg>'],
+    [t('Проживание', 'Yashash'), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01"/></svg>'],
+    [t('Питание', 'Ovqatlanish'), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>'],
+    [t('Страховка', 'Sug‘urta'), '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M9 12h6M12 9v6"/></svg>']
+  ];
   const serviceGroups = [
     [t('Пляж и расположение', 'Plyaj va joylashuv'), [
       ['Первая линия', 'Birinchi qator'], ['Свой пляж', 'Shaxsiy plyaj'], ['Песчаный пляж', 'Qumli plyaj'], ['Галечный пляж', 'Toshli plyaj']
@@ -218,63 +232,205 @@
     return { hotel: hotel.value.trim(), budget: budget.validity.valid ? budget.valueAsNumber || 0 : 0, sort: sort.value };
   }
 
+  function syncSortPills() {
+    if (!sortPills) return;
+    for (const btn of sortPills.querySelectorAll('.sort-pill')) {
+      btn.classList.toggle('is-active', btn.dataset.sort === sort.value);
+    }
+  }
+
+  function renderIncludedStrip() {
+    const strip = element('aside', 'included-strip');
+    strip.append(element('p', 'included-strip__title', t('В туры обычно включено:', 'Turlarga odatda kiradi:')));
+    const list = element('ul', 'included-strip__items');
+    for (const [label, svg] of includedItems) {
+      const li = element('li', 'included-strip__item');
+      const badge = element('span', 'included-strip__icon');
+      badge.innerHTML = svg;
+      li.append(badge, element('span', '', label));
+      list.append(li);
+    }
+    strip.append(list);
+    return strip;
+  }
+
+  function renderSkeletons() {
+    const wrap = element('div', 'skeletons');
+    wrap.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 3; i++) {
+      const card = element('div', 'skeleton-card');
+      const media = element('div', 'skeleton-box');
+      const body = element('div', 'skeleton-body');
+      body.append(
+        element('div', 'skeleton-box skeleton-line skeleton-line--lg'),
+        element('div', 'skeleton-box skeleton-line skeleton-line--md'),
+        element('div', 'skeleton-box skeleton-line skeleton-line--sm'),
+        element('div', 'skeleton-box skeleton-line skeleton-line--sm')
+      );
+      const aside = element('div', 'skeleton-aside');
+      aside.append(
+        element('div', 'skeleton-box skeleton-line skeleton-line--lg'),
+        element('div', 'skeleton-box skeleton-btn')
+      );
+      card.append(media, body, aside);
+      wrap.append(card);
+    }
+    return wrap;
+  }
+
+  function ratingLabel(score) {
+    if (score >= 4.5) return t('Отлично', 'A’lo');
+    if (score >= 4.0) return t('Очень хорошо', 'Juda yaxshi');
+    if (score >= 3.5) return t('Хорошо', 'Yaxshi');
+    return t('Рейтинг', 'Reyting');
+  }
+
+  function formatSum(amount, approx) {
+    return (approx ? '≈ ' : '') + new Intl.NumberFormat('ru-RU').format(amount) + t(' сум', ' so‘m');
+  }
+
   function showOffers() {
     if (!response) return;
+    syncSortPills();
     const offers = model.selectOffers(response.offers, currentView());
-    const expanded = new Set([...offersNode.querySelectorAll('details[open]')].map(card => card.dataset.offer));
     const labels = searchLabels();
-    offersNode.replaceChildren(...offers.map(offer => renderOffer(offer, labels, expanded)));
+    const nodes = [];
+    offers.forEach((offer, idx) => {
+      nodes.push(renderOffer(offer, labels));
+      if (idx === 0 && offers.length > 1) nodes.push(renderIncludedStrip());
+    });
+    if (offers.length === 1) nodes.push(renderIncludedStrip());
+    offersNode.replaceChildren(...nodes);
     id('offers-count').textContent = offers.length === response.offers.length
-      ? t('Показано предложений — ', 'Ko‘rsatilgan takliflar — ') + offers.length
+      ? t('Найдено предложений — ', 'Topilgan takliflar — ') + offers.length
       : t('Показано ', 'Ko‘rsatilgan ') + offers.length + t(' из ', ' / ') + response.offers.length;
     status.hidden = offers.length > 0;
     if (!offers.length) showStatus('empty', t('Подходящих вариантов нет', 'Mos variantlar topilmadi'),
       t('Попробуйте убрать ограничение бюджета или изменить название отеля.', 'Byudjet cheklovini olib tashlang yoki mehmonxona nomini o‘zgartiring.'));
   }
 
-  function renderOffer(offer, labels, expanded) {
-    const card = element('details', 'offer');
-    card.dataset.offer = [offer.hotel, offer.resort || '', offer.priceDisplay].join('|');
-    card.open = expanded.has(card.dataset.offer);
-    const summary = element('summary', 'offer__summary');
-    const symbol = element('span', 'offer__icon');
-    symbol.innerHTML = icon;
-    const main = element('span');
+  function renderOffer(offer, labels) {
+    const card = element('article', 'offer-card');
     const stars = offer.hotel.match(/(?:^|\s)([1-5])\s*[*★]\s*$/);
-    const name = stars ? offer.hotel.slice(0, stars.index).trim() : offer.hotel;
-    if (stars && name) {
-      const starLine = element('span', 'offer__stars', '★'.repeat(Number(stars[1])));
-      starLine.setAttribute('aria-label', stars[1] + t(' звезды', ' yulduz'));
-      main.append(starLine);
-    }
-    main.append(element('span', 'offer__title', name || offer.hotel),
-      element('span', 'offer__place', offer.resort || labels.country));
-    const quote = element('span', 'offer__quote');
-    const price = model.priceAmount(offer.priceDisplay);
-    const pretty = price === null ? offer.priceDisplay :
-      (/K\s*UZS$/i.test(offer.priceDisplay) ? '≈ ' : '') + new Intl.NumberFormat('ru-RU').format(price) + t(' сум', ' so‘m');
-    quote.append(element('strong', 'offer__price', pretty), element('span', 'offer__disclose', t('О туре', 'Tur haqida')));
-    summary.append(symbol, main, quote);
+    const name = (stars ? offer.hotel.slice(0, stars.index).trim() : offer.hotel) || offer.hotel;
+    const placeText = offer.resort || labels.country;
+    const seaMatch = placeText.match(/(\d+\s*м\s*до\s*моря|первая\s*линия)/i);
 
-    const detail = element('div', 'offer__detail'), list = element('dl');
-    const fields = [
-      [t('Даты поиска', 'Qidiruv sanalari'), labels.date],
-      [t('Длительность', 'Davomiyligi'), labels.nights],
-      [t('Туристы', 'Sayohatchilar'), labels.passengers]
-    ];
-    if (typeof offer.roomType === 'string' && offer.roomType.trim()) fields.push([t('Номер', 'Xona'), offer.roomType]);
-    if (typeof offer.meal === 'string' && offer.meal.trim()) fields.push([t('Питание', 'Ovqatlanish'), offer.meal]);
-    for (const [name, value] of fields) {
-      const row = element('div');
-      row.append(element('dt', '', name), element('dd', '', value));
-      list.append(row);
+    // 1. Media column
+    const media = element('div', 'offer-card__media');
+    const fallback = element('div', 'offer-card__fallback');
+    fallback.innerHTML = icon;
+    media.append(fallback);
+    if (typeof offer.photo === 'string' && /^https?:\/\//i.test(offer.photo)) {
+      const img = element('img', 'offer-card__img');
+      img.src = offer.photo;
+      img.alt = name;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      img.addEventListener('load', () => { fallback.hidden = true; });
+      img.addEventListener('error', () => { img.remove(); fallback.hidden = false; });
+      media.append(img);
     }
-    detail.append(list, contact(t('Уточнить в Telegram', 'Telegramda aniqlashtirish'), links.draftUrl(offer, labels, uz)));
-    if (!offer.roomType) detail.append(element('p', '', t(
-      'Менеджер уточнит доступные номера, питание и точную цену.',
-      'Menejer mavjud xonalar, ovqatlanish va yakuniy narxni aniqlab beradi.'
-    )));
-    card.append(summary, detail);
+    if (seaMatch) {
+      const badges = element('div', 'offer-card__badges');
+      badges.append(element('span', 'offer-card__pill offer-card__pill--sea', seaMatch[1]));
+      media.append(badges);
+    }
+
+    // 2. Body column
+    const body = element('div', 'offer-card__body');
+    const top = element('div', 'offer-card__top');
+    if (stars) {
+      const starLine = element('span', 'offer-card__stars', '★'.repeat(Number(stars[1])));
+      starLine.setAttribute('aria-label', stars[1] + t(' звезды', ' yulduz'));
+      top.append(starLine);
+    }
+    const ratingVal = Number(offer.rating);
+    if (Number.isFinite(ratingVal) && ratingVal > 0) {
+      const rating = element('span', 'offer-card__rating');
+      rating.append(element('span', 'offer-card__rating-label', ratingLabel(ratingVal)));
+      const scoreClass = ratingVal >= 4.5 ? 'offer-card__rating-score offer-card__rating-score--high'
+        : ratingVal >= 4.0 ? 'offer-card__rating-score offer-card__rating-score--mid'
+        : 'offer-card__rating-score';
+      rating.append(element('span', scoreClass, ratingVal.toFixed(1).replace('.', ',')));
+      top.append(rating);
+    }
+    if (top.childElementCount) body.append(top);
+
+    body.append(element('h3', 'offer-card__title', name));
+
+    const place = element('div', 'offer-card__place');
+    place.innerHTML = pinSvg;
+    place.append(element('span', '', placeText));
+    body.append(place);
+
+    if (typeof offer.description === 'string' && offer.description.trim()) {
+      const descWrap = element('div', 'offer-card__desc-wrap');
+      const desc = element('p', 'offer-card__desc', offer.description.trim());
+      descWrap.append(desc);
+      if (offer.description.trim().length > 125) {
+        const more = element('button', 'offer-card__more', t('Подробнее об отеле', 'Mehmonxona haqida batafsil'));
+        more.type = 'button';
+        more.addEventListener('click', () => {
+          const open = desc.classList.toggle('is-expanded');
+          more.textContent = open ? t('Свернуть', 'Yashirish') : t('Подробнее об отеле', 'Mehmonxona haqida batafsil');
+        });
+        descWrap.append(more);
+      }
+      body.append(descWrap);
+    }
+
+    const meta = element('div', 'offer-card__meta');
+    const makeTag = (svg, text) => {
+      const tag = element('span', 'offer-card__tag');
+      if (svg) tag.innerHTML = svg;
+      tag.append(element('span', '', text));
+      return tag;
+    };
+    meta.append(
+      makeTag(calSvg, labels.date),
+      makeTag(moonSvg, labels.nights),
+      makeTag(usersSvg, labels.passengers)
+    );
+    if (typeof offer.meal === 'string' && offer.meal.trim()) meta.append(makeTag('', offer.meal.trim()));
+    if (typeof offer.roomType === 'string' && offer.roomType.trim()) meta.append(makeTag('', offer.roomType.trim()));
+    body.append(meta);
+
+    // 3. Pricing & CTA column
+    const aside = element('div', 'offer-card__aside');
+    const pricing = element('div', 'offer-card__pricing');
+    const price = model.priceAmount(offer.priceDisplay);
+    const approx = /K\s*UZS$/i.test(offer.priceDisplay);
+    const travelers = (query?.adults || 1) + (Array.isArray(query?.children) ? query.children.length : 0);
+    if (price !== null && travelers > 1) {
+      const per = element('div', 'offer-card__per-person');
+      per.append(
+        element('span', '', t('за 1 чел.', '1 kishi uchun')),
+        element('strong', '', formatSum(Math.round(price / travelers), true))
+      );
+      pricing.append(per);
+    }
+    pricing.append(
+      element('span', 'offer-card__total-label', t('за ', '') + labels.passengers + t('', ' uchun')),
+      element('strong', 'offer-card__price', price === null ? offer.priceDisplay : formatSum(price, approx))
+    );
+
+    const actions = element('div', 'offer-card__actions');
+    const cta = element('a', 'offer-card__cta', t('Уточнить тур', 'Turni aniqlashtirish'));
+    cta.href = links.draftUrl(offer, labels, uz);
+    cta.target = '_blank';
+    cta.rel = 'noopener noreferrer';
+
+    const call = element('a', 'offer-card__call');
+    call.href = phoneHref;
+    call.innerHTML = phoneSvg;
+    call.append(element('span', '', t('Позвонить', 'Qo‘ng‘iroq qilish')));
+
+    actions.append(cta, call);
+    aside.append(pricing, actions);
+
+    card.append(media, body, aside);
     return card;
   }
 
@@ -288,11 +444,11 @@
     const stillCurrent = () => activeRequest === controller;
     const deadline = setTimeout(() => controller.abort(), 245000);
     response = null;
-    offersNode.replaceChildren();
+    offersNode.replaceChildren(renderSkeletons());
     id('offers-count').textContent = '';
     id('offer-note').textContent = '';
     showStatus('loading', t('Ищем предложения', 'Takliflar qidirilmoqda'),
-      t('Поиск может занять пару минут.', 'Qidiruv bir necha daqiqa davom etishi mumkin.'), [contact(t('Написать менеджеру', 'Menejerga yozish'))]);
+      t('Поиск может занять до минуты — собираем актуальные цены.', 'Qidiruv bir daqiqagacha davom etishi mumkin — dolzarb narxlarni yig‘moqdamiz.'), [contact(t('Написать менеджеру', 'Menejerga yozish'))]);
     try {
       const result = await fetch(api + '/api/search', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -301,17 +457,20 @@
       const data = await result.json();
       if (!stillCurrent()) return;
       if (data.status === 'busy') {
+        offersNode.replaceChildren();
         showStatus('unavailable', t('Поиск перегружен', 'Qidiruv xizmati band'),
           t('Попробуйте ещё раз через минуту.', 'Bir daqiqadan keyin qayta urinib ko‘ring.'), [retry()]);
         return;
       }
       if (!result.ok || !['offers', 'empty'].includes(data.status)) throw new Error('Search unavailable');
       if (!model.sameFilters(requested.filters, data.query?.filters)) {
+        offersNode.replaceChildren();
         showStatus('unavailable', t('Фильтры не применились', 'Filtrlar qo‘llanmadi'),
           t('Повторите поиск или измените условия.', 'Qidiruvni takrorlang yoki shartlarni o‘zgartiring.'), [retry()]);
         return;
       }
       if (data.status === 'empty') {
+        offersNode.replaceChildren();
         showStatus('empty', t('Туры не найдены', 'Turlar topilmadi'),
           t('Попробуйте другие даты, число ночей или фильтры.', 'Boshqa sana, tunlar soni yoki filtrlarni sinab ko‘ring.'));
         return;
@@ -329,6 +488,7 @@
       showOffers();
     } catch {
       if (!stillCurrent()) return;
+      offersNode.replaceChildren();
       showStatus('unavailable', controller.signal.aborted ? t('Поиск занял слишком много времени', 'Qidiruv uzoq davom etdi') :
         t('Не удалось загрузить предложения', 'Takliflarni yuklab bo‘lmadi'),
       t('Повторите поиск или напишите менеджеру.', 'Qayta qidiring yoki menejerga yozing.'),
@@ -345,6 +505,7 @@
     hotel.value = view.hotel;
     budget.value = view.budget || '';
     sort.value = view.sort;
+    syncSortPills();
     refreshLanguageLink();
     setFields();
     showSearchSummary();
@@ -413,6 +574,18 @@
   for (const field of [hotel, budget, sort]) {
     field.addEventListener('input', () => {
       if (!query) return;
+      syncSortPills();
+      history.replaceState(null, '', model.resultsHref(query, uz, currentView()));
+      refreshLanguageLink();
+      showOffers();
+    });
+  }
+  if (sortPills) {
+    sortPills.addEventListener('click', event => {
+      const btn = event.target.closest('.sort-pill');
+      if (!btn || !query) return;
+      sort.value = btn.dataset.sort;
+      syncSortPills();
       history.replaceState(null, '', model.resultsHref(query, uz, currentView()));
       refreshLanguageLink();
       showOffers();
