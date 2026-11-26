@@ -88,10 +88,22 @@
     backLink.href = window.TuronResults.resultsHref(query, uz);
   }
 
+  function cleanText(s) {
+    if (!s) return '';
+    return String(s)
+      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+      .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ')
+      .replace(/\s*ГОРЯЩИЙ\s+ТУР\s*/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   const starsMatch = String(offer.hotel || '').match(/(?:^|\s)([1-5])\s*[*★]\s*$/);
-  const hotelName = (starsMatch ? offer.hotel.slice(0, starsMatch.index).trim() : offer.hotel) || offer.hotel;
+  const hotelName = cleanText((starsMatch ? offer.hotel.slice(0, starsMatch.index).trim() : offer.hotel) || offer.hotel);
   const starCount = starsMatch ? Number(starsMatch[1]) : 0;
-  const placeText = offer.resort ? `${offer.resort}, ${labels.country}` : labels.country;
+  const cleanResort = cleanText(offer.resort);
+  const placeText = cleanResort ? `${cleanResort}, ${labels.country}` : labels.country;
   document.title = `${hotelName} · Turon Tour`;
 
   // Save to recently viewed
@@ -218,7 +230,7 @@
   renderGallery();
 
   // Right column: About + Beach + Map
-  const descText = (offer.description || '').trim();
+  const descText = cleanText(offer.description || '');
   id('hero-desc').textContent = descText || t(
     'Уютный отель для комфортного отдыха. Менеджер Turon Tour подскажет актуальные номера, питание и лучшие рейсы из Ташкента.',
     'Qulay dam olish uchun ajoyib mehmonxona. Turon Tour menejeri mavjud xonalar, ovqatlanish va Toshkentdan eng qulay reyslarni tavsiya qiladi.'

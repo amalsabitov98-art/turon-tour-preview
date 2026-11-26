@@ -425,11 +425,22 @@
     };
   }
 
+  function cleanText(s) {
+    if (!s) return '';
+    return String(s)
+      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+      .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ')
+      .replace(/\s*ГОРЯЩИЙ\s+ТУР\s*/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   function renderOffer(offer, labels) {
     const card = element('article', 'offer-card');
     const stars = offer.hotel.match(/(?:^|\s)([1-5])\s*[*★]\s*$/);
-    const name = (stars ? offer.hotel.slice(0, stars.index).trim() : offer.hotel) || offer.hotel;
-    const placeText = offer.resort || labels.country;
+    const name = cleanText((stars ? offer.hotel.slice(0, stars.index).trim() : offer.hotel) || offer.hotel);
+    const placeText = cleanText(offer.resort) || labels.country;
     const seaMatch = placeText.match(/(\d+\s*м\s*до\s*моря|первая\s*линия)/i);
     const hotelLink = openHotelHref(offer, labels);
 
@@ -489,11 +500,12 @@
     place.append(element('span', '', placeText));
     body.append(place);
 
-    if (typeof offer.description === 'string' && offer.description.trim()) {
+    if (typeof offer.description === 'string' && cleanText(offer.description)) {
+      const cleanDesc = cleanText(offer.description);
       const descWrap = element('div', 'offer-card__desc-wrap');
-      const desc = element('p', 'offer-card__desc', offer.description.trim());
+      const desc = element('p', 'offer-card__desc', cleanDesc);
       descWrap.append(desc);
-      if (offer.description.trim().length > 125) {
+      if (cleanDesc.length > 125) {
         const more = element('button', 'offer-card__more', t('Подробнее об отеле', 'Mehmonxona haqida batafsil'));
         more.type = 'button';
         more.addEventListener('click', () => {
