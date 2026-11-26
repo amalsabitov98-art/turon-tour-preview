@@ -188,7 +188,7 @@
         ? new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Tashkent' }).format(new Date(catalog.checkedAt))
         : '';
       status.textContent = names.length
-        ? (t('Список курортов TourVisor (актуален на ', 'TourVisor kurortlar ro‘yxati (') + (checked || '—') + '). ' + t('Если не выбирать — ищем по всей стране.', 'Tanlamasangiz — butun mamlakat bo‘yicha qidiramiz.'))
+        ? t('Если не выбирать курорт — ищем по всей стране.', 'Kurort tanlamasangiz — butun mamlakat bo‘yicha qidiramiz.')
         : t('Список недоступен. Введите точное название вручную.', 'Ro‘yxat mavjud emas. Aniq nomini kiriting.');
       render();
     } catch {

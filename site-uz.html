@@ -1681,7 +1681,7 @@ async function loadTours(){
     }).sort((a, b) => (b.off - a.off) || (b.hot - a.hot) || (a.usd - b.usd));
     if (!tours.length) return null;
     const n = hotNote();
-    if (n) n.textContent = LABELS.note(whenFmt(d.generatedAt), d.rate && d.rate.date ? d.rate.date : '') + (tours.some(t => t.off) ? " Chegirma foizi Tourvisor ma’lumotlari yoki yo‘nalishdagi odatiy narxga nisbatan ko‘rsatilgan." : '');
+    if (n) { n.textContent = ''; n.hidden = true; }
     return tours;
   } catch { return null; } finally { clearTimeout(timer); }
 }

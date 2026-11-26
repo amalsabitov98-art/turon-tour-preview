@@ -51,6 +51,32 @@ a { color: inherit; }
   overflow: hidden;
   box-shadow: 0 4px 18px rgba(16, 30, 55, .05);
 }
+.hotel-hero.has-collage {
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 1fr);
+}
+.hotel-hero.has-collage .gallery {
+  grid-template-columns: 1.4fr 1fr;
+  gap: 6px;
+  padding: 6px;
+  background: #fff;
+  min-height: 390px;
+}
+.hotel-hero.has-collage .gallery__main {
+  border-radius: 14px;
+  min-height: 378px;
+}
+.hotel-hero.has-collage .gallery__thumbs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  padding: 0;
+}
+.hotel-hero.has-collage .gallery__thumb {
+  height: auto;
+  min-height: 186px;
+  border-radius: 12px;
+}
 .section-card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -283,16 +309,17 @@ a { color: inherit; }
 .more-btn:hover { background: #e1eefb; }
 
 /* About & Rooms */
-.about-full { font-size: .96rem; line-height: 1.65; color: #26394f; }
-.about-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
-.fact-box { padding: 14px 16px; border-radius: 14px; background: #f6f9fc; border: 1px solid #e5edf5; }
-.fact-box h4 { margin: 0 0 6px; font-size: .88rem; font-weight: 800; color: var(--deep); }
-.fact-box p { margin: 0; font-size: .86rem; line-height: 1.5; color: #364d66; }
-.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-.room-card { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
-.room-card img { width: 88px; height: 68px; object-fit: cover; border-radius: 9px; flex: none; }
-.room-card__name { font-weight: 700; font-size: .92rem; }
-.room-card__meta { font-size: .8rem; color: var(--muted); margin-top: 3px; }
+.about-full { font-size: .96rem; line-height: 1.65; color: #26394f; white-space: pre-line; }
+.facilities-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.facility-chip { padding: 6px 12px; border-radius: 999px; background: #eff5fc; color: #1e3a5f; font-size: .84rem; font-weight: 600; border: 1px solid #dbe7f4; }
+.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.room-card { display: flex; align-items: center; gap: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.room-card img { width: 112px; height: 84px; object-fit: cover; border-radius: 10px; flex: none; }
+.room-card__name { font-weight: 750; font-size: .95rem; line-height: 1.3; }
+.room-card__meta { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+.review-pros, .review-cons { margin: 4px 0 0; font-size: .93rem; line-height: 1.55; color: #26394f; }
+.review-pros strong { color: var(--good); }
+.review-cons strong { color: #c53a1e; }
 
 /* Popular Excursions */
 .excursions-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -386,7 +413,7 @@ a { color: inherit; }
 .footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0; color: var(--muted); border-top: 1px solid var(--line); font-size: .85rem; }
 
 @media (max-width: 1060px) {
-  .hotel-hero { grid-template-columns: 1fr; }
+  .hotel-hero, .hotel-hero.has-collage { grid-template-columns: 1fr; }
   .excursions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tour-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .tour-price { text-align: left; }
@@ -394,11 +421,11 @@ a { color: inherit; }
 @media (max-width: 700px) {
   .shell { width: calc(100% - 26px); }
   .masthead__phone { display: none; }
-  .hotel-hero__left, .info-card, .section-card { padding: 16px; border-radius: 16px; }
-  .gallery { grid-template-columns: 1fr; min-height: 0; }
-  .gallery__main { min-height: 220px; }
-  .gallery__thumbs { grid-template-columns: repeat(2, 1fr); }
-  .gallery__thumb { min-height: 100px; }
+  .hotel-hero__info, .section-card { padding: 16px; border-radius: 16px; }
+  .gallery, .hotel-hero.has-collage .gallery { grid-template-columns: 1fr; min-height: 0; }
+  .gallery__main, .hotel-hero.has-collage .gallery__main { min-height: 220px; }
+  .gallery__thumbs, .hotel-hero.has-collage .gallery__thumbs { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .gallery__thumb, .hotel-hero.has-collage .gallery__thumb { min-height: 100px; }
   .tour-row { grid-template-columns: 1fr 1fr; gap: 10px; }
   .tour-row .cta-btn { grid-column: 1 / -1; }
   .excursions-grid { grid-template-columns: 1fr; }

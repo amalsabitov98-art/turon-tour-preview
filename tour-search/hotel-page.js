@@ -138,7 +138,7 @@
   if (Number.isFinite(ratingVal) && ratingVal > 0) {
     const r = id('hotel-rating');
     const lbl = ratingVal >= 4.5 ? t('Отлично', 'A’lo') : ratingVal >= 4.0 ? t('Очень хорошо', 'Juda yaxshi') : t('Хорошо', 'Yaxshi');
-    r.innerHTML = `<div class="hotel-rating__label">${lbl}<span class="hotel-rating__sub">TourVisor</span></div><div class="hotel-rating__score">${ratingVal.toFixed(1).replace('.', ',')}</div>`;
+    r.innerHTML = `<div class="hotel-rating__label">${lbl}<span class="hotel-rating__sub">${t('Рейтинг отеля', 'Mehmonxona reytingi')}</span></div><div class="hotel-rating__score">${ratingVal.toFixed(1).replace('.', ',')}</div>`;
     r.hidden = false;
   }
 
@@ -170,10 +170,13 @@
   });
 
   const gallery = id('hotel-gallery');
+  const heroEl = id('hotel-hero');
   function renderGallery() {
     gallery.replaceChildren();
-    gallery.classList.toggle('gallery--single', photos.length <= 1);
-    if (photos.length <= 1) {
+    const hasCollage = photos.length >= 2;
+    gallery.classList.toggle('gallery--single', !hasCollage);
+    heroEl.classList.toggle('has-collage', hasCollage);
+    if (!hasCollage) {
       const main = el('div', 'gallery__main');
       if (photos[0]) {
         const img = el('img');
@@ -553,13 +556,14 @@
     }
   } catch {}
 
-  // Enrich with cached Google Places HD photos & reviews from oracle (zero cost beyond free cap)
+  // Enrich with cached LiteAPI HD photos, rooms, facilities & reviews from oracle
   const apiBase = window.TuronResults?.api || 'https://turon-search.81-208-174-192.sslip.io';
   if (hotelName) {
     const mp = new URLSearchParams();
     if (offer.hotelId) mp.set('id', String(offer.hotelId));
     mp.set('name', hotelName);
     if (offer.resort) mp.set('resort', offer.resort);
+    if (query?.country) mp.set('country', query.country);
     if (offer.lat && offer.lng) { mp.set('lat', String(offer.lat)); mp.set('lng', String(offer.lng)); }
     fetch(apiBase + '/api/hotel-media?' + mp.toString())
       .then(r => (r.ok ? r.json() : null))
@@ -568,47 +572,110 @@
         if (Array.isArray(media.photos) && media.photos.length) {
           photos = media.photos.map(u => (u.startsWith('http') ? u : apiBase + u));
           renderGallery();
-          const roomImgs = id('rooms-grid')?.querySelectorAll('img') || [];
-          roomImgs.forEach((img, idx) => { img.src = photos[idx % photos.length]; });
         }
-        if (media.rating && Number(media.rating) > 0) {
-          const r = id('hotel-rating');
-          const rv = Number(media.rating);
-          const lbl = rv >= 4.5 ? t('Отлично', 'A’lo') : rv >= 4.0 ? t('Очень хорошо', 'Juda yaxshi') : t('Хорошо', 'Yaxshi');
-          const sub = media.userRatingCount
-            ? `Google · ${new Intl.NumberFormat('ru-RU').format(media.userRatingCount)} ${t('отз.', 'sharh')}`
-            : 'Google';
-          r.innerHTML = `<div class="hotel-rating__label">${lbl}<span class="hotel-rating__sub">${sub}</span></div><div class="hotel-rating__score">${rv.toFixed(1).replace('.', ',')}</div>`;
-          r.hidden = false;
+        // Full description + facilities + real HD room cards
+        const aboutSec = id('about-section');
+        const fullDesc = (media.description || '').trim();
+        const facs = Array.isArray(media.facilities) ? media.facilities : [];
+        const liteRooms = Array.isArray(media.rooms) && media.rooms.length ? media.rooms : null;
+        if (fullDesc || facs.length || liteRooms) {
+          aboutSec.hidden = false;
+          aboutSec.querySelector('h2').textContent = t('Подробно об отеле', 'Mehmonxona haqida batafsil');
+          if (fullDesc) {
+            id('about-full').textContent = fullDesc;
+            id('about-full').hidden = false;
+          }
+          const factsEl = id('about-facts');
+          factsEl.replaceChildren();
+          if (media.checkin || media.checkout || media.address) {
+            const infoParts = [];
+            if (media.address) infoParts.push(t('Адрес: ', 'Manzil: ') + media.address);
+            if (media.checkin) infoParts.push(t('Заезд с ', 'Kirish: ') + media.checkin);
+            if (media.checkout) infoParts.push(t('Выезд до ', 'Chiqish: ') + media.checkout);
+            const metaLine = el('p', 'section-sub', infoParts.join(' · '));
+            metaLine.style.marginTop = '12px';
+            factsEl.append(metaLine);
+          }
+          if (facs.length) {
+            const facWrap = el('div', 'facilities-list');
+            for (const f of facs) facWrap.append(el('span', 'facility-chip', f));
+            factsEl.append(facWrap);
+          }
+          if (liteRooms) {
+            id('rooms-wrap').hidden = false;
+            id('rooms-wrap').querySelector('.sub-heading').hidden = false;
+            const roomsGrid = id('rooms-grid');
+            roomsGrid.replaceChildren(...liteRooms.map((rm, idx) => {
+              const card = el('div', 'room-card');
+              const src = rm.photo || photos[idx % photos.length];
+              if (src) {
+                const img = el('img');
+                img.src = src;
+                img.alt = rm.name;
+                img.loading = 'lazy';
+                img.referrerPolicy = 'no-referrer';
+                card.append(img);
+              }
+              const info = el('div');
+              const metaBits = [rm.size, rm.maxAdults ? t('до ', '') + rm.maxAdults + t(' гостей', ' kishigacha') : ''].filter(Boolean).join(' · ');
+              info.append(
+                el('div', 'room-card__name', rm.name),
+                el('div', 'room-card__meta', metaBits || t('Доступно для бронирования в туре', 'Tur tarkibida mavjud'))
+              );
+              card.append(info);
+              return card;
+            }));
+          }
         }
+
+        // Reviews with "Show more"
         if (Array.isArray(media.reviews) && media.reviews.length) {
           const sec = id('reviews-section');
           const list = id('reviews-list');
           const sum = id('reviews-summary');
+          const moreBtn = id('reviews-more');
+          const allRevs = media.reviews;
           if (media.rating) {
-            sum.innerHTML = `<span class="review-score">${Number(media.rating).toFixed(1).replace('.', ',')}</span><span>${t('На основе ', '')}${new Intl.NumberFormat('ru-RU').format(media.userRatingCount || media.reviews.length)} ${t('отзывов Google', 'ta Google sharhi')}</span>`;
+            sum.innerHTML = `<span class="review-score">${Number(media.rating).toFixed(1).replace('.', ',')}</span><span>${t('Отзывы гостей', 'Mehmonlar sharhlari')} (${media.reviewCount || allRevs.length})</span>`;
           }
-          list.replaceChildren(...media.reviews.map(rev => {
-            const item = el('article', 'review-item');
-            const head = el('div', 'review-item__head');
-            const author = el('div', 'review-item__author');
-            const initial = (rev.author || 'Г').trim().charAt(0).toUpperCase();
-            author.append(
-              el('span', 'review-avatar', initial),
-              Object.assign(el('div'), {
-                innerHTML: `<span class="review-item__name"></span><span class="review-item__date"></span>`
-              })
-            );
-            author.querySelector('.review-item__name').textContent = rev.author || t('Гость', 'Mehmon');
-            author.querySelector('.review-item__date').textContent = rev.date || '';
-            head.append(author);
-            if (rev.rating) {
-              const cls = rev.rating >= 4 ? 'review-score' : rev.rating >= 3 ? 'review-score review-score--mid' : 'review-score review-score--low';
-              head.append(el('span', cls, rev.rating + ' / 5'));
-            }
-            item.append(head, el('p', 'review-text', rev.text));
-            return item;
-          }));
+          let visibleCount = 3;
+          function renderReviews() {
+            list.replaceChildren(...allRevs.slice(0, visibleCount).map(rev => {
+              const item = el('article', 'review-item');
+              const head = el('div', 'review-item__head');
+              const author = el('div', 'review-item__author');
+              const initial = (rev.author || 'Г').trim().charAt(0).toUpperCase();
+              const info = el('div');
+              info.append(el('span', 'review-item__name', rev.author || t('Гость', 'Mehmon')));
+              if (rev.date) info.append(el('span', 'review-item__date', formatShortDate(rev.date) + ' ' + rev.date.slice(0, 4)));
+              author.append(el('span', 'review-avatar', initial), info);
+              head.append(author);
+              if (rev.score) {
+                const cls = rev.score >= 7 ? 'review-score' : rev.score >= 5 ? 'review-score review-score--mid' : 'review-score review-score--low';
+                head.append(el('span', cls, rev.score + ' / 10'));
+              }
+              item.append(head);
+              if (rev.pros) {
+                const p = el('p', 'review-pros');
+                p.innerHTML = '<strong>' + t('Плюсы: ', 'Afzalliklari: ') + '</strong>';
+                p.append(document.createTextNode(rev.pros));
+                item.append(p);
+              }
+              if (rev.cons) {
+                const c = el('p', 'review-cons');
+                c.innerHTML = '<strong>' + t('Минусы: ', 'Kamchiliklari: ') + '</strong>';
+                c.append(document.createTextNode(rev.cons));
+                item.append(c);
+              }
+              if (!rev.pros && !rev.cons && rev.headline) {
+                item.append(el('p', 'review-text', rev.headline));
+              }
+              return item;
+            }));
+            moreBtn.hidden = visibleCount >= allRevs.length;
+          }
+          moreBtn.onclick = () => { visibleCount = allRevs.length; renderReviews(); };
+          renderReviews();
           sec.hidden = false;
         }
       })
