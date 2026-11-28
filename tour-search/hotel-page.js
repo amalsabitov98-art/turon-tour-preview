@@ -57,10 +57,16 @@
     } catch {}
   }
 
+  const urlPrice = params.get('price') || '';
+  const urlPriceUsd = Number(params.get('priceUsd')) || 0;
+  const urlMeal = params.get('meal') || '';
+  const urlPhoto = params.get('photo') || '';
   const offer = payload?.offer || {
     hotel: params.get('hotel') || t('Отель', 'Mehmonxona'),
     resort: params.get('resort') || '',
-    priceDisplay: params.get('price') || ''
+    priceDisplay: urlPrice,
+    meal: urlMeal,
+    photo: urlPhoto
   };
   const query = payload?.query || {
     country: params.get('country') || 'uae',
@@ -71,6 +77,19 @@
     adults: Number(params.get('adults')) || 2,
     children: 0
   };
+  if ((!Array.isArray(offer.tours) || !offer.tours.length) && query.dateFrom) {
+    const parsedPrice = window.TuronResults?.priceAmount(offer.priceDisplay);
+    if (parsedPrice) {
+      offer.tours = [{
+        date: query.dateFrom,
+        nights: query.nightsFrom || 7,
+        meal: offer.meal || '',
+        room: offer.roomType || '',
+        price: parsedPrice,
+        priceUsd: urlPriceUsd || undefined
+      }];
+    }
+  }
   const labels = payload?.labels || {
     country: t(...(countries[query.country] || [query.country, query.country])),
     date: query.dateFrom && query.dateTo && window.TuronResults
@@ -625,6 +644,10 @@
       .then(r => (r.ok ? r.json() : null))
       .then(media => {
         if (!media || media.status !== 'ok') return;
+        if (!offer.lat && Number.isFinite(Number(media.lat)) && Number.isFinite(Number(media.lng))) {
+          offer.lat = Number(media.lat);
+          offer.lng = Number(media.lng);
+        }
         if (Array.isArray(media.photos) && media.photos.length) {
           photos = media.photos.map(u => (u.startsWith('http') ? u : apiBase + u));
           renderGallery();
@@ -640,6 +663,10 @@
           if (fullDesc) {
             id('about-full').textContent = fullDesc;
             id('about-full').hidden = false;
+            if (!descText) {
+              const shortDesc = fullDesc.length > 220 ? fullDesc.slice(0, 220).replace(/\s+\S*$/, '') + '…' : fullDesc;
+              id('hero-desc').textContent = shortDesc;
+            }
           }
           const factsEl = id('about-facts');
           factsEl.replaceChildren();

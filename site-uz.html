@@ -1546,14 +1546,19 @@ const mobile = () => matchMedia('(max-width:820px)').matches;
 let active = Math.min(2, TOURS.length - 1);
 
 fan.innerHTML = TOURS.map((t, i) => `
-  <a class="card" href="${esc(t.href)}" target="_blank" rel="noopener" data-i="${i}" data-href="${esc(t.href)}" aria-label="${esc(t.label)}">
+  <a class="card" href="${esc(t.href)}" data-i="${i}" data-href="${esc(t.href)}" aria-label="${esc(t.label)}">
     <img src="${esc(t.img)}" alt="" draggable="false">${t.off ? `<span class="badge">−${t.off}%</span>` : t.hot ? `<span class="badge">Qaynoq</span>` : ''}
     <span class="info"><small>${esc(t.sub)}</small><h3>${esc(t.n)}</h3>
       <span class="row">${t.was ? `<s>${t.was} $</s>` : ''}<b>${esc(t.price)}</b><span>${esc(t.note)}</span></span></span>
   </a>`).join('');
 const hotAll = document.getElementById('hotAll');
 const hotList = document.getElementById('hotList');
-hotList.innerHTML = TOURS.map(t => `<li><a href="${esc(t.href)}" target="_blank" rel="noopener"><span>${esc(t.n)} · ${esc(t.sub)}</span><b>${esc(t.price)}</b><small>${esc(t.note)}</small></a></li>`).join('');
+hotList.innerHTML = TOURS.map((t, i) => `<li><a href="${esc(t.href)}" data-i="${i}"><span>${esc(t.n)} · ${esc(t.sub)}</span><b>${esc(t.price)}</b><small>${esc(t.note)}</small></a></li>`).join('');
+hotList.addEventListener('click', e => {
+  const a = e.target.closest('a[data-i]'); if (!a) return;
+  const item = TOURS[+a.dataset.i];
+  if (item && item.key && item.payload) { try { sessionStorage.setItem(item.key, JSON.stringify(item.payload)); } catch {} }
+});
 hotAll.hidden = false;
 hotAll.addEventListener('click', () => {
   hotList.hidden = !hotList.hidden;
@@ -1582,10 +1587,14 @@ document.getElementById('prev').onclick = () => go(active - 1);
 document.getElementById('next').onclick = () => go(active + 1);
 
 fan.addEventListener('click', e => {
-  const c = e.target.closest('.card'); if (!c) return; e.preventDefault();
+  const c = e.target.closest('.card'); if (!c) return;
   const i = +c.dataset.i;
-  if (!mobile() && i !== active) { go(i); return; }
-  if (c.dataset.href) window.open(c.dataset.href, '_blank', 'noopener');
+  if (!mobile() && i !== active) { e.preventDefault(); go(i); return; }
+  const item = TOURS[i];
+  if (item && item.key && item.payload) { try { sessionStorage.setItem(item.key, JSON.stringify(item.payload)); } catch {} }
+  if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  if (c.dataset.href) location.assign(c.dataset.href);
 });
 fan.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') { go(active - 1); e.preventDefault(); }
@@ -1665,17 +1674,36 @@ async function loadTours(){
     const d = await r.json();
     const age = Date.now() - Date.parse(d.generatedAt);
     if (!(age >= -3600e3 && age <= FRESH_MS) || !Array.isArray(d.cards)) return null;
-    const tours = d.cards.filter(c => c && c.country && c.hotel && c.priceUsd > 0).map(c => {
+    const usdUzs = Number(d.rate && d.rate.usdUzs) || 12000;
+    const tours = d.cards.filter(c => c && c.country && c.hotel && c.priceUsd > 0).map((c, idx) => {
       const dates = c.dateFrom === c.dateTo ? day(c.dateFrom) : day(c.dateFrom) + ' — ' + day(c.dateTo);
       const nights = LABELS.nights(c.nightsFrom === c.nightsTo ? c.nightsFrom : c.nightsFrom + '–' + c.nightsTo);
       const price = c.priceUsd;
-      const draft = LABELS.draft({ru: c.ru, uz: c.uz, hotel: c.hotel}, dates, nights, price);
+      const uzsPrice = Math.round((price * usdUzs) / 1000) * 1000;
+      const priceDisplay = String(uzsPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' UZS';
+      const img = IMGS[c.country] || FALLBACK_IMG;
+      const key = 'hot_' + String(c.id || idx).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 48);
+      const sp = new URLSearchParams({lang: 'uz', country: c.country, dateFrom: c.dateFrom, dateTo: c.dateTo, nightsFrom: String(c.nightsFrom), nightsTo: String(c.nightsTo), adults: '2'});
+      const searchHref = 'search.html?' + sp.toString();
+      const hp = new URLSearchParams({lang: 'uz', key, hotel: c.hotel, country: c.country, resort: c.resort || '', dateFrom: c.dateFrom, dateTo: c.dateTo, nightsFrom: String(c.nightsFrom), nightsTo: String(c.nightsTo), adults: '2', price: priceDisplay, priceUsd: String(price)});
+      if (c.meal) hp.set('meal', c.meal);
+      const payload = {
+        key,
+        offer: {
+          hotel: c.hotel, resort: c.resort || '', priceDisplay, photo: img, meal: c.meal || '',
+          tours: [{date: c.dateFrom, nights: c.nightsFrom, meal: c.meal || '', room: '', price: uzsPrice, priceUsd: price}]
+        },
+        query: {country: c.country, dateFrom: c.dateFrom, dateTo: c.dateTo, nightsFrom: c.nightsFrom, nightsTo: c.nightsTo, adults: 2, children: 0},
+        labels: {country: LABELS.name(c), date: dates, nights, passengers: '2 nafar katta'},
+        searchHref
+      };
       return {
-        n: LABELS.name(c), sub: c.hotel, img: IMGS[c.country] || FALLBACK_IMG,
+        key, payload,
+        n: LABELS.name(c), sub: c.hotel, img,
         off: c.discountPct || 0, was: c.discountPct ? c.typicalUsd : 0, hot: c.kind === 'hot' || !!c.sourceHot,
         price: (c.kind === 'hot' ? '' : "") + price + ' $' + (c.kind === 'hot' ? '' : " dan"),
         note: "ikki kishi uchun" + ' · ' + nights + (c.kind === 'hot' ? ' · ' + day(c.dateFrom) : ''),
-        href: 'https://t.me/Aziza_Turon_tour?text=' + encodeURIComponent(draft),
+        href: 'hotel.html?' + hp.toString(),
         label: LABELS.label({ru: c.ru, uz: c.uz, hotel: c.hotel}, dates, price),
         usd: price
       };
