@@ -49,7 +49,12 @@
     ]]
   ];
   const serviceLabels = new Map(serviceGroups.flatMap(([, items]) => items).map(([ru, translated]) => [ru, t(ru, translated)]));
+  const PAGE_SIZE = 15;
+  const loadMoreWrap = id('load-more-wrap');
+  const loadMoreBtn = id('load-more-btn');
+  const loadMoreHint = id('load-more-hint');
   let query = null, activeRequest = null, response = null, resortCatalog = {}, popularCatalog = {}, progressTimer = null;
+  let visibleCount = PAGE_SIZE, loadMoreLevel = 0, loadingMore = false;
 
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -381,25 +386,103 @@
     return (approx ? '≈ ' : '') + new Intl.NumberFormat('ru-RU').format(amount) + t(' сум', ' so‘m');
   }
 
+  function updateLoadMore(filteredTotal, shownCount) {
+    if (!loadMoreWrap || !loadMoreBtn || !loadMoreHint) return;
+    const remainingLocal = Math.max(0, filteredTotal - shownCount);
+    const hasViewFilter = Boolean(hotel.value.trim() || Number(budget.value) > 0);
+    const canFetchRemote = !hasViewFilter && remainingLocal === 0 && Boolean(response?.hasMore) && loadMoreLevel < 3;
+
+    if (!filteredTotal || (!remainingLocal && !canFetchRemote)) {
+      loadMoreWrap.hidden = true;
+      return;
+    }
+
+    loadMoreWrap.hidden = false;
+    loadMoreBtn.disabled = loadingMore;
+    loadMoreBtn.classList.toggle('is-loading', loadingMore);
+    if (loadingMore) {
+      loadMoreBtn.textContent = t('Загружаем ещё туры…', 'Yana turlar yuklanmoqda…');
+      loadMoreHint.textContent = t('Проверяем дополнительные отели по вашему запросу…', 'So‘rovingiz bo‘yicha qo‘shimcha mehmonxonalar tekshirilmoqda…');
+    } else if (remainingLocal > 0) {
+      const nextStep = Math.min(PAGE_SIZE, remainingLocal);
+      loadMoreBtn.textContent = t('Найти больше туров', 'Ko‘proq turlarni topish') + ` (+${nextStep})`;
+      loadMoreHint.textContent = t('Показано ', 'Ko‘rsatilgan ') + shownCount + t(' из ', ' / ') + filteredTotal + t(' отелей', ' ta mehmonxona');
+    } else {
+      loadMoreBtn.textContent = t('Найти больше туров', 'Ko‘proq turlarni topish');
+      loadMoreHint.textContent = t('Загрузить дополнительные предложения отелей', 'Qo‘shimcha mehmonxona takliflarini yuklash');
+    }
+  }
+
   function showOffers() {
     if (!response) return;
     syncSortPills();
     const offers = model.selectOffers(response.offers, currentView());
+    const visible = offers.slice(0, visibleCount);
     const labels = searchLabels();
     const nodes = [];
-    offers.forEach((offer, idx) => {
+    visible.forEach((offer, idx) => {
       nodes.push(renderOffer(offer, labels));
-      if (idx === 0 && offers.length > 1) nodes.push(renderIncludedStrip());
+      if (idx === 0 && visible.length > 1) nodes.push(renderIncludedStrip());
     });
-    if (offers.length === 1) nodes.push(renderIncludedStrip());
+    if (visible.length === 1) nodes.push(renderIncludedStrip());
     offersNode.replaceChildren(...nodes);
-    id('offers-count').textContent = offers.length === response.offers.length
+    id('offers-count').textContent = visible.length === offers.length && offers.length === response.offers.length
       ? t('Найдено предложений — ', 'Topilgan takliflar — ') + offers.length
-      : t('Показано ', 'Ko‘rsatilgan ') + offers.length + t(' из ', ' / ') + response.offers.length;
+      : t('Показано ', 'Ko‘rsatilgan ') + visible.length + t(' из ', ' / ') + offers.length;
     status.hidden = offers.length > 0;
+    updateLoadMore(offers.length, visible.length);
     if (!offers.length) showStatus('empty', t('Подходящих вариантов нет', 'Mos variantlar topilmadi'),
       t('Попробуйте убрать ограничение бюджета или изменить название отеля.', 'Byudjet cheklovini olib tashlang yoki mehmonxona nomini o‘zgartiring.'));
   }
+
+  async function handleLoadMore() {
+    if (!response || loadingMore) return;
+    const offers = model.selectOffers(response.offers, currentView());
+    if (visibleCount < offers.length) {
+      visibleCount += PAGE_SIZE;
+      showOffers();
+      return;
+    }
+    if (!response.hasMore || loadMoreLevel >= 3 || !query) return;
+    loadingMore = true;
+    const nextLevel = loadMoreLevel + 1;
+    updateLoadMore(offers.length, offers.length);
+    const controller = new AbortController();
+    const deadline = setTimeout(() => controller.abort(), 245000);
+    try {
+      const result = await fetch(api + '/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...query, loadMore: nextLevel }),
+        signal: controller.signal
+      });
+      const data = await result.json();
+      if (result.ok && data.status === 'offers' && Array.isArray(data.offers)) {
+        const fresh = data.offers.filter(o => typeof o?.hotel === 'string' && o.hotel.trim() && model.priceAmount(o.priceDisplay) !== null);
+        const existingKeys = new Set(response.offers.map(o => o.hotelId || o.hotel));
+        let added = 0;
+        for (const item of fresh) {
+          const k = item.hotelId || item.hotel;
+          if (existingKeys.has(k)) continue;
+          existingKeys.add(k);
+          response.offers.push(item);
+          added++;
+        }
+        loadMoreLevel = nextLevel;
+        response.hasMore = Boolean(data.hasMore) && added > 0;
+        if (added > 0) visibleCount += PAGE_SIZE;
+      } else {
+        response.hasMore = false;
+      }
+    } catch {
+      // Keep existing offers visible if deep fetch fails
+    } finally {
+      clearTimeout(deadline);
+      loadingMore = false;
+      showOffers();
+    }
+  }
+  if (loadMoreBtn) loadMoreBtn.addEventListener('click', handleLoadMore);
 
   function openHotelHref(offer, labels) {
     const key = 'turon_hotel_' + (offer.hotelId || Math.abs([...String(offer.hotel)].reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)));
@@ -586,6 +669,10 @@
     const stillCurrent = () => activeRequest === controller;
     const deadline = setTimeout(() => controller.abort(), 245000);
     response = null;
+    visibleCount = PAGE_SIZE;
+    loadMoreLevel = 0;
+    loadingMore = false;
+    if (loadMoreWrap) loadMoreWrap.hidden = true;
     offersNode.replaceChildren(renderSkeletons());
     id('offers-count').textContent = '';
     id('offer-note').textContent = '';
@@ -620,7 +707,7 @@
         typeof offer?.hotel === 'string' && offer.hotel.trim() && model.priceAmount(offer.priceDisplay) !== null
       );
       if (!offers.length) throw new Error('Results were missing');
-      response = { offers };
+      response = { offers, hasMore: Boolean(data.hasMore) };
       const checked = Date.parse(data.checkedAt);
       const asOf = Number.isFinite(checked) ? ' ' + t('Проверено ', 'Tekshirilgan vaqt ') +
         new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Tashkent', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(checked) + '.' : '';
@@ -728,6 +815,7 @@
   for (const field of [hotel, budget, sort]) {
     field.addEventListener('input', () => {
       if (!query) return;
+      visibleCount = PAGE_SIZE;
       syncSortPills();
       history.replaceState(null, '', model.resultsHref(query, uz, currentView()));
       refreshLanguageLink();
@@ -739,6 +827,7 @@
       const btn = event.target.closest('.sort-pill');
       if (!btn || !query) return;
       sort.value = btn.dataset.sort;
+      visibleCount = PAGE_SIZE;
       syncSortPills();
       history.replaceState(null, '', model.resultsHref(query, uz, currentView()));
       refreshLanguageLink();

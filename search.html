@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tour-search/results.css?v=cards8">
+  <link rel="stylesheet" href="tour-search/results.css?v=cards10">
   <script src="tour-search/results-model.js?v=cards2" defer></script>
   <script src="tour-search/widget.js?v=results1" defer></script>
-  <script src="tour-search/results-page.js?v=cards9" defer></script>
+  <script src="tour-search/results-page.js?v=cards10" defer></script>
 </head>
 <body>
   <header class="masthead">
@@ -152,6 +152,10 @@
         <div id="active-filters" class="active-filters" hidden></div>
         <div id="status" class="status" role="status" aria-live="polite" hidden></div>
         <div id="offers" class="offers"></div>
+        <div id="load-more-wrap" class="load-more-wrap" hidden>
+          <button type="button" id="load-more-btn" class="load-more-btn" data-uz="Ko‘proq turlarni topish">Найти больше туров</button>
+          <p id="load-more-hint" class="load-more-hint"></p>
+        </div>
         <p id="offer-note" class="offer-note"></p>
       </section>
     </div>
