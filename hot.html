@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#101e37">
+  <title>Горящие туры из Ташкента · Turon Tour</title>
+  <link rel="icon" href="logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tour-search/results.css?v=cards10">
+  <link rel="stylesheet" href="tour-search/hot.css?v=hot1">
+  <script src="tour-search/results-model.js?v=cards2" defer></script>
+  <script src="tour-search/widget.js?v=results1" defer></script>
+  <script src="tour-search/hot-page.js?v=hot1" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <nav class="shell masthead__nav" aria-label="Turon Tour">
+      <a class="brand" data-home href="site.html">
+        <img src="img/turon-wordmark-01.svg" width="148" height="32" alt="Turon Tour">
+      </a>
+      <div class="masthead__links">
+        <a class="masthead__phone" href="tel:+998712000909">+998 71 200 09 09</a>
+        <a class="home-link" data-home href="site.html"><span aria-hidden="true">←</span> <span data-uz="Bosh sahifa">На главную</span></a>
+        <a id="language" class="language" href="?lang=uz" hreflang="uz" lang="uz">UZ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="trip" aria-labelledby="page-title">
+      <div class="trip__inner">
+        <div>
+          <p class="trip__origin" data-uz="Toshkentdan to‘g‘ridan-to‘g‘ri reyslar">Прямые вылеты из Ташкента</p>
+          <h1 id="page-title" data-uz="Qaynoq turlar">Горящие туры</h1>
+          <p id="trip-summary" class="trip__summary" data-uz="Ikki kishi uchun eng foydali takliflar: parvoz, mehmonxona, transfer va sug‘urta">Лучшие предложения на двоих: перелёт, отель, трансфер и страховка</p>
+        </div>
+        <a class="trip__edit" data-home href="site.html#search" data-uz="Parametrlar bo‘yicha qidirish">Подобрать по параметрам</a>
+      </div>
+    </section>
+
+    <div id="browse" class="browse">
+      <section class="results" aria-labelledby="offers-title">
+        <div id="hot-countries" class="hot-countries" role="group" aria-label="Страны"></div>
+
+        <div class="hot-toolbar">
+          <div>
+            <h2 id="offers-title" data-uz="Barcha qaynoq takliflar">Все горящие предложения</h2>
+            <p id="offers-count" class="results__count" aria-live="polite"></p>
+          </div>
+          <input id="hot-search" class="hot-search-input" type="search" placeholder="Поиск по отелю или курорту" data-placeholder-uz="Mehmonxona yoki kurort bo‘yicha qidirish" maxlength="100">
+        </div>
+
+        <div id="sort-pills" class="sort-pills" role="group" aria-label="Сортировка">
+          <button type="button" class="sort-pill is-active" data-sort="discount-desc" data-uz="Chegirma bo‘yicha">По размеру скидки</button>
+          <button type="button" class="sort-pill" data-sort="price-asc" data-uz="Avval arzonlari">От дешёвых к дорогим</button>
+          <button type="button" class="sort-pill" data-sort="price-desc" data-uz="Avval qimmatlari">Сначала дороже</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+        <div id="offers" class="offers"></div>
+        <p id="offer-note" class="offer-note"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="shell footer">
+    <span>Turon Tour · <a href="tel:+998712000909">+998 71 200 09 09</a></span>
+    <span><a href="privacy.html" data-uz-href="privacy-uz.html" data-uz="Maxfiylik siyosati">Политика конфиденциальности</a> · <a href="terms.html" data-uz-href="terms-uz.html" data-uz="Foydalanuvchi kelishuvi">Пользовательское соглашение</a> · <a href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener noreferrer" data-uz="Telegramda yozish">Написать в Telegram</a></span>
+  </footer>
+</body>
+</html>

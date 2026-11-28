@@ -983,10 +983,9 @@ a.at-btn{text-decoration:none}
     </div>
     <p class="hot-note" id="hotNote" aria-live="polite"></p>
     <div class="cta">
-      <button class="btn gold" id="hotAll" type="button" aria-expanded="false" aria-controls="hotList" hidden>Все горящие туры</button>
+      <a class="btn gold" id="hotAll" href="hot.html">Все горящие туры</a>
       <a class="btn ghost" href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener">Написать менеджеру</a>
     </div>
-    <ul class="hot-list" id="hotList" hidden></ul>
   </div>
 </section>
 
@@ -1550,19 +1549,6 @@ fan.innerHTML = TOURS.map((t, i) => `
     <span class="info"><small>${esc(t.sub)}</small><h3>${esc(t.n)}</h3>
       <span class="row">${t.was ? `<s>${t.was} $</s>` : ''}<b>${esc(t.price)}</b><span>${esc(t.note)}</span></span></span>
   </a>`).join('');
-const hotAll = document.getElementById('hotAll');
-const hotList = document.getElementById('hotList');
-hotList.innerHTML = TOURS.map((t, i) => `<li><a href="${esc(t.href)}" data-i="${i}"><span>${esc(t.n)} · ${esc(t.sub)}</span><b>${esc(t.price)}</b><small>${esc(t.note)}</small></a></li>`).join('');
-hotList.addEventListener('click', e => {
-  const a = e.target.closest('a[data-i]'); if (!a) return;
-  const item = TOURS[+a.dataset.i];
-  if (item && item.key && item.payload) { try { sessionStorage.setItem(item.key, JSON.stringify(item.payload)); } catch {} }
-});
-hotAll.hidden = false;
-hotAll.addEventListener('click', () => {
-  hotList.hidden = !hotList.hidden;
-  hotAll.setAttribute('aria-expanded', String(!hotList.hidden));
-});
 const cards = [...fan.children];
 const N = cards.length;
 
