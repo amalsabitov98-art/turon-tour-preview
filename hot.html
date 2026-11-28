@@ -4,23 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,follow">
-  <meta name="theme-color" content="#101e37">
+  <meta name="theme-color" content="#0d1b36">
   <title>Горящие туры из Ташкента · Turon Tour</title>
   <link rel="icon" href="logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tour-search/results.css?v=cards10">
-  <link rel="stylesheet" href="tour-search/hot.css?v=hot1">
+  <link rel="stylesheet" href="tour-search/hot.css?v=hot3">
   <script src="tour-search/results-model.js?v=cards2" defer></script>
   <script src="tour-search/widget.js?v=results1" defer></script>
-  <script src="tour-search/hot-page.js?v=hot1" defer></script>
+  <script src="tour-search/hot-page.js?v=hot3" defer></script>
 </head>
 <body>
   <header class="masthead">
     <nav class="shell masthead__nav" aria-label="Turon Tour">
       <a class="brand" data-home href="site.html">
-        <img src="img/turon-wordmark-01.svg" width="148" height="32" alt="Turon Tour">
+        <img src="img/turon-wordmark-01.svg" width="148" height="28" alt="Turon Tour">
       </a>
       <div class="masthead__links">
         <a class="masthead__phone" href="tel:+998712000909">+998 71 200 09 09</a>
@@ -30,41 +29,105 @@
     </nav>
   </header>
 
-  <main class="shell">
-    <section class="trip" aria-labelledby="page-title">
-      <div class="trip__inner">
-        <div>
-          <p class="trip__origin" data-uz="Toshkentdan to‘g‘ridan-to‘g‘ri reyslar">Прямые вылеты из Ташкента</p>
-          <h1 id="page-title" data-uz="Qaynoq turlar">Горящие туры</h1>
-          <p id="trip-summary" class="trip__summary" data-uz="Ikki kishi uchun eng foydali takliflar: parvoz, mehmonxona, transfer va sug‘urta">Лучшие предложения на двоих: перелёт, отель, трансфер и страховка</p>
+  <main class="shell hot-main">
+    <section aria-labelledby="page-title">
+      <h1 id="page-title" class="hot-h1" data-uz="Toshkentdan qaynoq turlar">Горящие туры из Ташкента</h1>
+
+      <div class="hot-filters">
+        <div class="hf-field">
+          <span class="hf-label" data-uz="Uchish shahri">Город вылета</span>
+          <span class="hf-value" data-uz="Toshkent">Ташкент</span>
+          <span class="hf-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
         </div>
-        <a class="trip__edit" data-home href="site.html#search" data-uz="Parametrlar bo‘yicha qidirish">Подобрать по параметрам</a>
+
+        <label class="hf-field">
+          <span class="hf-label" data-uz="Mamlakat">Страна</span>
+          <span id="hf-country-val" class="hf-value" data-uz="Barchasi">Все</span>
+          <select id="hf-country" class="hf-select" aria-label="Страна">
+            <option value="" data-uz="Barchasi">Все</option>
+          </select>
+          <span class="hf-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+        </label>
+
+        <label class="hf-field">
+          <span class="hf-label" data-uz="Saralash">Сортировка</span>
+          <span id="hf-sort-val" class="hf-value" data-uz="Narx bo‘yicha">По цене</span>
+          <select id="hf-sort" class="hf-select" aria-label="Сортировка">
+            <option value="price-asc" data-uz="Narx bo‘yicha">По цене</option>
+            <option value="discount-desc" data-uz="Chegirma bo‘yicha">По скидке</option>
+            <option value="rating-desc" data-uz="Reyting bo‘yicha">По рейтингу</option>
+            <option value="price-desc" data-uz="Avval qimmatlari">Сначала дороже</option>
+          </select>
+          <span class="hf-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+        </label>
+
+        <label class="hf-field">
+          <span class="hf-label" data-uz="Davomiyligi">Длительность</span>
+          <span id="hf-nights-val" class="hf-value" data-uz="Barchasi">Все</span>
+          <select id="hf-nights" class="hf-select" aria-label="Длительность">
+            <option value="" data-uz="Barchasi">Все</option>
+            <option value="3-5" data-uz="3–5 tun">3–5 ночей</option>
+            <option value="6-8" data-uz="6–8 tun">6–8 ночей</option>
+            <option value="9-12" data-uz="9–12 tun">9–12 ночей</option>
+            <option value="13-30" data-uz="13+ tun">13+ ночей</option>
+          </select>
+          <span class="hf-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+        </label>
+      </div>
+
+      <div id="hot-tabs" class="hot-tabs" role="tablist" aria-label="Категории">
+        <button type="button" class="hot-tab is-active" role="tab" aria-selected="true" data-tab="value" data-uz="Narx / Sifat">Цена / Качество</button>
+        <button type="button" class="hot-tab" role="tab" aria-selected="false" data-tab="budget" data-uz="Byudjet">Бюджетные</button>
+        <button type="button" class="hot-tab" role="tab" aria-selected="false" data-tab="five" data-uz="A’lo 5*">Отличные 5*</button>
+        <button type="button" class="hot-tab" role="tab" aria-selected="false" data-tab="luxury" data-uz="Lyuks">Люксовые</button>
+        <span id="hot-count" class="hot-tabs__count" aria-live="polite"></span>
+      </div>
+
+      <div id="hot-grid-wrap"></div>
+
+      <div id="show-all-wrap" class="show-all-wrap" hidden>
+        <button type="button" id="show-all-btn" class="show-all-btn" data-uz="Barchasini ko‘rsatish">Показать все</button>
       </div>
     </section>
 
-    <div id="browse" class="browse">
-      <section class="results" aria-labelledby="offers-title">
-        <div id="hot-countries" class="hot-countries" role="group" aria-label="Страны"></div>
+    <section id="min-section" class="min-sec" aria-labelledby="min-title" hidden>
+      <h2 id="min-title" class="min-h2" data-uz="Toshkentdan eng past narxlar">Самые низкие цены из Ташкента</h2>
 
-        <div class="hot-toolbar">
+      <div class="min-bar">
+        <div class="min-ctrl">
           <div>
-            <h2 id="offers-title" data-uz="Barcha qaynoq takliflar">Все горящие предложения</h2>
-            <p id="offers-count" class="results__count" aria-live="polite"></p>
+            <span class="min-ctrl__k" data-uz="Uchish shahri">Город вылета</span>
+            <span class="min-ctrl__v" data-uz="Toshkent">Ташкент</span>
           </div>
-          <input id="hot-search" class="hot-search-input" type="search" placeholder="Поиск по отелю или курорту" data-placeholder-uz="Mehmonxona yoki kurort bo‘yicha qidirish" maxlength="100">
         </div>
 
-        <div id="sort-pills" class="sort-pills" role="group" aria-label="Сортировка">
-          <button type="button" class="sort-pill is-active" data-sort="discount-desc" data-uz="Chegirma bo‘yicha">По размеру скидки</button>
-          <button type="button" class="sort-pill" data-sort="price-asc" data-uz="Avval arzonlari">От дешёвых к дорогим</button>
-          <button type="button" class="sort-pill" data-sort="price-desc" data-uz="Avval qimmatlari">Сначала дороже</button>
+        <label class="min-ctrl">
+          <span class="min-ctrl__k" data-uz="Mamlakat">Страна</span>
+          <select id="min-country">
+            <option value="" data-uz="Barcha mamlakatlar">Все страны</option>
+          </select>
+        </label>
+
+        <div class="min-ctrl">
+          <span class="min-ctrl__k" data-uz="Mehmonxona">Отель</span>
+          <div id="min-stars" class="min-stars" role="group" aria-label="Звёздность отеля"></div>
         </div>
 
-        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
-        <div id="offers" class="offers"></div>
-        <p id="offer-note" class="offer-note"></p>
-      </section>
-    </div>
+        <label class="min-ctrl">
+          <span class="min-ctrl__k" data-uz="Byudjet (UZS)">Бюджет (UZS)</span>
+          <select id="min-budget">
+            <option value="0" data-uz="Istalgan">Любой</option>
+            <option value="15000000" data-uz="15 mln gacha">до 15 млн сум</option>
+            <option value="20000000" data-uz="20 mln gacha">до 20 млн сум</option>
+            <option value="30000000" data-uz="30 mln gacha">до 30 млн сум</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="min-grid" class="min-grid"></div>
+    </section>
+
+    <p id="hot-note" class="hot-note"></p>
   </main>
 
   <footer class="shell footer">
