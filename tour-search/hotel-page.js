@@ -492,28 +492,71 @@
     }));
   }
 
-  // Popular Excursions
-  fetch('tour-search/excursions-catalog.json')
+  // Popular Excursions (resort-prioritized + program modal -> manager)
+  const excModal = id('exc-modal');
+  if (excModal) {
+    excModal.querySelector('.exc-modal__close').addEventListener('click', () => excModal.close());
+    excModal.addEventListener('click', e => { if (e.target === excModal) excModal.close(); });
+  }
+
+  function openExcursionModal(item) {
+    const excTitle = uz && item.titleUz ? item.titleUz : item.title;
+    const excDur = uz && item.durationUz ? item.durationUz : item.duration;
+    const excSum = uz && item.summaryUz ? item.summaryUz : (item.summary || '');
+    const excProg = uz && Array.isArray(item.programUz) ? item.programUz : (item.program || []);
+    const excInc = uz && Array.isArray(item.includedUz) ? item.includedUz : (item.included || []);
+
+    const u = new URL(manager);
+    u.searchParams.set('text', uz
+      ? `Assalomu alaykum! Ekskursiya narxi va sanalarini bilmoqchiman: ${excTitle} (${placeText}). Mehmonxona: ${hotelName}.`
+      : `Здравствуйте! Хочу узнать цену и даты экскурсии: ${excTitle} (${placeText}). Отель: ${hotelName}.`);
+
+    if (!excModal) { window.open(u.href, '_blank', 'noopener'); return; }
+    id('exc-modal-img').src = item.photo;
+    id('exc-modal-img').alt = excTitle;
+    id('exc-modal-title').textContent = excTitle;
+    id('exc-modal-meta').innerHTML = `<span class="exc-card__star">★ ${item.rating}</span><span>(${item.reviews})</span><span>· ${excDur}</span>`;
+    id('exc-modal-summary').textContent = excSum;
+
+    const progList = id('exc-modal-program');
+    progList.replaceChildren(...excProg.map(step => el('li', '', step)));
+    id('exc-modal-program-wrap').hidden = !excProg.length;
+
+    const incWrap = id('exc-modal-included');
+    incWrap.replaceChildren(...excInc.map(chip => el('span', 'exc-modal__chip', '✓ ' + chip)));
+    id('exc-modal-included-wrap').hidden = !excInc.length;
+
+    id('exc-modal-tg').href = u.href;
+    excModal.showModal();
+  }
+
+  fetch('tour-search/excursions-catalog.json?v=h5')
     .then(r => (r.ok ? r.json() : null))
     .then(data => {
       const list = data?.[query.country];
       if (!Array.isArray(list) || !list.length) return;
-      id('excursions-title').textContent = t('Популярные экскурсии · ', 'Mashhur ekskursiyalar · ') + labels.country;
+      const placeLower = (cleanResort + ' ' + labels.country).toLowerCase();
+      const scored = list.map((item, idx) => {
+        const resorts = Array.isArray(item.resorts) ? item.resorts : [];
+        const matched = resorts.some(k => placeLower.includes(String(k).toLowerCase()));
+        return { item, matched, idx };
+      });
+      scored.sort((a, b) => Number(b.matched) - Number(a.matched) || a.idx - b.idx);
+      const anyMatched = scored.some(x => x.matched);
+
+      id('excursions-title').textContent = t('Популярные экскурсии · ', 'Mashhur ekskursiyalar · ') + (cleanResort && anyMatched ? cleanResort.split(',')[0] : labels.country);
       const grid = id('excursions-grid');
-      grid.replaceChildren(...list.slice(0, 6).map(item => {
-        const a = el('a', 'exc-card');
-        const u = new URL(manager);
+      grid.replaceChildren(...scored.slice(0, 6).map(({ item, matched }) => {
+        const btn = el('button', 'exc-card');
+        btn.type = 'button';
         const excTitle = uz && item.titleUz ? item.titleUz : item.title;
-        u.searchParams.set('text', uz
-          ? `Assalomu alaykum! Ekskursiya haqida ma’lumot olmoqchiman: ${excTitle} (${labels.country}).`
-          : `Здравствуйте! Интересует экскурсия: ${excTitle} (${labels.country}).`);
-        a.href = u.href;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
         const img = el('img');
         img.src = item.photo;
         img.alt = excTitle;
         img.loading = 'lazy';
+        if (matched && cleanResort && scored.some(x => !x.matched)) {
+          btn.append(el('span', 'exc-card__tag', t('Рядом с курортом', 'Kurort yaqinida')));
+        }
         const body = el('div', 'exc-card__body');
         const textWrap = el('div');
         textWrap.append(
@@ -523,8 +566,9 @@
           })
         );
         body.append(textWrap, el('span', 'exc-card__arrow', '›'));
-        a.append(img, body);
-        return a;
+        btn.append(img, body);
+        btn.addEventListener('click', () => openExcursionModal(item));
+        return btn;
       }));
       id('excursions-section').hidden = false;
     })

@@ -3,335 +3,914 @@
     {
       "title": "Острова Пхи-Пхи и бухта Майя Бэй",
       "titleUz": "Pxi-Pxi orollari va Maya Bey ko‘rfazi",
+      "resorts": ["пхукет", "патонг", "карон", "ката", "камала", "банг тао", "као лак", "краби", "пхи-пхи"],
       "duration": "1 день · скоростной катер",
       "durationUz": "1 kun · tezyurar kater",
       "rating": 4.9,
       "reviews": 148,
-      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=700&q=80"
-    },
-    {
-      "title": "Исторический парк Аюттайя — древняя столица",
-      "titleUz": "Ayuttaya tarixiy bog‘i — qadimiy poytaxt",
-      "duration": "1 день · групповая / мини-группа",
-      "durationUz": "1 kun · guruhli",
-      "rating": 4.9,
-      "reviews": 64,
-      "photo": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=700&q=80"
-    },
-    {
-      "title": "Обзорная по Бангкоку: храмы и небоскрёбы",
-      "titleUz": "Bangkok bo‘ylab sayohat: ibodatxonalar",
-      "duration": "1 день · с гидом",
-      "durationUz": "1 kun · gid bilan",
-      "rating": 4.8,
-      "reviews": 92,
-      "photo": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=700&q=80"
-    },
-    {
-      "title": "Путешествие на реку Квай и водопад Эраван",
-      "titleUz": "Kvay daryosi va Eravan sharsharasi",
-      "duration": "2 дня · с ночёвкой",
-      "durationUz": "2 kun · tunash bilan",
-      "rating": 4.9,
-      "reviews": 53,
-      "photo": "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=900&q=80",
+      "summary": "Самый популярный морской маршрут Андаманского моря: бирюзовые лагуны, снорклинг у коралловых рифов и знаменитая бухта Майя Бэй.",
+      "summaryUz": "Andaman dengizidagi eng mashhur dengiz sayohati: firuza lagunalar, marjon riflarida snorkling va mashhur Maya Bey ko‘rfazi.",
+      "program": [
+        "Трансфер из отеля до пирса и отправление на скоростном катере",
+        "Прогулка по бухте Майя Бэй, лагуне Пиле и осмотр пещеры Викингов",
+        "Снорклинг с масками среди тропических рыб и остановка на пляже обезьян",
+        "Обед на острове Пхи-Пхи Дон и свободное время на белом пляже"
+      ],
+      "programUz": [
+        "Mehmonxonadan prichalgacha transfer va tezyurar katerda jo‘nash",
+        "Maya Bey ko‘rfazi, Pile lagunasi va Vikinglar g‘orini tomosha qilish",
+        "Tropik baliqlar orasida snorkling va maymunlar plyajida to‘xtash",
+        "Pxi-Pxi Don orolida tushlik va oq qumli plyajda bo‘sh vaqt"
+      ],
+      "included": ["Трансфер от отеля", "Скоростной катер", "Русскоязычный гид", "Обед и фрукты", "Маски и страховка"],
+      "includedUz": ["Mehmonxonadan transfer", "Tezyurar kater", "Gid xizmati", "Tushlik va mevalar", "Snorkling jihozlari"]
     },
     {
       "title": "Остров Джеймса Бонда и бухта Пханг Нга",
       "titleUz": "Jeyms Bond oroli va Pxang Nga",
+      "resorts": ["пхукет", "патонг", "карон", "ката", "камала", "банг тао", "као лак", "краби"],
       "duration": "1 день · каноэ и лагуны",
       "durationUz": "1 kun · kanoe va lagunalar",
       "rating": 4.8,
       "reviews": 110,
-      "photo": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=900&q=80",
+      "summary": "Живописные известняковые скалы, прогулка на каноэ по морским пещерам острова Панак и фото у легендарной скалы Джеймса Бонда.",
+      "summaryUz": "Go‘zal qoyalar, Panak oroli dengiz g‘orlarida kanoe sayri va mashhur Jeyms Bond qoyasi yonida suratga tushish.",
+      "program": [
+        "Выезд из отеля и круиз по национальному парку залива Пханг Нга",
+        "Катание на надувных каноэ с гребцом через пещеры и мангровые гроты",
+        "Высадка на острове Джеймса Бонда (Ко Тапу)",
+        "Обед в деревне морских цыган на сваях (Ко Паньи) и купание на острове Нака"
+      ],
+      "programUz": [
+        "Mehmonxonadan chiqish va Pxang Nga milliy bog‘i bo‘ylab kruiz",
+        "G‘orlar va mangrov lagunalari bo‘ylab kanoeda sayr",
+        "Jeyms Bond oroliga (Ko Tapu) tushish",
+        "Suv ustidagi qishloqda tushlik va Naka orolida cho‘milish"
+      ],
+      "included": ["Трансфер от отеля", "Катер и каноэ с гребцом", "Русскоязычный гид", "Обед", "Сборы нацпарка"],
+      "includedUz": ["Mehmonxonadan transfer", "Kater va kanoe", "Gid xizmati", "Tushlik", "Milliy bog‘ chiptalari"]
+    },
+    {
+      "title": "Исторический парк Аюттайя — древняя столица",
+      "titleUz": "Ayuttaya tarixiy bog‘i — qadimiy poytaxt",
+      "resorts": ["паттайя", "джомтьен", "вонгамат", "наклуа", "бангкок", "хуа хин"],
+      "duration": "1 день · мини-группа",
+      "durationUz": "1 kun · kichik guruh",
+      "rating": 4.9,
+      "reviews": 64,
+      "photo": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=900&q=80",
+      "summary": "Погружение в историю Сиама: храмовые руины ЮНЕСКО, знаменитая голова Будды в корнях дерева и королевская летняя резиденция.",
+      "summaryUz": "Siam tarixiga sayohat: YuNESKO ibodatxona xarobalari, daraxt ildizidagi mashhur Budda haykali va qirollik qarorgohi.",
+      "program": [
+        "Утренний выезд из отеля на комфортабельном минивэне",
+        "Посещение храмов Ват Махатхат (Будда в корнях) и Ват Пхра Си Санпхет",
+        "Осмотр гигантского лежащего Будды и прогулка по территории парка",
+        "Обед в местном ресторане на берегу реки и возвращение в отель"
+      ],
+      "programUz": [
+        "Mehmonxonadan qulay minivenda ertalabki jo‘nash",
+        "Vat Maxatxat va Vat Pxra Si Sanpxet ibodatxonalariga tashrif",
+        "Ulkan yotgan Budda haykalini ko‘rish va bog‘ bo‘ylab sayr",
+        "Daryo bo‘yidagi restoranda tushlik va mehmonxonaga qaytish"
+      ],
+      "included": ["Трансфер туда и обратно", "Русскоязычный гид", "Входные билеты", "Обед"],
+      "includedUz": ["Borish-kelish transferi", "Gid xizmati", "Kirish chiptalari", "Tushlik"]
+    },
+    {
+      "title": "Обзорная по Бангкоку: храмы и небоскрёбы",
+      "titleUz": "Bangkok bo‘ylab sayohat: ibodatxonalar va osmono‘parlar",
+      "resorts": ["паттайя", "джомтьен", "вонгамат", "наклуа", "бангкок"],
+      "duration": "1 день · с гидом",
+      "durationUz": "1 kun · gid bilan",
+      "rating": 4.8,
+      "reviews": 92,
+      "photo": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=900&q=80",
+      "summary": "Главные символы столицы за один день: Большой Королевский дворец, Храм Изумрудного Будды, прогулка по каналам и панорама с Baiyoke Sky.",
+      "summaryUz": "Poytaxtning eng muhim maskanlari bir kunda: Qirollik saroyi, Zumrad Budda ibodatxonasi va Baiyoke Sky panoramasi.",
+      "program": [
+        "Королевский дворец и Храм Изумрудного Будды (Ват Пхра Кео)",
+        "Храм Лежащего Будды (Ват Пхо) и переправа к Ват Арун",
+        "Прогулка на лодке по каналам реки Чао Прайя",
+        "Обед-шведский стол и смотровая площадка на высоте 300+ м"
+      ],
+      "programUz": [
+        "Qirollik saroyi va Zumrad Budda ibodatxonasi",
+        "Yotgan Budda ibodatxonasi (Vat Pxo) va Vat Arun",
+        "Chao Praya daryosi kanallari bo‘ylab qayiqda sayr",
+        "Shved stoli tushlik va 300+ m balandlikdagi kuzatuv maydoni"
+      ],
+      "included": ["Трансфер из отеля", "Русскоязычный гид", "Билеты во дворец и храмы", "Обед и смотровая"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Saroy va ibodatxona chiptalari", "Tushlik"]
+    },
+    {
+      "title": "Путешествие на реку Квай и водопад Эраван",
+      "titleUz": "Kvay daryosi va Eravan sharsharasi",
+      "resorts": ["паттайя", "джомтьен", "вонгамат", "наклуа", "бангкок"],
+      "duration": "2 дня · с ночёвкой",
+      "durationUz": "2 kun · tunash bilan",
+      "rating": 4.9,
+      "reviews": 53,
+      "photo": "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=900&q=80",
+      "summary": "Легендарная двухдневная поездка в джунгли Канчанабури: 7-уровневый водопад Эраван, ночёвка в домиках на воде, сплав и термальные источники.",
+      "summaryUz": "Kanchanaburi changalzorlariga 2 kunlik afsonaviy sayohat: 7 pog‘onali Eravan sharsharasi, suv ustidagi uylarda tunash va termal buloqlar.",
+      "program": [
+        "Плавучий рынок, деревня слонов и сплав по реке Квай в жилетах",
+        "Заселение в отель на воде посреди джунглей, ужин и отдых",
+        "Термальные радоновые источники Хин Дат",
+        "Национальный парк и купание в 7-уровневом водопаде Эраван"
+      ],
+      "programUz": [
+        "Suzuvchi bozor, fillar qishlog‘i va Kvay daryosida oqim bo‘ylab suzish",
+        "Suv ustidagi mehmonxonaga joylashish va kechki ovqat",
+        "Xin Dat termal buloqlari",
+        "7 pog‘onali Eravan sharsharasida cho‘milish"
+      ],
+      "included": ["Трансфер и минивэн", "Ночёвка в отеле на реке", "Питание (4 раза)", "Русскоязычный гид", "Все билеты"],
+      "includedUz": ["Transfer va miniven", "Daryo ustidagi mehmonxonada tunash", "Ovqatlanish", "Gid va chiptalar"]
     },
     {
       "title": "Открытый зоопарк Кхао Кхео и сад Нонг Нуч",
       "titleUz": "Kxao Kxeo hayvonot bog‘i va Nong Nuch",
+      "resorts": ["паттайя", "джомтьен", "вонгамат", "наклуа", "районг"],
       "duration": "1 день · для всей семьи",
       "durationUz": "1 kun · oilaviy",
       "rating": 4.8,
       "reviews": 76,
-      "photo": "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=900&q=80",
+      "summary": "Идеальный семейный день: кормление жирафов, бегемотов и лемуров с рук в огромном открытом сафари-парке и прогулка по тропическому саду.",
+      "summaryUz": "Oilaviy dam olish uchun ideal kun: jirafalar, begemotlar va lemurlarni qo‘ldan ovqatlantirish hamda tropik bog‘ bo‘ylab sayr.",
+      "program": [
+        "Поездка по территории открытого зоопарка Кхао Кхео с остановками у вольеров",
+        "Кормление жирафов, оленей, слонов и шоу плавающего слона",
+        "Тропический ботанический сад Нонг Нуч и долина динозавров",
+        "Шоу слонов и национальное танцевальное представление"
+      ],
+      "programUz": [
+        "Kxao Kxeo ochiq hayvonot bog‘i bo‘ylab sayohat",
+        "Jirafalar, bug‘ular va fillarni ovqatlantirish",
+        "Nong Nuch botanika bog‘i va dinozavrlar vodiysi",
+        "Fillar shousi va milliy raqs dasturi"
+      ],
+      "included": ["Трансфер от отеля", "Входные билеты", "Шоу-программа", "Русскоязычный гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Kirish chiptalari", "Shou dasturi", "Gid xizmati"]
     }
   ],
   "uae": [
     {
       "title": "Обзорная по Дубаю: Бурдж-Халифа, Марина и Пальма",
-      "titleUz": "Dubay bo‘ylab sayohat: Burj-Xalifa va Palma",
+      "titleUz": "Dubay bo‘ylab sayohat: Burj-Xalifa, Marina va Palma",
+      "resorts": ["дубай", "шарджа", "аджман", "рас-эль-хайма", "фуджейра", "дейра", "марина", "барша", "джумейра"],
       "duration": "6 часов · с гидом",
       "durationUz": "6 soat · gid bilan",
       "rating": 4.9,
       "reviews": 184,
-      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80",
+      "summary": "Все главные локации современного Дубая за одну комфортную поездку: от набережной Dubai Marina и Palm Jumeirah до шоу поющих фонтанов у Бурдж-Халифы.",
+      "summaryUz": "Zamonaviy Dubayning eng mashhur joylari bitta sayohatda: Dubai Marina, Palm Jumeirah va Burj-Xalifa yonidagi musiqali favvoralar.",
+      "program": [
+        "Фотостоп у отеля-паруса Burj Al Arab и прогулка по Madinat Jumeirah",
+        "Остров Palm Jumeirah, Atlantis и панорама Dubai Marina",
+        "Прогулка по Dubai Mall, аквариум и подъём на Бурдж-Халифу (по желанию)",
+        "Вечернее шоу поющих фонтанов и обратный трансфер в отель"
+      ],
+      "programUz": [
+        "Burj Al Arab yonida fotostop va Madinat Jumeirah bo‘ylab sayr",
+        "Palm Jumeirah oroli, Atlantis va Dubai Marina panoramasi",
+        "Dubai Mall, akvarium va Burj-Xalifa (istak bo‘yicha)",
+        "Kechki musiqali favvoralar shousi va mehmonxonaga qaytish"
+      ],
+      "included": ["Трансфер из отеля", "Комфортабельный автобус/авто", "Русскоязычный гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Qulay transport", "Gid xizmati"]
     },
     {
       "title": "Пустынное сафари на джипах и ужин в лагере бедуинов",
-      "titleUz": "Cho‘l safarisi va kechki ovqat",
+      "titleUz": "Cho‘l safarisi va badaviylar lagerida kechki ovqat",
+      "resorts": ["дубай", "шарджа", "аджман", "рас-эль-хайма", "абу-даби"],
       "duration": "6 часов · вечерний выезд",
       "durationUz": "6 soat · kechki sayohat",
       "rating": 4.9,
       "reviews": 215,
-      "photo": "https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&w=900&q=80",
+      "summary": "Адреналиновая поездка по красным барханам на Land Cruiser 4×4, закат в пустыне, катание на верблюдах и восточное шоу с барбекю-ужином.",
+      "summaryUz": "Land Cruiser 4×4 mashinalarida qizil barxanlar bo‘ylab hayajonli sayr, cho‘lda quyosh botishi, tuyada sayr va barbekyu kechki ovqat.",
+      "program": [
+        "Заезд за вами в отель на внедорожнике 4×4 во второй половине дня",
+        "Дюна-башинг по красным пескам и фотосессия на закате + сэндбординг",
+        "Прибытие в бедуинский лагерь: верблюды, роспись хной, арабский кофе",
+        "Шведский стол BBQ и шоу-программа (танура, огненное и восточное шоу)"
+      ],
+      "programUz": [
+        "Kunning ikkinchi yarmida 4×4 yo‘ltanlamasda mehmonxonadan olib ketish",
+        "Qizil qumlar bo‘ylab sayr va quyosh botishida fotosessiya",
+        "Badaviylar lageri: tuyalar, arab qahvasi va dam olish",
+        "BBQ kechki ovqat va sharqona shou dasturi"
+      ],
+      "included": ["Джип 4×4 от отеля", "Катание по барханам", "Ужин BBQ и напитки", "Шоу-программа"],
+      "includedUz": ["4×4 jip transferi", "Barxanlarda sayr", "BBQ kechki ovqat", "Shou dasturi"]
     },
     {
       "title": "Абу-Даби: Мечеть шейха Зайда и Лувр",
       "titleUz": "Abu-Dabi: Shayx Zayd masjidi va Luvr",
+      "resorts": ["дубай", "шарджа", "абу-даби", "аджман", "рас-эль-хайма"],
       "duration": "1 день · из Дубая / Шарджи",
       "durationUz": "1 kun · Dubay / Sharjadan",
       "rating": 4.9,
       "reviews": 132,
-      "photo": "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=900&q=80",
+      "summary": "Поездка в столицу ОАЭ: белоснежная Большая мечеть шейха Зайда, президентский дворец Каср аль-Ватан, набережная Корниш и музей Лувр Абу-Даби.",
+      "summaryUz": "BAA poytaxtiga sayohat: oq marmar Shayx Zayd masjidi, Qasr al-Vatan saroyi va Abu-Dabi Luvr muzeyi.",
+      "program": [
+        "Посещение Большой мечети шейха Зайда (абайя выдаётся бесплатно)",
+        "Проезд вдоль набережной Корниш и остановка у Emirates Palace",
+        "Дворец Каср аль-Ватан или музей Лувр Абу-Даби (на выбор)",
+        "Остановка у Ferrari World на острове Яс и возвращение в отель"
+      ],
+      "programUz": [
+        "Shayx Zayd masjidi ziyorati (abaya bepul beriladi)",
+        "Kornish qirg‘og‘i va Emirates Palace yonida to‘xtash",
+        "Qasr al-Vatan saroyi yoki Abu-Dabi Luvr muzeyi",
+        "Yas orolida Ferrari World yonida to‘xtash va qaytish"
+      ],
+      "included": ["Трансфер из отеля", "Русскоязычный гид", "Билет в мечеть и дресс-код"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Masjidga kirish"]
     },
     {
       "title": "Круиз на яхте по Дубай Марине на закате",
-      "titleUz": "Dubay Marinada yaxtada sayr",
+      "titleUz": "Dubay Marinada yaxtada kechki sayr",
+      "resorts": ["дубай", "шарджа", "аджман"],
       "duration": "2 часа · с ужином",
       "durationUz": "2 soat · kechki ovqat bilan",
       "rating": 4.8,
       "reviews": 96,
-      "photo": "https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&w=900&q=80",
+      "summary": "Вечерний круиз по каналу Dubai Marina мимо подсвеченных небоскрёбов, колеса обозрения Ain Dubai и острова Bluewaters с ужином на борту.",
+      "summaryUz": "Yoritilgan osmono‘parlar, Ain Dubai charxpalagi va Bluewaters oroli bo‘ylab kechki ovqatli yaxta sayri.",
+      "program": [
+        "Посадка на борт на пирсе Dubai Marina",
+        "Прогулка вдоль небоскрёбов Marina, JBR и острова Bluewaters",
+        "Ужин-шведский стол с безалкогольными напитками на палубе",
+        "Панорамные фото на фоне ночного Дубая"
+      ],
+      "programUz": [
+        "Dubai Marina prichalidan yaxtaga chiqish",
+        "Marina osmono‘parlari, JBR va Bluewaters bo‘ylab sayr",
+        "Palubada shved stoli kechki ovqat va ichimliklar",
+        "Tungi Dubay fonida fotosessiya"
+      ],
+      "included": ["2-часовой круиз", "Ужин-шведский стол", "Напитки на борту"],
+      "includedUz": ["2 soatlik kruiz", "Shved stoli kechki ovqat", "Ichimliklar"]
     }
   ],
   "turkey": [
     {
-      "title": "Каппадокия: воздушные шары и подземные города",
-      "titleUz": "Kappadokiya: havo sharlari va g‘or shaharlar",
-      "duration": "2 дня · с перелётом / автобусом",
-      "durationUz": "2 kun · transfer bilan",
-      "rating": 4.9,
-      "reviews": 164,
-      "photo": "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?auto=format&fit=crop&w=700&q=80"
-    },
-    {
-      "title": "Памуккале и древний Иераполис",
-      "titleUz": "Pamukkale va qadimiy Ierapolis",
-      "duration": "1 день · термальные травертины",
-      "durationUz": "1 kun · termal buloqlar",
-      "rating": 4.8,
-      "reviews": 129,
-      "photo": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=700&q=80"
-    },
-    {
       "title": "Круиз по Босфору и старый Стамбул",
       "titleUz": "Bosfor bo‘ylab sayr va eski Istanbul",
+      "resorts": ["стамбул", "султанахмет", "таксим", "лалели", "фатих", "бейазит", "сиркеджи"],
       "duration": "5 часов · с гидом",
       "durationUz": "5 soat · gid bilan",
       "rating": 4.9,
       "reviews": 195,
-      "photo": "img/istanbul-hero-hd.png"
+      "photo": "img/istanbul-hero-hd.png",
+      "summary": "Знакомство с историческим сердцем Стамбула: Голубая мечеть, Айя-София, площадь Ипподром и морская прогулка между Европой и Азией.",
+      "summaryUz": "Istanbulning tarixiy markazi bilan tanishuv: Moviy masjid, Aya-Sofya, Ippodrom maydoni va Yevropa-Osiyo o‘rtasida Bosfor kruizi.",
+      "program": [
+        "Прогулка по Султанахмет: Голубая мечеть, Айя-София, Ипподром",
+        "Колоритный Египетский базар специй и сладостей",
+        "Прогулка на кораблике по проливу Босфор мимо дворцов и крепостей",
+        "Рекомендации гида по лучшим кафе и смотровым площадкам"
+      ],
+      "programUz": [
+        "Sultonahmet bo‘ylab sayr: Moviy masjid, Aya-Sofya, Ippodrom",
+        "Misr ziravorlar va shirinliklar bozori",
+        "Bosfor bo‘g‘ozi bo‘ylab kema sayri",
+        "Eng yaxshi kafe va kuzatuv maydonlari bo‘yicha tavsiyalar"
+      ],
+      "included": ["Русскоязычный лицензированный гид", "Билет на круиз по Босфору", "Маршрут по старому городу"],
+      "includedUz": ["Litsenziyali gid", "Bosfor kruizi chiptasi", "Eski shahar marshruti"]
+    },
+    {
+      "title": "Каппадокия: воздушные шары и подземные города",
+      "titleUz": "Kappadokiya: havo sharlari va yerosti shaharlari",
+      "resorts": ["анталья", "аланья", "кемер", "белек", "сиде", "стамбул", "каппадокия"],
+      "duration": "2 дня · с ночёвкой",
+      "durationUz": "2 kun · tunash bilan",
+      "rating": 4.9,
+      "reviews": 164,
+      "photo": "https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?auto=format&fit=crop&w=900&q=80",
+      "summary": "Сказочные долины Гёреме, подземный город, крепость Учхисар и знаменитый рассвет с сотнями воздушных шаров в небе.",
+      "summaryUz": "Gyoreme vodiylari, yerosti shahri, Uchxisar qal’asi va osmonda yuzlab havo sharlari bilan mashhur tong.",
+      "program": [
+        "Подземный город и панорама крепости Учхисар",
+        "Долина Любви, Долина Воображения и скальные церкви Гёреме",
+        "Ночёвка в колоритном отеле Каппадокии",
+        "Рассветная панорама (или полёт на воздушном шаре по желанию)"
+      ],
+      "programUz": [
+        "Yerosti shahri va Uchxisar qal’asi panoramasi",
+        "Gyoreme vodiylari va qoya cherkovlari",
+        "Kappadokiya mehmonxonasida tunash",
+        "Tonggi havo sharlari panoramasi (istak bo‘yicha parvoz)"
+      ],
+      "included": ["Трансфер из отеля", "Проживание 1 ночь + завтрак/ужин", "Русскоязычный гид"],
+      "includedUz": ["Mehmonxonadan transfer", "1 kecha mehmonxona + ovqatlanish", "Gid xizmati"]
+    },
+    {
+      "title": "Памуккале и древний Иераполис",
+      "titleUz": "Pamukkale va qadimiy Ierapolis",
+      "resorts": ["анталья", "аланья", "кемер", "белек", "сиде", "мармарис", "фетхие", "бодрум"],
+      "duration": "1 день · термальные травертины",
+      "durationUz": "1 kun · termal buloqlar",
+      "rating": 4.8,
+      "reviews": 129,
+      "photo": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=900&q=80",
+      "summary": "Белоснежные известковые террасы Памуккале, античный амфитеатр Иераполиса и купание в тёплом минеральном бассейне Клеопатры.",
+      "summaryUz": "Oppog‘ travertin terrasalar, qadimiy Ierapolis amfiteatri va Kleopatra termal basseynida cho‘milish.",
+      "program": [
+        "Выезд из отеля по живописной дороге через Таврские горы",
+        "Прогулка босиком по белоснежным травертинам Памуккале",
+        "Осмотр античного города и амфитеатра Иераполиса",
+        "Купание в термальном бассейне Клеопатры и обед"
+      ],
+      "programUz": [
+        "Tavr tog‘lari orqali mehmonxonadan chiqish",
+        "Pamukkale oq travertinlari bo‘ylab sayr",
+        "Qadimiy Ierapolis va amfiteatrni tomosha qilish",
+        "Kleopatra termal basseynida cho‘milish va tushlik"
+      ],
+      "included": ["Трансфер от отеля", "Русскоязычный гид", "Обед", "Страховка"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Tushlik", "Sug‘urta"]
     },
     {
       "title": "Зелёный каньон и морская прогулка на яхте",
       "titleUz": "Yashil kanyon va dengiz sayri",
+      "resorts": ["анталья", "аланья", "кемер", "белек", "сиде"],
       "duration": "1 день · обед включён",
       "durationUz": "1 kun · tushlik bilan",
       "rating": 4.8,
       "reviews": 87,
-      "photo": "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=900&q=80",
+      "summary": "Расслабляющий круиз по изумрудным водам горного водохранилища среди сосновых скал — без жары и городской суеты.",
+      "summaryUz": "Qarag‘ayli qoyalar orasidagi zumrad suvli tog‘ kanyonida sokin kema sayri va cho‘milish.",
+      "program": [
+        "Трансфер из отеля к плотине Оймапынар",
+        "Прогулка на кораблике по Большому и Малому Зелёному каньону",
+        "Остановки для купания в чистой прохладной воде",
+        "Обед в ресторане с панорамным видом на каньон"
+      ],
+      "programUz": [
+        "Oymapinar to‘g‘oniga transfer",
+        "Katta va Kichik Yashil kanyon bo‘ylab kema sayri",
+        "Toza salqin suvda cho‘milish to‘xtashlari",
+        "Kanyonga qaragan restoranda tushlik"
+      ],
+      "included": ["Трансфер от отеля", "Прогулка на кораблике", "Обед и безалкогольные напитки", "Гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Kema sayri", "Tushlik va ichimliklar", "Gid"]
     }
   ],
   "egypt": [
     {
-      "title": "Пирамиды Гизы, Сфинкс и Каирский музей",
-      "titleUz": "Giza piramidalari, Sfinks va Qohira muzeyi",
-      "duration": "1 день · из Шарма / Хургады",
-      "durationUz": "1 kun · Sharm / Xurgadadan",
-      "rating": 4.9,
-      "reviews": 173,
-      "photo": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=700&q=80"
-    },
-    {
       "title": "Заповедник Рас-Мохаммед и Белый остров",
       "titleUz": "Ras-Muhammad qo‘riqxonasi va Oq orol",
+      "resorts": ["шарм", "наама", "набк", "хадаба", "шаркс", "дахаб"],
       "duration": "1 день · яхта и снорклинг",
       "durationUz": "1 kun · yaxta va snorkling",
       "rating": 4.9,
       "reviews": 141,
-      "photo": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80",
+      "summary": "Лучшие коралловые рифы Красного моря, прогулка на яхте и высадка на белоснежной песчаной косе Белого острова.",
+      "summaryUz": "Qizil dengizning eng go‘zal marjon riflari, yaxta sayri va Oq orolning oq qumli qirg‘og‘ida dam olish.",
+      "program": [
+        "Трансфер в порт и выход в море на комфортной яхте",
+        "2–3 остановки для снорклинга у живых коралловых рифов с инструктором",
+        "Высадка и фотосессия на Белом острове посреди бирюзовой воды",
+        "Свежеприготовленный обед на борту и напитки"
+      ],
+      "programUz": [
+        "Portga transfer va yaxtada dengizga chiqish",
+        "Instruktor bilan marjon riflarida 2–3 marta snorkling",
+        "Oq orolda dam olish va fotosessiya",
+        "Yaxta bortida tushlik va ichimliklar"
+      ],
+      "included": ["Трансфер из отеля", "Прогулка на яхте", "Обед и напитки", "Сборы заповедника"],
+      "includedUz": ["Mehmonxonadan transfer", "Yaxta sayri", "Tushlik va ichimliklar", "Qo‘riqxona chiptasi"]
+    },
+    {
+      "title": "Пирамиды Гизы, Сфинкс и Каирский музей",
+      "titleUz": "Giza piramidalari, Sfinks va Qohira muzeyi",
+      "resorts": ["шарм", "хургада", "каир", "макади", "эль гуна"],
+      "duration": "1 день · из Шарма / Хургады",
+      "durationUz": "1 kun · Sharm / Xurgadadan",
+      "rating": 4.9,
+      "reviews": 173,
+      "photo": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=900&q=80",
+      "summary": "Главное чудо древнего мира своими глазами: Великие пирамиды Гизы, Большой Сфинкс и сокровища фараонов в Каирском музее.",
+      "summaryUz": "Qadimgi dunyoning bosh mo‘jizasi: Giza piramidalari, Katta Sfinks va Qohira muzeyidagi fir’avnlar xazinasi.",
+      "program": [
+        "Выезд (автобусом или авиаперелётом) в Каир с гидом-египтологом",
+        "Экскурсия в Каирский национальный музей",
+        "Плато Гиза: пирамиды Хеопса, Хефрена, Микерина и Большой Сфинкс",
+        "Обед-шведский стол и прогулка по Нилу (по желанию)"
+      ],
+      "programUz": [
+        "Misrshunos gid bilan Qohiraga jo‘nash",
+        "Qohira milliy muzeyiga ekskursiya",
+        "Giza platosi: Xeops piramidasi va Katta Sfinks",
+        "Shved stoli tushlik va Nil daryosida sayr (istak bo‘yicha)"
+      ],
+      "included": ["Трансфер от отеля", "Гид-египтолог", "Входные билеты", "Обед"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Kirish chiptalari", "Tushlik"]
     },
     {
       "title": "Мото-сафари на квадроциклах в пустыне",
       "titleUz": "Cho‘lda kvadrotsikl safarisi",
+      "resorts": ["шарм", "хургада", "макади", "эль гуна", "марса"],
       "duration": "4 часа · закат в пустыне",
       "durationUz": "4 soat · quyosh botishi",
       "rating": 4.8,
       "reviews": 112,
-      "photo": "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=900&q=80",
+      "summary": "Заезд на квадроциклах по Синайской или Аравийской пустыне, встреча заката среди гор, бедуинский чай и катание на верблюдах.",
+      "summaryUz": "Cho‘l bo‘ylab kvadrotsiklda sayr, tog‘lar orasida quyosh botishini kutib olish, badaviy choyi va tuyada sayr.",
+      "program": [
+        "Трансфер из отеля на базу сафари и инструктаж",
+        "Поездка на квадроциклах по пустынным каньонам (~1 час)",
+        "Остановка в деревне бедуинов: традиционный чай и прогулка на верблюде",
+        "Фото на закате и возвращение в отель"
+      ],
+      "programUz": [
+        "Mehmonxonadan safari bazasiga transfer va yo‘riqnoma",
+        "Cho‘l kanyonlari bo‘ylab kvadrotsiklda yurish",
+        "Badaviylar qishlog‘ida choy va tuyada sayr",
+        "Quyosh botishida suratga tushish va qaytish"
+      ],
+      "included": ["Трансфер от отеля", "Квадроцикл и инструктор", "Бедуинский чай", "Верблюды"],
+      "includedUz": ["Mehmonxonadan transfer", "Kvadrotsikl va instruktor", "Badaviy choyi", "Tuyalar"]
     },
     {
       "title": "Древний Луксор и Долина царей",
       "titleUz": "Qadimiy Luksor va Shohlar vodiysi",
+      "resorts": ["хургада", "макади", "сома", "сахль", "эль гуна", "марса"],
       "duration": "1 день · исторический тур",
       "durationUz": "1 kun · tarixiy tur",
       "rating": 4.9,
       "reviews": 89,
-      "photo": "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=900&q=80",
+      "summary": "Музей под открытым небом: величественный Карнакский храм, храм царицы Хатшепсут, Колоссы Мемнона и гробницы Долины царей.",
+      "summaryUz": "Ochiq osmon ostidagi muzey: Karnak ibodatxonasi, Xatshepsut maqbarasi va Shohlar vodiysi.",
+      "program": [
+        "Карнакский храмовый комплекс и Аллея сфинксов",
+        "Переправа через Нил на Западный берег",
+        "Долина царей (посещение гробниц) и храм царицы Хатшепсут",
+        "Остановка у Колоссов Мемнона и обед"
+      ],
+      "programUz": [
+        "Karnak ibodatxona majmuasi va Sfinkslar xiyoboni",
+        "Nil daryosi orqali G‘arbiy sohilga o‘tish",
+        "Shohlar vodiysi va malika Xatshepsut ibodatxonasi",
+        "Memnon haykallari yonida to‘xtash va tushlik"
+      ],
+      "included": ["Трансфер из отеля", "Гид-египтолог", "Входные билеты", "Обед"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Kirish chiptalari", "Tushlik"]
     }
   ],
   "vietnam": [
     {
       "title": "Канатная дорога на остров Хон Том и снорклинг",
       "titleUz": "Xon Tom oroliga kanat yo‘li va snorkling",
+      "resorts": ["фукуок"],
       "duration": "1 день · Фукуок",
       "durationUz": "1 kun · Fukuok",
       "rating": 4.9,
       "reviews": 84,
-      "photo": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=900&q=80",
+      "summary": "Самая длинная морская канатная дорога в мире (8 км над океаном!), аквапарк Aquatopia и морская прогулка по 3 южным островам Фукуока.",
+      "summaryUz": "Dunyodagi eng uzun dengiz kanat yo‘li (8 km), Aquatopia akvaparki va Fukuokning 3 ta janubiy oroli bo‘ylab sayr.",
+      "program": [
+        "Морская прогулка на катере к островам с коралловыми рифами",
+        "Снорклинг и отдых на белоснежных пляжах",
+        "Обед-шведский стол и аквапарк Aquatopia на острове Хон Том",
+        "Возвращение по панорамной канатной дороге над морем"
+      ],
+      "programUz": [
+        "Katerda marjon rifli orollarga sayohat",
+        "Snorkling va oq qumli plyajlarda dam olish",
+        "Xon Tom orolida tushlik va Aquatopia akvaparki",
+        "Dengiz ustidagi kanat yo‘li orqali qaytish"
+      ],
+      "included": ["Трансфер из отеля", "Билет на канатную дорогу и аквапарк", "Катер и обед", "Гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Kanat yo‘li va akvapark chiptasi", "Kater va tushlik", "Gid"]
     },
     {
       "title": "Золотой мост на руках в Ба На Хиллс",
       "titleUz": "Ba Na Xillsdagi Oltin ko‘prik",
+      "resorts": ["дананг", "хой ан"],
       "duration": "1 день · Дананг",
       "durationUz": "1 kun · Danang",
       "rating": 4.9,
       "reviews": 116,
-      "photo": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=900&q=80",
+      "summary": "Горный парк развлечений на высоте 1 487 м: культовый Золотой мост в гигантских ладонях, французская деревня и панорамная канатная дорога.",
+      "summaryUz": "1 487 m balandlikdagi tog‘ bog‘i: ulkan qo‘llar tutib turgan Oltin ko‘prik, fransuz qishlog‘i va kanat yo‘li.",
+      "program": [
+        "Подъём по одной из самых высоких канатных дорог мира",
+        "Фотосессия на Золотом мосту и прогулка по цветочным садам",
+        "Французская деревня, винный погреб и парк аттракционов Fantasy Park",
+        "Обед-шведский стол в горах и возвращение в отель"
+      ],
+      "programUz": [
+        "Baland kanat yo‘lida tog‘ tepasiga ko‘tarilish",
+        "Oltin ko‘prikda fotosessiya va gullar bog‘i",
+        "Fransuz qishlog‘i va Fantasy Park attraksionlari",
+        "Tog‘da tushlik va mehmonxonaga qaytish"
+      ],
+      "included": ["Трансфер из отеля", "Билет в парк и канатная дорога", "Обед", "Гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Bog‘ va kanat yo‘li chiptasi", "Tushlik", "Gid"]
     },
     {
       "title": "Горный Далат: водопады и Crazy House",
       "titleUz": "Tog‘li Dalat: sharsharalar va Crazy House",
+      "resorts": ["нячанг", "камрань", "фантьет", "далат"],
       "duration": "1 день · из Нячанга",
       "durationUz": "1 kun · Nyachangdan",
       "rating": 4.8,
       "reviews": 71,
-      "photo": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=900&q=80",
+      "summary": "Прохладная «вьетнамская Швейцария» среди сосновых гор: водопад Датанла с электросанями, сюрреалистичный Crazy House и кофейные плантации.",
+      "summaryUz": "Qarag‘ayli tog‘lardagi salqin Dalat: Datanla sharsharasi, g‘ayrioddiy Crazy House va qahva plantatsiyalari.",
+      "program": [
+        "Переезд по живописному горному серпантину с остановками",
+        "Водопад Датанла и спуск на альпийских электросанях",
+        "Знаменитый «Сумасшедший дом» (Crazy House) и пагода Линь Фуок",
+        "Дегустация вьетнамского кофе, чая и обед"
+      ],
+      "programUz": [
+        "Go‘zal tog‘ yo‘li bo‘ylab safar",
+        "Datanla sharsharasi va tog‘ chanalari",
+        "Crazy House va Lin Fuok pagodasi",
+        "Vetnam qahvasi degustatsiyasi va tushlik"
+      ],
+      "included": ["Трансфер от отеля", "Русскоязычный гид", "Входные билеты", "Обед"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Kirish chiptalari", "Tushlik"]
     }
   ],
   "maldives": [
     {
       "title": "Плавание с мантами и китовыми акулами",
       "titleUz": "Mantalar va kit akulalari bilan suzish",
+      "resorts": ["мальдивы"],
       "duration": "Полный день · катер и гид",
       "durationUz": "To‘liq kun · kater va gid",
       "rating": 5.0,
       "reviews": 94,
-      "photo": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=80",
+      "summary": "Незабываемая встреча с гигантскими скатами манта и дружелюбными китовыми акулами в кристально чистых водах Индийского океана.",
+      "summaryUz": "Hind okeanining tiniq suvlarida ulkan mantalar va kit akulalari bilan unutilmas uchrashuv.",
+      "program": [
+        "Выход на скоростном катере с опытным морским гидом",
+        "Поиск и снорклинг с мантами на рифах-станциях очистки",
+        "Остановка у кораллового сада с черепахами и тропическими рыбами",
+        "Лёгкий ланч, фрукты и фото/видео под водой (GoPro)"
+      ],
+      "programUz": [
+        "Tajribali dengiz gidi bilan tezyurar katerda chiqish",
+        "Mantalar bilan snorkling",
+        "Toshbaqalar va marjon bog‘ida to‘xtash",
+        "Yengil tushlik, mevalar va suvosti suratga olish"
+      ],
+      "included": ["Скоростной катер", "Снаряжение для снорклинга", "Морской гид", "Вода, фрукты и ланч"],
+      "includedUz": ["Tezyurar kater", "Snorkling jihozlari", "Dengiz gidi", "Suv, meva va tushlik"]
     },
     {
       "title": "Песчаная отмель и круиз к дельфинам на закате",
       "titleUz": "Qumli orolcha va delfinlar bilan sayr",
+      "resorts": ["мальдивы"],
       "duration": "4 часа · романтический выезд",
       "durationUz": "4 soat · romantik sayr",
       "rating": 4.9,
       "reviews": 118,
-      "photo": "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=900&q=80",
+      "summary": "Уединённая белоснежная песчаная коса посреди океана для идеальных фото и вечерняя прогулка к стаям диких дельфинов на закате.",
+      "summaryUz": "Okean o‘rtasidagi oq qumli orolchada fotosessiya va quyosh botishida yovvoyi delfinlarni tomosha qilish.",
+      "program": [
+        "Прибытие на необитаемую песчаную отмель (sandbank) с зонтом и полотенцами",
+        "Купание в лагуне и фотосессия в стиле «Баунти»",
+        "Выход в открытый океан навстречу стаям дельфинов на закате"
+      ],
+      "programUz": [
+        "Kimsasiz oq qumli orolchada dam olish",
+        "Lagunada cho‘milish va fotosessiya",
+        "Quyosh botishida delfinlar galasini kuzatish"
+      ],
+      "included": ["Катер и экипаж", "Зонт и напитки на отмели", "Круиз на закате"],
+      "includedUz": ["Kater va ekipaj", "Soyabon va ichimliklar", "Quyosh botishi kruizi"]
     },
     {
       "title": "Рыбалка на закате и барбекю на острове",
       "titleUz": "Quyosh botishida baliq ovi va barbekyu",
+      "resorts": ["мальдивы"],
       "duration": "4 часа · ужин на пляже",
       "durationUz": "4 soat · plyajda kechki ovqat",
       "rating": 4.8,
       "reviews": 67,
-      "photo": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=900&q=80",
+      "summary": "Традиционная мальдивская рыбалка с борта лодки дони на закате и вкуснейший ужин из свежепойманного улова на гриле прямо на пляже.",
+      "summaryUz": "An’anaviy maldiv baliq ovi va plyajda yangi tutilgan baliqdan barbekyu kechki ovqat.",
+      "program": [
+        "Выход на традиционной лодке дони к рифам перед закатом",
+        "Рыбалка со снастями под руководством местной команды",
+        "Приготовление вашего улова на гриле и ужин на пляже при свечах"
+      ],
+      "programUz": [
+        "Quyosh botishidan oldin an’anaviy qayiqda riflarga chiqish",
+        "Mahalliy jamoa yordamida baliq ovi",
+        "Plyajda grilda pishirilgan baliq bilan kechki ovqat"
+      ],
+      "included": ["Лодка и снасти", "Ужин-барбекю из улова", "Напитки"],
+      "includedUz": ["Qayiq va qarmoqlar", "Barbekyu kechki ovqat", "Ichimliklar"]
     }
   ],
   "srilanka": [
     {
       "title": "Сигирия, Дамбулла и чайные плантации Нувара-Элии",
       "titleUz": "Sigiriya, Dambulla va choy plantatsiyalari",
+      "resorts": ["бентота", "хиккадува", "унаватуна", "мирисса", "негомбо", "коломбо", "сигирия", "канди"],
       "duration": "2 дня · сердце острова",
       "durationUz": "2 kun · orol markazi",
       "rating": 4.9,
       "reviews": 78,
-      "photo": "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=900&q=80",
+      "summary": "Классический маршрут по центру Шри-Ланки: Львиная скала Сигирия, Золотой пещерный храм Дамбулла, слоновий питомник и цейлонские чайные плантации.",
+      "summaryUz": "Shri-Lanka markazi bo‘ylab klassik marshrut: Sigiriya qoyasi, Dambulla ibodatxonasi va Seylon choy plantatsiyalari.",
+      "program": [
+        "Восхождение на скальную крепость Сигирия и пещерный храм Дамбулла",
+        "Королевский ботанический сад и Храм Зуба Будды в Канди",
+        "Ночёвка в горах и прогулка по чайным плантациям + фабрика чая",
+        "Девятиарочный мост в Элле и возвращение на побережье"
+      ],
+      "programUz": [
+        "Sigiriya qoyasiga chiqish va Dambulla g‘or ibodatxonasi",
+        "Kandi qirollik botanika bog‘i",
+        "Tog‘larda tunash va choy plantatsiyalari bo‘ylab sayr",
+        "Elladagi to‘qqiz arkali ko‘prik va qaytish"
+      ],
+      "included": ["Индивидуальный авто с водителем", "Русскоязычный гид", "Отель 1 ночь + завтрак"],
+      "includedUz": ["Haydovchili avtomobil", "Gid xizmati", "1 kecha mehmonxona + nonushta"]
     },
     {
       "title": "Сафари в национальном парке Яла",
       "titleUz": "Yala milliy bog‘ida safari",
+      "resorts": ["бентота", "хиккадува", "унаватуна", "мирисса", "тангалле", "велигама"],
       "duration": "1 день · леопарды и слоны",
       "durationUz": "1 kun · leopard va fillar",
       "rating": 4.8,
       "reviews": 63,
-      "photo": "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=900&q=80",
+      "summary": "Настоящее джип-сафари по дикой саванне: дикие слоны, павлины, крокодилы и шанс увидеть знаменитого цейлонского леопарда.",
+      "summaryUz": "Yovvoyi tabiat qo‘ynida jip-safari: yovvoyi fillar, tovuslar, timsohlar va Seylon leopardini ko‘rish imkoniyati.",
+      "program": [
+        "Ранний трансфер из отеля к воротам национального парка Яла",
+        "Пересадка в открытый сафари-джип с рейнджером",
+        "3–4 часа наблюдения за дикими животными в естественной среде",
+        "Завтрак/ланч-бокс и возвращение на побережье"
+      ],
+      "programUz": [
+        "Mehmonxonadan Yala milliy bog‘iga transfer",
+        "Ochiq safari-jipga o‘tirish",
+        "Tabiat qo‘ynida 3–4 soat hayvonlarni kuzatish",
+        "Lanch-boks va mehmonxonaga qaytish"
+      ],
+      "included": ["Трансфер из отеля", "Сафари-джип и билеты в парк", "Вода и ланч-бокс"],
+      "includedUz": ["Mehmonxonadan transfer", "Safari-jip va chiptalar", "Suv va lanch-boks"]
     },
     {
       "title": "Форт Галле, черепашья ферма и река Маду",
       "titleUz": "Galle qal’asi va toshbaqalar fermasi",
+      "resorts": ["бентота", "хиккадува", "унаватуна", "мирисса", "галле", "берувела", "калутара"],
       "duration": "1 день · юго-западное побережье",
       "durationUz": "1 kun · janubi-g‘arbiy sohil",
       "rating": 4.8,
       "reviews": 55,
-      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=900&q=80",
+      "summary": "Лёгкий и насыщенный день у океана: лодочное сафари по мангровым туннелям реки Маду, знакомство с морскими черепахами и старый голландский форт Галле.",
+      "summaryUz": "Okean bo‘yidagi qiziqarli kun: Madu daryosida qayiq safari, dengiz toshbaqalari fermasi va qadimiy Galle qal’asi.",
+      "program": [
+        "Прогулка на лодке по мангровым зарослям реки Маду и остров корицы",
+        "Посещение черепашьей фермы и выпуск малышей в океан",
+        "Прогулка по колониальным улочкам и маяку Форта Галле (ЮНЕСКО)"
+      ],
+      "programUz": [
+        "Madu daryosi mangrovlari bo‘ylab qayiqda sayr",
+        "Dengiz toshbaqalari fermasiga tashrif",
+        "Galle qal’asi ko‘chalari va mayoq bo‘ylab sayr"
+      ],
+      "included": ["Трансфер от отеля", "Лодка по реке Маду", "Русскоязычный гид"],
+      "includedUz": ["Mehmonxonadan transfer", "Madu daryosida qayiq", "Gid xizmati"]
     }
   ],
   "georgia": [
     {
       "title": "Батуми, ботанический сад и горная Аджария",
       "titleUz": "Batumi, botanika bog‘i va tog‘li Ajariya",
+      "resorts": ["батуми", "кобулети", "квариати", "уреки", "шекветили"],
       "duration": "1 день · водопады и винодельня",
-      "durationUz": "1 kun · sharsharalar",
+      "durationUz": "1 kun · sharsharalar va vino",
       "rating": 4.9,
       "reviews": 112,
-      "photo": "img/batumi.webp"
+      "photo": "img/batumi.webp",
+      "summary": "Изумрудные горы Аджарии, водопад Махунцети, арочный мост царицы Тамары, Ботанический сад над морем и гостеприимное грузинское застолье.",
+      "summaryUz": "Ajariya tog‘lari, Maxunseti sharsharasi, malika Tamara ko‘prigi, Botanika bog‘i va mehmondo‘st gruzin dasturxoni.",
+      "program": [
+        "Прогулка по Батумскому ботаническому саду с видом на Чёрное море",
+        "Поездка в горную Аджарию: водопад Махунцети и мост царицы Тамары",
+        "Дегустация грузинских вин и хачапури по-аджарски"
+      ],
+      "programUz": [
+        "Qora dengizga qaragan Batumi botanika bog‘ida sayr",
+        "Tog‘li Ajariya: Maxunseti sharsharasi va qadimiy ko‘prik",
+        "Milliy taomlar va ichimliklar degustatsiyasi"
+      ],
+      "included": ["Трансфер из отеля", "Русскоязычный гид", "Дегустация"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Degustatsiya"]
     },
     {
       "title": "Военно-Грузинская дорога и Казбеги",
       "titleUz": "Harbiy-Gruziya yo‘li va Kazbegi",
+      "resorts": ["тбилиси", "гудаури", "казбеги", "гори"],
       "duration": "1 день · из Тбилиси",
       "durationUz": "1 kun · Tbilisidan",
       "rating": 4.9,
       "reviews": 134,
-      "photo": "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=900&q=80",
+      "summary": "Самая красивая горная дорога Кавказа: бирюзовое Жинвальское водохранилище, крепость Ананури, Арка Дружбы в Гудаури и церковь Гергети у подножия Казбека.",
+      "summaryUz": "Kavkazning eng chiroyli tog‘ yo‘li: Jinvali suv ombori, Ananuri qal’asi, Gudauri va Kazbek etagidagi Gergeti.",
+      "program": [
+        "Жинвальское водохранилище и старинная крепость Ананури",
+        "Смотровая площадка Арка Дружбы Народов на Крестовом перевале",
+        "Подъём на внедорожнике к храму Гергети с видом на гору Казбек (5 033 м)",
+        "Остановка на настоящие горные хинкали на обратном пути"
+      ],
+      "programUz": [
+        "Jinvali suv ombori va qadimiy Ananuri qal’asi",
+        "Gudauri kuzatuv maydonchasi",
+        "Kazbek tog‘i (5 033 m) fonidagi Gergeti ibodatxonasiga chiqish",
+        "Qaytishda haqiqiy tog‘ xinkalisidan tatib ko‘rish"
+      ],
+      "included": ["Трансфер на минивэне", "Русскоязычный гид", "Остановки на всех панорамах"],
+      "includedUz": ["Miniven transferi", "Gid xizmati", "Barcha panoramalarda to‘xtash"]
     },
     {
       "title": "Кахетия: Сигнахи, монастырь Бодбе и дегустация",
       "titleUz": "Kaxetiya: Signaxi va Bodbe",
+      "resorts": ["тбилиси", "кахетия"],
       "duration": "1 день · винный край",
       "durationUz": "1 kun · vino o‘lkasi",
       "rating": 4.9,
       "reviews": 98,
-      "photo": "https://images.unsplash.com/photo-1579782515916-9421d59d409e?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1579782515916-9421d59d409e?auto=format&fit=crop&w=900&q=80",
+      "summary": "Путешествие в Алазанскую долину: романтический город любви Сигнахи, монастырь святой Нино в Бодбе, мастер-класс по чурчхеле и винный погреб.",
+      "summaryUz": "Alazan vodiysiga sayohat: muhabbat shahri Signaxi, Bodbe monastiri va an’anaviy mehmondo‘stlik.",
+      "program": [
+        "Монастырь Бодбе с панорамным видом на Алазанскую долину",
+        "Прогулка по крепостной стене и улочкам Сигнахи",
+        "Посещение винодельни, дегустация и тёплый хлеб шоти с сыром"
+      ],
+      "programUz": [
+        "Alazan vodiysiga qaragan Bodbe monastiri",
+        "Signaxi qal’a devori va ko‘chalari bo‘ylab sayr",
+        "An’anaviy vino zavodi va issiq shoti noni degustatsiyasi"
+      ],
+      "included": ["Трансфер из отеля", "Русскоязычный гид", "Дегустация"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Degustatsiya"]
     }
   ],
   "malaysia": [
     {
       "title": "Куала-Лумпур: башни Петронас и пещеры Бату",
-      "titleUz": "Kuala-Lumpur: Petronas va Batu g‘orlari",
+      "titleUz": "Kuala-Lumpur: Petronas minoralari va Batu g‘orlari",
+      "resorts": ["куала лумпур"],
       "duration": "1 день · столица Малайзии",
       "durationUz": "1 kun · Malayziya poytaxti",
       "rating": 4.9,
       "reviews": 87,
-      "photo": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=80",
+      "summary": "Знакомство с контрастной столицей: радужная лестница в священных пещерах Бату, Королевский дворец, телебашня KL Tower и сияющие башни Петронас.",
+      "summaryUz": "Kontrastli poytaxt bilan tanishuv: Batu g‘orlarining rangli zinasi, Qirollik saroyi va mashhur Petronas minoralari.",
+      "program": [
+        "Пещеры Бату и 272 разноцветные ступени к храму в скале",
+        "Королевский дворец, площадь Независимости и Китайский квартал",
+        "Башни-близнецы Петронас и вечернее шоу фонтанов в парке KLCC"
+      ],
+      "programUz": [
+        "Batu g‘orlari va 272 ta rangli zina",
+        "Qirollik saroyi va Mustaqillik maydoni",
+        "Petronas egizak minoralari va KLCC bog‘i"
+      ],
+      "included": ["Трансфер из отеля", "Русскоязычный гид", "Основные локации за 1 день"],
+      "includedUz": ["Mehmonxonadan transfer", "Gid xizmati", "Asosiy manzillar 1 kunda"]
     },
     {
       "title": "Небесный мост Sky Bridge и мангровые леса Лангкави",
       "titleUz": "Langkavi Sky Bridge va mangrov o‘rmonlari",
+      "resorts": ["лангкави"],
       "duration": "1 день · Лангкави",
       "durationUz": "1 kun · Langkavi",
       "rating": 4.8,
       "reviews": 62,
-      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=900&q=80",
+      "summary": "Парящий изогнутый мост на высоте 700 м над джунглями, крутая канатная дорога SkyCab и прогулка на лодке по геопарку Килим с кормлением орлов.",
+      "summaryUz": "700 m balandlikdagi osma ko‘prik, SkyCab kanat yo‘li va Kilim geoparkida burgutlarni kuzatish.",
+      "program": [
+        "Подъём по канатной дороге SkyCab на вершину горы Мат Чинчанг",
+        "Прогулка по изогнутому Небесному мосту с панорамой на острова",
+        "Лодочный тур по мангровым рекам геопарка Килим и пещере летучих мышей"
+      ],
+      "programUz": [
+        "SkyCab kanat yo‘li orqali tog‘ tepasiga chiqish",
+        "Orollarga qaragan osma ko‘prik bo‘ylab sayr",
+        "Kilim mangrov daryolarida qayiq sayri"
+      ],
+      "included": ["Трансфер из отеля", "Билеты на SkyCab и Sky Bridge", "Лодка по геопарку"],
+      "includedUz": ["Mehmonxonadan transfer", "SkyCab va Sky Bridge chiptalari", "Geoparkda qayiq"]
     }
   ],
   "bali": [
     {
       "title": "Убуд: рисовые террасы Тегаллаланг, лес обезьян и качели",
-      "titleUz": "Ubud: sholi terrasalar va maymunlar o‘rmoni",
+      "titleUz": "Ubud: sholi terrasalar, maymunlar o‘rmoni va arg‘imchoq",
+      "resorts": ["бали"],
       "duration": "1 день · сердце Бали",
       "durationUz": "1 kun · Bali markazi",
       "rating": 4.9,
       "reviews": 156,
-      "photo": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80",
+      "summary": "Культурное сердце Бали за один день: изумрудные рисовые террасы, полёт на качелях над джунглями, водопад Тегенунган и Лес обезьян.",
+      "summaryUz": "Balining madaniy markazi bir kunda: zumrad sholi terrasalar, changalzor ustidagi arg‘imchoq va Tegenungan sharsharasi.",
+      "program": [
+        "Священный Лес обезьян в Убуде и прогулка по древним тропам",
+        "Рисовые террасы Тегаллаланг и знаменитые качели Bali Swing",
+        "Водопад Тегенунган и кофейная плантация с дегустацией Копи Лювак"
+      ],
+      "programUz": [
+        "Ubuda muqaddas maymunlar o‘rmoni",
+        "Tegallalang sholi terrasalari va Bali Swing arg‘imchog‘i",
+        "Tegenungan sharsharasi va qahva plantatsiyasi"
+      ],
+      "included": ["Индивидуальный авто с водителем", "Русскоязычный гид", "Входные билеты по программе"],
+      "includedUz": ["Shaxsiy avtomobil", "Gid xizmati", "Kirish chiptalari"]
     },
     {
       "title": "Остров Нуса Пенида: пляж Келингкинг и Ангел Биллабонг",
-      "titleUz": "Nusa Penida oroli: Kelingking plyaji",
+      "titleUz": "Nusa Penida oroli: Kelingking plyaji va Angel Billabong",
+      "resorts": ["бали"],
       "duration": "1 день · скоростной катер",
       "durationUz": "1 kun · tezyurar kater",
       "rating": 4.9,
       "reviews": 142,
-      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=900&q=80",
+      "summary": "Те самые открыточные скалы Бали: легендарный утес Тираннозавра (Kelingking Beach), природная лагуна Angel's Billabong и пляж Кристал Бэй.",
+      "summaryUz": "Balining eng mashhur manzaralari: Kelingking qoyasi, Angel's Billabong tabiiy lagunasi va Kristal Bey plyaji.",
+      "program": [
+        "Трансфер в порт Санур и переправа на скоростном катере (~45 мин)",
+        "Смотровая площадка Kelingking Beach (скала-динозавр)",
+        "Природный бассейн Angel's Billabong и арка Broken Beach",
+        "Отдых и купание на пляже Crystal Bay + обед"
+      ],
+      "programUz": [
+        "Sanur portidan tezyurar katerda o‘tish (~45 daqiqa)",
+        "Kelingking Beach kuzatuv maydoni",
+        "Angel's Billabong va Broken Beach",
+        "Crystal Bay plyajida cho‘milish va tushlik"
+      ],
+      "included": ["Трансфер из отеля", "Скоростной катер туда-обратно", "Авто на острове и гид", "Обед"],
+      "includedUz": ["Mehmonxonadan transfer", "Tezyurar kater", "Orolda transport va gid", "Tushlik"]
     },
     {
       "title": "Храм Улувату на скале и огненный танец Кечак",
-      "titleUz": "Uluvatu ibodatxonasi va Kechak raqsi",
+      "titleUz": "Uluvatu ibodatxonasi va Kechak olovli raqsi",
+      "resorts": ["бали"],
       "duration": "6 часов · закат над океаном",
       "durationUz": "6 soat · quyosh botishi",
       "rating": 4.8,
       "reviews": 93,
-      "photo": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=700&q=80"
+      "photo": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=900&q=80",
+      "summary": "Атмосферный вечер на юге острова: древний храм на 70-метровом утёсе над океаном, завораживающий танец Кечак на закате и ужин из морепродуктов в Джимбаране.",
+      "summaryUz": "Orol janubidagi unutilmas oqshom: 70 metrli qoyadagi ibodatxona, quyosh botishida Kechak raqsi va Jimbaranda kechki ovqat.",
+      "program": [
+        "Отдых на одном из лучших пляжей Букита (Меласти или Паданг-Паданг)",
+        "Храм Улувату на отвесной скале над Индийским океаном",
+        "Знаменитое огненное представление Кечак в амфитеатре на закате",
+        "Ужин из свежих морепродуктов на песке в бухте Джимбаран (по желанию)"
+      ],
+      "programUz": [
+        "Melasti yoki Padang-Padang plyajida dam olish",
+        "Okean ustidagi qoyada joylashgan Uluvatu ibodatxonasi",
+        "Quyosh botishida Kechak olovli raqs shousi",
+        "Jimbaran ko‘rfazida dengiz mahsulotlari kechki ovqati (istak bo‘yicha)"
+      ],
+      "included": ["Авто с водителем от отеля", "Русскоязычный гид", "Билеты в храм и на шоу Кечак"],
+      "includedUz": ["Haydovchili avtomobil", "Gid xizmati", "Ibodatxona va Kechak shousi chiptalari"]
     }
   ]
 }

@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tour-search/hotel.css?v=h4">
+  <link rel="stylesheet" href="tour-search/hotel.css?v=h5">
   <script src="tour-search/results-model.js?v=cards2" defer></script>
   <script src="tour-search/widget.js?v=results1" defer></script>
-  <script src="tour-search/hotel-page.js?v=h4" defer></script>
+  <script src="tour-search/hotel-page.js?v=h5" defer></script>
 </head>
 <body>
   <header class="masthead">
@@ -144,6 +144,32 @@
       <button type="button" class="map-modal__close" aria-label="Закрыть">×</button>
     </div>
     <div id="map-modal-body" class="map-modal__body"></div>
+  </dialog>
+
+  <dialog id="exc-modal" class="exc-modal" aria-labelledby="exc-modal-title">
+    <div class="exc-modal__hero">
+      <img id="exc-modal-img" alt="">
+      <button type="button" class="exc-modal__close" aria-label="Закрыть">×</button>
+      <div class="exc-modal__hero-text">
+        <div id="exc-modal-meta" class="exc-modal__meta"></div>
+        <h3 id="exc-modal-title"></h3>
+      </div>
+    </div>
+    <div class="exc-modal__body">
+      <p id="exc-modal-summary" class="exc-modal__summary"></p>
+      <div id="exc-modal-program-wrap">
+        <h4 data-uz="Ekskursiya dasturi">Программа экскурсии</h4>
+        <ul id="exc-modal-program" class="exc-modal__list"></ul>
+      </div>
+      <div id="exc-modal-included-wrap">
+        <h4 data-uz="Odatda nimalar kiradi">Обычно включено</h4>
+        <div id="exc-modal-included" class="exc-modal__chips"></div>
+      </div>
+      <div class="exc-modal__foot">
+        <a id="exc-modal-tg" class="cta-btn" href="https://t.me/Aziza_Turon_tour" target="_blank" rel="noopener noreferrer" data-uz="Menejerdan narxini bilish">Узнать цену у менеджера</a>
+        <a class="map-btn" href="tel:+998712000909" data-uz="📞 Qo‘ng‘iroq qilish">📞 Позвонить</a>
+      </div>
+    </div>
   </dialog>
 
   <footer class="shell footer">
